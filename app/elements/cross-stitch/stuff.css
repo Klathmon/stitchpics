@@ -1,0 +1,6 @@
+#testThing {
+  background: none;
+}
+:host{
+  background-color: white;
+}

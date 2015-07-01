@@ -1,6 +1,6 @@
 {
-  "name": "Polymer Starter Kit",
-  "short_name": "Polymer Starter Kit",
+  "name": "Stitch Pics",
+  "short_name": "StitchPics",
   "icons": [{
         "src": "images/touch/icon-128x128.png",
         "sizes": "128x128"
@@ -10,9 +10,6 @@
       }, {
         "src": "images/touch/ms-touch-icon-144x144-precomposed.png",
         "sizes": "144x144"
-      }, {
-        "src": "images/touch/chrome-touch-icon-192x192.png",
-        "sizes": "192x192"
       }],
   "start_url": "/#!/",
   "display": "standalone"

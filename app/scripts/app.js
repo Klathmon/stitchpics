@@ -33,17 +33,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     document.querySelector('#recalc').addEventListener('tap', function(){
+      if(document.querySelector('#usefast').checked){
+        document.querySelector('#crossStitchElement').useFastQuant = true;
+      }
       document.querySelector('#crossStitchElement').newFile();
     });
   });
-
-
-  // Close drawer after menu item is selected if drawerPanel is narrow
-  app.onMenuSelect = function() {
-    var drawerPanel = document.querySelector('#paperDrawerPanel');
-    if (drawerPanel.narrow) {
-      drawerPanel.closeDrawer();
-    }
-  };
 
 })(document);

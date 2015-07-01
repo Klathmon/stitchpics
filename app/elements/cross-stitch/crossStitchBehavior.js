@@ -84,17 +84,25 @@ var crossStitchBehavior = {
       colors: numColors
     });
 
-    // Make a new canvas, and resize it to 200px
-    // to speed up palette building significantly
-    //var reducedImageData = this.scale(imageData, 100);
 
-    rgbq.sample(imageData);
+    // Make a new canvas, and resize it half size
+    // to speed up palette building significantly
+    var reducedImageData;
+    if(1===1){
+      reducedImageData = this.scale(imageData, Math.floor(imageData.width / 2));
+    }else{
+      reducedImageData = imageData;
+    }
+
+
+    rgbq.sample(reducedImageData);
     rgbq.palette(false, false);
     return rgbq;
   },
 
   quantize: function(imageData, palette, numColors){
     var rgbq = new RgbQuant({
+      colorDist: 'manhattan',
       colors: numColors,
       palette: palette
     });

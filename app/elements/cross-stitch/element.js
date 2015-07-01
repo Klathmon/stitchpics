@@ -16,6 +16,10 @@
       imageData: {
         type: Object
       },
+      fastQuant: {
+        type: Boolean,
+        value: false
+      }
     },
 
     ready: function(){

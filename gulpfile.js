@@ -7,6 +7,7 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
+var glob = require('glob');
 var debug = require('gulp-debug');
 var $ = require('gulp-load-plugins')();
 
@@ -69,36 +70,24 @@ gulp.task('compileJs', function() {
     }
 
     return gulp.src(src)
-      .pipe($.if(prod, $.concat(prodName + '.js')))
+      //.pipe($.if(prod, $.concat(prodName + '.js'))) //Don't concat for now
+        // It breaks the web worker stuff and i don't feel like dealing with it
+        // right now, so i'm disabling it.
       .pipe($.babel({compact: false}))
       .pipe($.if(prod, $.uglify({preserveComments: 'some'})))
       .pipe(gulp.dest(dest));
   }));
 });
 
-// Compile all HTML
-gulp.task('compileHtml', function() {
+
+//Copy everything else...
+gulp.task('copy', function(){
   return merge(
-    gulp.src('app/elements/*.html')
-      .pipe(gulp.dest('build/elements')),
-
-    gulp.src('app/styles/*.html')
-      .pipe(gulp.dest('build/styles')),
-
-    getFolders('app/elements').concat('app').map(function(folder){
-    var src, dest;
-    if(folder === 'app'){
-      src = path.join('app', 'index.html');
-      dest = 'build';
-    }else{
-      src = path.join('app', 'elements', folder, folder + '.html');
-      dest = path.join('build', 'elements', folder);
-    }
-
-    return gulp.src(src)
-      .pipe($.if(prod, $.htmlReplace({js: folder + '.js', css: folder + '.css'})))
-      .pipe(gulp.dest(dest));
-  }));
+    gulp.src(path.join('app', '{elements,scripts,styles}', '**', '*!(.js|.css)'), {base: 'app'})
+      .pipe(gulp.dest(path.join('build'))),
+    gulp.src(path.join('app', '*.*'))
+      .pipe(gulp.dest(path.join('build')))
+    );
 });
 
 // Compile all images
@@ -106,20 +95,6 @@ gulp.task('compileImages', function(){
   // For now just copy the images, add in a compression and optimization step later
   return gulp.src(path.join('app', 'images', '**', '*'))
     .pipe(gulp.dest(path.join('app', 'images')));
-});
-
-gulp.task('vulcanize', ['copyBowerComponents', 'compileHtml'], function(){
-  return gulp.src(path.join('build', 'index.html'))
-    .pipe($.vulcanize({
-      dest: 'build',
-      inlineCss: false, /* This is broken on windows, so don't use it until
-                           the vulcanize team fixes it...
-                           https://github.com/Polymer/vulcanize/issues/203 */
-      inlineScripts: true
-    }))
-    .pipe($.if(prod, $.minifyHtml({quotes: true, empty: true, spare: true})))
-    .pipe($.if(prod, $.size({showFiles: true})))
-    .pipe(gulp.dest('build'));
 });
 
 gulp.task('copyBowerComponents', function(){
@@ -139,7 +114,7 @@ gulp.task('serve', ['build'], function(){
     }
   });
 
-  gulp.watch(path.join('app', '**', '*.html'), ['compileHtml', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*.html'), browserSync.reload);
   gulp.watch(path.join('app', '**', '*.css'), ['compileCss']);
   gulp.watch(path.join('app', '**', '*.js'), ['compileJs', browserSync.reload]);
   gulp.watch(path.join('app', 'images', '**', '*'), ['compileImages', browserSync.reload]);
@@ -157,7 +132,7 @@ gulp.task('serve:dist', ['build:dist'], function(){
   gulp.watch(path.join('app', '**', '*'), ['build:dist', browserSync.reload]);
 });
 
-gulp.task('clean', del.bind(null, ['build', 'dist']));
+gulp.task('clean', del.bind(null, ['build']));
 gulp.task('production', function(){prod = true;});
-gulp.task('build', ['compileHtml', 'compileCss', 'compileJs', 'compileImages']);
-gulp.task('build:dist', ['production', 'vulcanize', 'build']);
+gulp.task('build', ['copy', 'compileCss', 'compileJs', 'compileImages']);
+gulp.task('build:dist', ['production', 'copyBowerComponents', 'build', 'copy']);

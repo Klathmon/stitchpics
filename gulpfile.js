@@ -71,13 +71,26 @@ gulp.task('compileAssets', ['copy'], function(){
             $.sourcemaps.write('.')
           ]
         }))
-      .pipe($.if(prod, $.if('*.html', $.minifyHtml())))
       .pipe(gulp.dest(dest));
   });
 
-  return merge(elements)
+  return merge(elements);
+});
+
+gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], function(){
+  return gulp.src(path.join('build', 'index.html'))
+    .pipe($.vulcanize({
+      dest: 'build',
+      inlineCss: true,
+      stripExcludes: false,
+      excludes: ['//fonts.googleapis.com/*'],
+      inlineScripts: true
+    }))
+    .pipe($.if(prod, $.minifyInline({css: false})))
+    .pipe($.if(prod, $.minifyHtml({quotes: true, empty: true, spare: true})))
     .pipe($.if(prod, $.size()))
-    .pipe($.if(prod, $.size({gzip: true})));
+    .pipe($.if(prod, $.size({gzip: true})))
+    .pipe(gulp.dest('build'));
 });
 
 // Copy everything over
@@ -91,7 +104,7 @@ gulp.task('copy', function(){
 // Compile all images
 gulp.task('compileImages', ['copy'], function(){
   // For now just copy the images, add in a compression and optimization step later
-  return gulp.src(path.join('app', '**', '*.*'), {base: 'app'})
+  return gulp.src(path.join('app', '**', '*.{ico,jpeg,jpg,gif,png,webp,svg}'), {base: 'app'})
     .pipe($.if(prod, $.imagemin({
         optimizationLevel: 7,
         progressive: true,
@@ -107,6 +120,8 @@ gulp.task('copyBowerComponents', function(){
     })))
     .pipe(gulp.dest('build/bower_components'));
 });
+
+gulp.task('removeBowerComponents', ['vulcanize'], del.bind(null, [path.join('build', 'bower_components')]));
 
 
 gulp.task('serve', ['build'], function(){
@@ -139,5 +154,13 @@ gulp.task('serve:dist', ['build:dist'], function(){
 
 gulp.task('clean', del.bind(null, ['build']));
 gulp.task('production', function(){prod = true;});
-gulp.task('build', ['compileImages', 'compileAssets']);
-gulp.task('build:dist', ['production', 'copyBowerComponents', 'compileImages', 'compileAssets']);
+gulp.task('build', ['compileImages', 'compileAssets', 'copy']);
+gulp.task('build:dist', [
+  'production',
+  'compileAssets',
+  'copyBowerComponents',
+  'compileImages',
+  'copy',
+  'vulcanize',
+  'removeBowerComponents'
+]);

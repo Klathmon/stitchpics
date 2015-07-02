@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     document.querySelector('#recalc').addEventListener('tap', function(){
       if(document.querySelector('#usefast').checked){
-        document.querySelector('#crossStitchElement').useFastQuant = true;
+        document.querySelector('#crossStitchElement').fastquant = true;
       }
       document.querySelector('#crossStitchElement').newFile();
     });

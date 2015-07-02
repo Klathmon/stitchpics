@@ -31,7 +31,7 @@ var crossStitchBehavior = {
       // If this is the last chunk, add the remainder of pixels that didn't
       // divide evently on to it.
       if(chunk === numberOfParts-1){
-        chunkHeight = imageHeight - (chunkHeight * chunk)
+        chunkHeight = imageHeight - (chunkHeight * chunk);
       }
       // Push the chunk to the array of chunks
       chunks.push(context.getImageData(0, startY, imageWidth, chunkHeight));
@@ -88,7 +88,7 @@ var crossStitchBehavior = {
     // Make a new canvas, and resize it half size
     // to speed up palette building significantly
     var reducedImageData;
-    if(1===1){
+    if(this.fastquant){
       reducedImageData = this.scale(imageData, Math.floor(imageData.width / 2));
     }else{
       reducedImageData = imageData;
@@ -152,12 +152,7 @@ var crossStitchBehavior = {
                 if(loopNum === 1){
                   this._getMode(colorModeObj, imageData.data, arrayIndexNumber, first);
                 }else{
-                  if(
-                    subPixelXNum === pixelWidth-1
-                    || subPixelYNum === pixelHeight-1
-                    //|| (subPixelXNum === 0 && pixelXNum === 0)
-                    //|| (subPixelYNum === 0 && pixelYNum === 0)
-                  ) {
+                  if(subPixelXNum === pixelWidth-1 || subPixelYNum === pixelHeight-1) {
                     // If it's the bottom or right side, draw the grid
                     imageData.data[arrayIndexNumber] = 50;   //R
                     imageData.data[arrayIndexNumber+1] = 50; //G

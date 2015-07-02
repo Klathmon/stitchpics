@@ -11,16 +11,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 
 <dom-module id="cross-stitch">
-  <style>
-    :host {
-      display: block;
-    }
-  </style>
+  <!-- build:inlinecss -->
+  <link rel="stylesheet" href="element.css">
+  <!-- endbuild -->
   <template>
     <canvas id="finalOutput"></canvas>
   </template>
 </dom-module>
-<script src="../../bower_components/RgbQuant.js/src/rgbquant.js"></script>
-<script src="crossStitchBehavior.js"></script>
-<script src="workerBehavior.js"></script>
+
+<!-- build:js libs.js -->
+<script src="../../../bower_components/RgbQuant.js/src/rgbquant.js"></script>
+<script src="behaviors/worker.js"></script>
+<script src="behaviors/crossStitch.js"></script>
+<script src="webWorker.js"></script>
+<!-- endbuild -->
+
+<!-- build:js1 element.js -->
 <script src="element.js"></script>
+<!-- endbuild -->

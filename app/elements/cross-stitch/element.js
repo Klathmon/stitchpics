@@ -1,6 +1,8 @@
 (function() {
   'use strict';
+  /*jshint -W064 */
   Polymer({
+  /*jshint +W064 */
     is: 'cross-stitch',
     behaviors: [window.crossStitchBehavior, window.workerBehavior],
 
@@ -29,8 +31,9 @@
       this.$.finalOutput.webkitImageSmoothingEnabled = false;
 
       var numberOfCores = navigator.hardwareConcurrency || 4;
+      var workerScript;
 
-      this.createWorkers('workerBehavior.js', numberOfCores);
+      this.createWorkers('libs.js', numberOfCores);
 
     },
 
@@ -57,7 +60,7 @@
           imageHeight: chunk.height,
           palette: rgbq.palette(true),
           numColors: this.numcolors,
-          index, index
+          index: index
         };
 
         this.dispatchWorker(function(event){

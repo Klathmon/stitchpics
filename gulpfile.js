@@ -1,4 +1,5 @@
-'use strict'
+/*jslint node: true */
+'use strict';
 
 var fs = require('fs');
 var path = require('path');
@@ -8,7 +9,6 @@ var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var glob = require('glob');
-var debug = require('gulp-debug');
 var $ = require('gulp-load-plugins')();
 
 var prod = false;
@@ -32,95 +32,98 @@ function getFolders(dir) {
     });
 }
 
-// Compile all CSS
-gulp.task('compileCss', function() {
-  return merge(getFolders('app/elements').concat('').map(function(folder){
+// Compile Assets (html/css/js)
+gulp.task('compileAssets', ['copy', 'compileImages'], function(){
+  var elements = getFolders('app/elements').concat('').map(function(folder){
     var src, prodName, dest;
     if(folder === ''){
-      src = path.join('app', 'styles', '*.css');
-      prodName = 'app';
-      dest = path.join('build', 'styles');
+      src = path.join('app', 'index.html');
+      dest = path.join('build');
     }else{
-      src = path.join('app', 'elements', folder, '*.css');
-      prodName = folder;
+      src = path.join('app', 'elements', folder, '*.html');
       dest = path.join('build', 'elements', folder);
     }
 
     return gulp.src(src)
-      .pipe($.if(prod, $.concat(prodName + '.css')))
-      .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-      .pipe($.if(prod, $.cssmin()))
-      .pipe(gulp.dest(dest))
-      .pipe(browserSync.stream());
-  }));
-});
-
-// Compile all javascript
-gulp.task('compileJs', function() {
-  return merge(getFolders('app/elements').concat('').map(function(folder){
-    var src, prodName, dest;
-    if(folder === ''){
-      src = path.join('app', 'scripts', '*.js');
-      prodName = 'app';
-      dest = path.join('build', 'scripts');
-    }else{
-      src = path.join('app', 'elements', folder, '*.js');
-      prodName = folder;
-      dest = path.join('build', 'elements', folder);
-    }
-
-    return gulp.src(src)
-      //.pipe($.if(prod, $.concat(prodName + '.js'))) //Don't concat for now
-        // It breaks the web worker stuff and i don't feel like dealing with it
-        // right now, so i'm disabling it.
-      .pipe($.babel({compact: false}))
-      .pipe($.if(prod, $.uglify({preserveComments: 'some'})))
+      .pipe($.usemin({
+          inlinecss: [
+            'concat',
+            $.autoprefixer(AUTOPREFIXER_BROWSERS),
+            $.if(prod, $.minifyCss())
+          ],
+          css: [
+            'concat',
+            $.autoprefixer(AUTOPREFIXER_BROWSERS),
+            $.if(prod, $.minifyCss())
+          ],
+          js: [
+            $.sourcemaps.init(),
+            'concat',
+            $.babel({compact: false, blacklist: 'strict'}),
+            $.if(prod, $.uglify()),
+            $.sourcemaps.write('.')
+          ],
+          // Because of a bug in gulp-usemin, i need to do this once for each block in each element...
+          js1: [
+            $.sourcemaps.init(),
+            'concat',
+            $.babel({compact: false, blacklist: 'strict'}),
+            $.if(prod, $.uglify()),
+            $.sourcemaps.write('.')
+          ]
+        }))
       .pipe(gulp.dest(dest));
-  }));
+  });
+
+  return merge(elements);
 });
 
-
-//Copy everything else...
+// Copy everything over
+// Do this before any other compilation passes because it copies EVERYTHING
+// This is to ensure that nothing that isn't compiled isn't missed
 gulp.task('copy', function(){
-  return merge(
-    gulp.src(path.join('app', '{elements,scripts,styles}', '**', '*!(.js|.css)'), {base: 'app'})
-      .pipe(gulp.dest(path.join('build'))),
-    gulp.src(path.join('app', '*.*'))
-      .pipe(gulp.dest(path.join('build')))
-    );
+  return gulp.src(path.join('app', '**', '*'), {base: 'app'})
+      .pipe(gulp.dest(path.join('build')));
 });
 
 // Compile all images
-gulp.task('compileImages', function(){
+gulp.task('compileImages', ['copy'], function(){
   // For now just copy the images, add in a compression and optimization step later
-  return gulp.src(path.join('app', 'images', '**', '*'))
-    .pipe(gulp.dest(path.join('app', 'images')));
+  return gulp.src(path.join('app', 'images', '**', '*.*'))
+    .pipe($.if(prod, $.imagemin({
+        optimizationLevel: 7,
+        progressive: true,
+        multipass: true
+      })))
+    .pipe(gulp.dest(path.join('build', 'images')));
 });
 
 gulp.task('copyBowerComponents', function(){
   return gulp.src(['bower_components/**/*'])
+    .pipe($.if(prod, $.imagemin({
+
+    })))
     .pipe(gulp.dest('build/bower_components'));
 });
 
-gulp.task('serve', ['build'], function(){
+
+gulp.task('serve', ['compileAssets'], function(){
   browserSync({
     notify: true,
     https: true,
     server: {
       baseDir: 'build',
       routes: {
-        '/bower_components': 'bower_components'
+        '/bower_components': 'bower_components',
+        '/app': 'app'
       }
     }
   });
 
-  gulp.watch(path.join('app', '**', '*.html'), browserSync.reload);
-  gulp.watch(path.join('app', '**', '*.css'), ['compileCss']);
-  gulp.watch(path.join('app', '**', '*.js'), ['compileJs', browserSync.reload]);
-  gulp.watch(path.join('app', 'images', '**', '*'), ['compileImages', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*'), ['compileAssets', browserSync.reload]);
 });
 
-gulp.task('serve:dist', ['build:dist'], function(){
+gulp.task('serve:dist', ['production', 'copyBowerComponents', 'compileAssets'], function(){
   browserSync({
     notify: true,
     https: true,
@@ -129,10 +132,8 @@ gulp.task('serve:dist', ['build:dist'], function(){
     }
   });
 
-  gulp.watch(path.join('app', '**', '*'), ['build:dist', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*'), ['production', 'copyBowerComponents',  'compileAssets', browserSync.reload]);
 });
 
 gulp.task('clean', del.bind(null, ['build']));
 gulp.task('production', function(){prod = true;});
-gulp.task('build', ['copy', 'compileCss', 'compileJs', 'compileImages']);
-gulp.task('build:dist', ['production', 'copyBowerComponents', 'build', 'copy']);

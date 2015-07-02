@@ -8,7 +8,6 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
-var glob = require('glob');
 var $ = require('gulp-load-plugins')();
 
 var prod = false;
@@ -33,7 +32,7 @@ function getFolders(dir) {
 }
 
 // Compile Assets (html/css/js)
-gulp.task('compileAssets', ['copy', 'compileImages'], function(){
+gulp.task('compileAssets', ['copy'], function(){
   var elements = getFolders('app/elements').concat('').map(function(folder){
     var src, prodName, dest;
     if(folder === ''){
@@ -72,10 +71,13 @@ gulp.task('compileAssets', ['copy', 'compileImages'], function(){
             $.sourcemaps.write('.')
           ]
         }))
+      .pipe($.if(prod, $.if('*.html', $.minifyHtml())))
       .pipe(gulp.dest(dest));
   });
 
-  return merge(elements);
+  return merge(elements)
+    .pipe($.if(prod, $.size()))
+    .pipe($.if(prod, $.size({gzip: true})));
 });
 
 // Copy everything over
@@ -89,13 +91,13 @@ gulp.task('copy', function(){
 // Compile all images
 gulp.task('compileImages', ['copy'], function(){
   // For now just copy the images, add in a compression and optimization step later
-  return gulp.src(path.join('app', 'images', '**', '*.*'))
+  return gulp.src(path.join('app', '**', '*.*'), {base: 'app'})
     .pipe($.if(prod, $.imagemin({
         optimizationLevel: 7,
         progressive: true,
         multipass: true
       })))
-    .pipe(gulp.dest(path.join('build', 'images')));
+    .pipe(gulp.dest(path.join('build')));
 });
 
 gulp.task('copyBowerComponents', function(){
@@ -107,7 +109,7 @@ gulp.task('copyBowerComponents', function(){
 });
 
 
-gulp.task('serve', ['compileAssets'], function(){
+gulp.task('serve', ['build'], function(){
   browserSync({
     notify: true,
     https: true,
@@ -120,10 +122,10 @@ gulp.task('serve', ['compileAssets'], function(){
     }
   });
 
-  gulp.watch(path.join('app', '**', '*'), ['compileAssets', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*'), ['build', browserSync.reload]);
 });
 
-gulp.task('serve:dist', ['production', 'copyBowerComponents', 'compileAssets'], function(){
+gulp.task('serve:dist', ['build:dist'], function(){
   browserSync({
     notify: true,
     https: true,
@@ -132,8 +134,10 @@ gulp.task('serve:dist', ['production', 'copyBowerComponents', 'compileAssets'], 
     }
   });
 
-  gulp.watch(path.join('app', '**', '*'), ['production', 'copyBowerComponents',  'compileAssets', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*'), ['build:dist', browserSync.reload]);
 });
 
 gulp.task('clean', del.bind(null, ['build']));
 gulp.task('production', function(){prod = true;});
+gulp.task('build', ['compileImages', 'compileAssets']);
+gulp.task('build:dist', ['production', 'copyBowerComponents', 'compileImages', 'compileAssets']);

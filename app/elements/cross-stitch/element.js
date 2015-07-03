@@ -38,7 +38,6 @@
     },
 
     newFile: function(){
-      console.log(this.fastquant);
       this.startTime = performance.now();
       // Scale the image to the correct size
       var scaledImageData = this.scale(this.imageData, Polymer.dom(this).node.offsetWidth);

@@ -5,7 +5,6 @@ var fs = require('fs');
 var path = require('path');
 var merge = require('merge-stream');
 var del = require('del');
-var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();

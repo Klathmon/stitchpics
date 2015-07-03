@@ -33,7 +33,7 @@
       var numberOfCores = navigator.hardwareConcurrency || 4;
       var workerScript;
 
-      this.createWorkers('libs.js', numberOfCores);
+      this.createWorkers('libs.js', 1);
 
     },
 

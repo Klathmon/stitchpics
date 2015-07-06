@@ -31,7 +31,7 @@
         eventData.imageHeight
       );
 
-      var newImageData = crossStitchBehavior.pixelate(imageData, eventData.fitObj);
+      var newImageData = pixelateBehavior.pixelate(imageData, eventData.fitObj);
 
       var returnMessage = {
         index: eventData.index,
@@ -55,5 +55,30 @@
     }, false);
 
 
+    var runFunction = function(passedObj){
+      // funcName = the function name to be run
+      // Index must be supplied
+      // imageDataBuffer, imageDataWidth, imageDataHeight get autoconverted to first argument as imageData
+      // Args is an array of the rest of the aruments
+
+      var imageData = workerBehavior.buildImageDataFromBuffer(
+        passedObj.imageDataBuffer,
+        passedObj.imageDataWidth,
+        passedObj.imageDataHeight
+      );
+
+      var args = [imageData].concat(passedObj.args);
+
+      var newImageData = self.crossStitchBehavior[passedObj.funcName].apply(crossStitchBehavior, args);
+
+      var returnMessage = {
+        index: passedObj.index,
+        imageDataBuffer: newImageData.data.buffer,
+        imageDataWidth: newImageData.width,
+        imageDataHeight: newImageData.height
+      };
+
+      self.postMessage(returnMessage, [returnMessage.imageDataBuffer]);
+    };
   }
 })();

@@ -83,7 +83,9 @@
 
     buildPalette: function(imageData, numColors){
       var rgbq = new RgbQuant({
-        colors: numColors
+        colors: numColors,
+        method: 1,
+        initColors: 4096
       });
 
 
@@ -96,9 +98,12 @@
         reducedImageData = imageData;
       }
 
-
+      var startTime = performance.now();
       rgbq.sample(reducedImageData);
+      console.log('Done sampling in ' + (performance.now() - startTime) + ' milliseconds!');
+      startTime = performance.now();
       rgbq.palette(false, false);
+      console.log('Done pallet building in ' + (performance.now() - startTime) + ' milliseconds!');
       return rgbq;
     },
 
@@ -110,103 +115,6 @@
       });
       var quantImageData = new Uint8ClampedArray(rgbq.reduce(imageData));
       return new ImageData(quantImageData, imageData.width, imageData.height);
-    },
-
-    pixelate: function(imageData, fitObj){
-      // calculate the 'pixel' width and height
-      var xPixels = fitObj.xPixels;
-      var yPixels = fitObj.yPixels;
-      var pixelWidth = fitObj.pixelWidth;
-      var pixelHeight = fitObj.pixelHeight;
-      var imageWidth = imageData.width;
-      var imageHeight = imageData.height;
-
-      // Loop over each (super)pixel (x and y)
-      for(var pixelXNum = 0; pixelXNum < xPixels; pixelXNum++){
-        for(var pixelYNum = 0; pixelYNum < yPixels; pixelYNum++){
-
-          var colorModeObj = {
-              map: {},
-              mode: null,
-              modeCount: 1
-            };
-
-          for(var loopNum = 1; loopNum <= 2; loopNum++){
-            var mode = [];
-
-            if(loopNum !== 1 && colorModeObj.mode !== null){
-              mode = colorModeObj.mode.split('.');
-            }
-
-            // Loop over each "pixel" within a pixelated-pixel
-            for(var subPixelXNum = 0; subPixelXNum < pixelWidth; subPixelXNum++){
-              for(var subPixelYNum = 0; subPixelYNum < pixelHeight; subPixelYNum++){
-                var first=false;
-
-                if(subPixelXNum === 0 && subPixelYNum === 0){
-                  first = true;
-                }
-                var xPos = (pixelXNum * pixelWidth) + subPixelXNum;
-                var yPos = (pixelYNum * pixelHeight) + subPixelYNum;
-                var arrayIndexNumber = (yPos * imageWidth * 4) + (xPos * 4);
-
-                if(xPos < imageWidth && yPos < imageHeight){
-                  if(loopNum === 1){
-                    this._getMode(colorModeObj, imageData.data, arrayIndexNumber, first);
-                  }else{
-                    if(subPixelXNum === pixelWidth-1 || subPixelYNum === pixelHeight-1) {
-                      // If it's the bottom or right side, draw the grid
-                      imageData.data[arrayIndexNumber] = 50;   //R
-                      imageData.data[arrayIndexNumber+1] = 50; //G
-                      imageData.data[arrayIndexNumber+2] = 50; //B
-                      imageData.data[arrayIndexNumber+3] = 255; //Clear out any alpha channel
-                    }else{
-                      // otherwise draw the entire pixel the mode's color
-
-                      if(mode[3] < 128){
-                        imageData.data[arrayIndexNumber] = 0;   //R
-                        imageData.data[arrayIndexNumber+1] = 0; //G
-                        imageData.data[arrayIndexNumber+2] = 0; //B
-                        imageData.data[arrayIndexNumber+3] = 0; //Clear out any alpha channel
-                      }else{
-                        imageData.data[arrayIndexNumber] = mode[0];   //R
-                        imageData.data[arrayIndexNumber+1] = mode[1]; //G
-                        imageData.data[arrayIndexNumber+2] = mode[2]; //B
-                        imageData.data[arrayIndexNumber+3] = 255; //Clear out any alpha channel
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      return imageData;
-    },
-
-    _getMode: function(modeObj, data, index, first){
-      var key = '';
-      key += data[index] + '.';
-      key += data[index+1] + '.';
-      key += data[index+2] + '.';
-      key += data[index+3];
-
-      if(first === true){
-        modeObj.mode = key;
-      }
-
-      if(!modeObj.map[key]){
-        modeObj.map[key] = 1;
-      }else{
-        modeObj.map[key]++;
-      }
-
-      if(modeObj.map[key] > modeObj.maxCount)
-      {
-        modeObj.mode = key;
-        modeObj.modeCount = modeObj.map[key];
-      }
     },
 
     _readImageData: function(canvas){
@@ -221,9 +129,8 @@
       context.putImageData(imageData, 0, 0);
       return context;
     },
+
   };
-
-
 
   if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
     self.crossStitchBehavior = crossStitchBehavior;

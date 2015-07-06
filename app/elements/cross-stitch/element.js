@@ -4,7 +4,7 @@
   Polymer({
   /*jshint +W064 */
     is: 'cross-stitch',
-    behaviors: [window.crossStitchBehavior, window.workerBehavior],
+    behaviors: [window.crossStitchBehavior, window.workerBehavior, window.pixelateBehavior],
 
     properties:{
       numcolors: {
@@ -33,7 +33,7 @@
       var numberOfCores = navigator.hardwareConcurrency || 4;
       var workerScript;
 
-      this.createWorkers('libs.js', 1);
+      this.createWorkers('libs.js', numberOfCores);
 
     },
 
@@ -44,6 +44,10 @@
 
       // Get the fitObj
       var fitObj = this.fit(scaledImageData, this.gridwidth);
+
+      //this.split(scaledImageData, this.workers.length, fitObj).forEach(function(chunk, index){
+
+      //});
 
       // Build the palette
       var rgbq = this.buildPalette(scaledImageData, this.numcolors);

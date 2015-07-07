@@ -30,7 +30,7 @@
       this.$.finalOutput.mozImageSmoothingEnabled = false;
       this.$.finalOutput.webkitImageSmoothingEnabled = false;
 
-      var numberOfCores = navigator.hardwareConcurrency || 4;
+      var numberOfCores = 16; navigator.hardwareConcurrency || 4;
       var workerScript;
 
       this.createWorkers('libs.js', numberOfCores);

@@ -83,9 +83,7 @@
 
     buildPalette: function(imageData, numColors){
       var rgbq = new RgbQuant({
-        colors: numColors,
-        method: 1,
-        initColors: 4096
+        colors: numColors
       });
 
 

@@ -7,6 +7,7 @@ var merge = require('merge-stream');
 var del = require('del');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
+var _ = require('lodash');
 var $ = require('gulp-load-plugins')();
 
 var PROD = false;
@@ -64,42 +65,44 @@ gulp.task('compileAssets', ['copy'], function() {
       dest = path.join('build', 'elements', folder);
     }
 
+    var useminOptions = {
+      inlinecss: [
+        $.cached('inlinecss|' + folder),
+        $.autoprefixer(AUTOPREFIXER_BROWSERS),
+        $.remember('inlinecss|' + folder),
+        'concat',
+        $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
+      ],
+      css: [
+        $.cached('css|' + folder),
+        $.autoprefixer(AUTOPREFIXER_BROWSERS),
+        $.remember('css|' + folder),
+        'concat',
+        $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
+      ]
+    };
+
+    // Because of a 'bug' in usemin that doesn't look like it's going to get fixed, i need to
+    // add all of the js blocks like this...
+    for (var x = 0; x < 2; x++) {
+      var catX = '';
+      if (x !== 0) {
+        catX = x;
+      }
+
+      useminOptions['js' + catX] = [
+        $.sourcemaps.init(),
+        $.cached('js' + catX + '|' + folder),
+        $.babel(BABEL_OPTIONS),
+        $.remember('js' + catX + '|' + folder),
+        'concat',
+        $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
+        $.sourcemaps.write('.')
+      ];
+    }
+
     return gulp.src(src)
-      .pipe($.usemin({
-        inlinecss: [
-          $.cached('inlinecss|' + folder),
-          $.autoprefixer(AUTOPREFIXER_BROWSERS),
-          $.remember('inlinecss|' + folder),
-          'concat',
-          $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
-        ],
-        css: [
-          $.cached('css|' + folder),
-          $.autoprefixer(AUTOPREFIXER_BROWSERS),
-          $.remember('css|' + folder),
-          'concat',
-          $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
-        ],
-        js: [
-          $.sourcemaps.init(),
-          $.cached('js|' + folder),
-          $.babel(BABEL_OPTIONS),
-          $.remember('js|' + folder),
-          'concat',
-          $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
-          $.sourcemaps.write('.')
-        ],
-        // Because of a bug in gulp-usemin, i need to do this once for each block in each element...
-        js1: [
-          $.sourcemaps.init(),
-          $.cached('js1|' + folder),
-          $.babel(BABEL_OPTIONS),
-          $.remember('js1|' + folder),
-          'concat',
-          $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
-          $.sourcemaps.write('.')
-        ]
-      }))
+      .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
   });
 
@@ -115,6 +118,7 @@ gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], functio
       excludes: ['//fonts.googleapis.com/*'],
       inlineScripts: true
     }))
+    .pipe($.cached('vulcanize'))
     .pipe($.if(PROD, $.minifyInline({
       css: false
     })))
@@ -154,6 +158,7 @@ gulp.task('compileImages', ['copy'], function() {
 
 gulp.task('copyBowerComponents', function() {
   return gulp.src(['bower_components/**/*'])
+    .pipe($.cached('copyBower'))
     .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest('build/bower_components'));
 });
@@ -204,8 +209,7 @@ gulp.task('build:dist', [
   'copyBowerComponents',
   'compileImages',
   'copy',
-  'vulcanize',
-  'removeBowerComponents'
+  'vulcanize'
 ]);
 
 

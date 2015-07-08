@@ -19,6 +19,7 @@
     "gulp-uglify": "git+https://github.com/Klathmon/gulp-uglify.git",
     "gulp-usemin": "git+https://github.com/zont/gulp-usemin.git#f52d6094d02644a9c42acd4da954754089756423",
     "gulp-vulcanize": "^6.0.1",
+    "lodash": "^3.10.0",
     "merge-stream": "^0.1.7",
     "vulcanize": ">= 1.4.2"
   },

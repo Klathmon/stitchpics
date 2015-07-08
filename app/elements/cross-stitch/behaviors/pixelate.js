@@ -131,10 +131,6 @@
       }
     },
 
-
-
-
-
     _convertImageDataToUint32Array(imageData) {
       return [
         new Uint32Array(imageData.data.buffer),

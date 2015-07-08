@@ -11,18 +11,18 @@
 
     createWorkers(url, numWorkers){
       //Create new workers
-      for(var x = 0; x < numWorkers; x++){
-        this.workers.push({
+      this.workers = _.times(numWorkers, function(){
+        return {
           working: false,
           worker: new Worker(this.resolveUrl(url))
-        });
-      }
+        };
+      }, this);
     },
 
     dispatchWorker(callback, command, data, transferrable){
       var foundWorker = false;
 
-      this.workers.forEach(function(workerObj, index){
+      _.forEach(this.workers, function(workerObj, index){
         if( !foundWorker && !workerObj.working){
           //Found a worker that's not doing anything right now.
           foundWorker = true;

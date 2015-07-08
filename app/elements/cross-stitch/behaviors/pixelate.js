@@ -3,7 +3,6 @@
   var pixelateBehavior = {
 
     pixelate(imageData, fitObj) {
-
       this.isLittleEndian = this._isLittleEndian();
 
       var superPixelSize = [fitObj.pixelWidth, fitObj.pixelHeight];

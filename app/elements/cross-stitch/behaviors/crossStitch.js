@@ -15,7 +15,6 @@
     },
 
     split(imageData, numberOfParts, fitObj){
-      var chunks = [];
       var imageWidth = imageData.width;
       var imageHeight = imageData.height;
 
@@ -27,19 +26,17 @@
       var context = canvas.getContext('2d');
       this._writeImageData(canvas, imageData);
 
-      for(var chunk = 0; chunk < numberOfParts; chunk++){
-        var startY = chunk * chunkHeight;
+      return _.times(numberOfParts, function(chunkNumber){
+        var startY = chunkNumber * chunkHeight;
 
         // If this is the last chunk, add the remainder of pixels that didn't
         // divide evently on to it.
-        if(chunk === numberOfParts-1){
-          chunkHeight = imageHeight - (chunkHeight * chunk);
+        if(chunkNumber === numberOfParts-1){
+          chunkHeight = imageHeight - (chunkHeight * chunkNumber);
         }
         // Push the chunk to the array of chunks
-        chunks.push(context.getImageData(0, startY, imageWidth, chunkHeight));
-      }
-
-      return chunks;
+        return context.getImageData(0, startY, imageWidth, chunkHeight);
+      });
     },
 
     stitch(chunks, canvas){
@@ -53,7 +50,7 @@
 
       var context = canvas.getContext('2d');
 
-      chunks.forEach(function(chunk, index){
+      _.forEach(chunks, function(chunk, index){
         // Use the first chunk's height as the multiplier.
         // As the last one is different, so it will be offset by the difference
         var startY = index * chunks[0].height;
@@ -85,7 +82,6 @@
       var rgbq = new RgbQuant({
         colors: numColors
       });
-
 
       // Make a new canvas, and resize it half size
       // to speed up palette building significantly

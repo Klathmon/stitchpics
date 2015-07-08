@@ -9,7 +9,7 @@ var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-var prod = false;
+var PROD = false;
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -23,6 +23,28 @@ var AUTOPREFIXER_BROWSERS = [
   'bb >= 10'
 ];
 
+var BABEL_OPTIONS = {
+  compact: false,
+  blacklist: [
+    'strict',
+    'jscript'
+  ]
+};
+
+var UGLIFY_OPTIONS = {
+  'screw-ie8': true,
+  compress: {
+    unsafe: true
+  },
+  // Enable these when support for them drops in gulp-uglify
+  //'mangle-props': true,
+  //'mangle-regex': '/^_/'
+};
+
+var MIN_CSS_OPTIONS = {
+  keepSpecialComments: 0
+};
+
 function getFolders(dir) {
   return fs.readdirSync(dir)
     .filter(function(file) {
@@ -32,6 +54,7 @@ function getFolders(dir) {
 
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], function(){
+
   var elements = getFolders('app/elements').concat('').map(function(folder){
     var src, prodName, dest;
     if(folder === ''){
@@ -47,26 +70,26 @@ gulp.task('compileAssets', ['copy'], function(){
           inlinecss: [
             'concat',
             $.autoprefixer(AUTOPREFIXER_BROWSERS),
-            $.if(prod, $.minifyCss())
+            $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
           ],
           css: [
             'concat',
             $.autoprefixer(AUTOPREFIXER_BROWSERS),
-            $.if(prod, $.minifyCss())
+            $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
           ],
           js: [
             $.sourcemaps.init(),
             'concat',
-            $.babel({compact: false, blacklist: 'strict'}),
-            $.if(prod, $.uglify()),
+            $.babel(BABEL_OPTIONS),
+            $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
             $.sourcemaps.write('.')
           ],
           // Because of a bug in gulp-usemin, i need to do this once for each block in each element...
           js1: [
             $.sourcemaps.init(),
             'concat',
-            $.babel({compact: false, blacklist: 'strict'}),
-            $.if(prod, $.uglify()),
+            $.babel(BABEL_OPTIONS),
+            $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
             $.sourcemaps.write('.')
           ]
         }))
@@ -85,10 +108,10 @@ gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], functio
       excludes: ['//fonts.googleapis.com/*'],
       inlineScripts: true
     }))
-    .pipe($.if(prod, $.minifyInline({css: false})))
-    .pipe($.if(prod, $.minifyHtml({quotes: true, empty: true, spare: true})))
-    .pipe($.if(prod, $.size()))
-    .pipe($.if(prod, $.size({gzip: true})))
+    .pipe($.if(PROD, $.minifyInline({css: false})))
+    .pipe($.if(PROD, $.minifyHtml({quotes: true, empty: true, spare: true})))
+    .pipe($.if(PROD, $.size()))
+    .pipe($.if(PROD, $.size({gzip: true})))
     .pipe(gulp.dest('build'));
 });
 
@@ -104,7 +127,7 @@ gulp.task('copy', function(){
 gulp.task('compileImages', ['copy'], function(){
   // For now just copy the images, add in a compression and optimization step later
   return gulp.src(path.join('app', '**', '*.{ico,jpeg,jpg,gif,png,webp,svg}'), {base: 'app'})
-    .pipe($.if(prod, $.imagemin({
+    .pipe($.if(PROD, $.imagemin({
         optimizationLevel: 7,
         progressive: true,
         multipass: true
@@ -114,7 +137,7 @@ gulp.task('compileImages', ['copy'], function(){
 
 gulp.task('copyBowerComponents', function(){
   return gulp.src(['bower_components/**/*'])
-    .pipe($.if(prod, $.imagemin({
+    .pipe($.if(PROD, $.imagemin({
 
     })))
     .pipe(gulp.dest('build/bower_components'));
@@ -152,7 +175,10 @@ gulp.task('serve:dist', ['build:dist'], function(){
 });
 
 gulp.task('clean', del.bind(null, ['build']));
-gulp.task('production', function(){prod = true;});
+gulp.task('production', function(){
+  PROD = true;
+  BABEL_OPTIONS.loose = 'all';
+});
 gulp.task('build', ['compileImages', 'compileAssets', 'copy']);
 gulp.task('build:dist', [
   'production',

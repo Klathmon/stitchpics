@@ -84,7 +84,7 @@ gulp.task('compileAssets', ['copy'], function() {
 
     // Because of a 'bug' in usemin that doesn't look like it's going to get fixed, i need to
     // add all of the js blocks like this...
-    for (var x = 0; x < 2; x++) {
+    _.times(2, function(x) {
       var catX = '';
       if (x !== 0) {
         catX = x;
@@ -99,7 +99,7 @@ gulp.task('compileAssets', ['copy'], function() {
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
         $.sourcemaps.write('.')
       ];
-    }
+    });
 
     return gulp.src(src)
       .pipe($.usemin(useminOptions))

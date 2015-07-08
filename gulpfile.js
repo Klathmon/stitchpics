@@ -27,7 +27,7 @@ var BABEL_OPTIONS = {
   compact: false,
   blacklist: [
     'strict',
-    'jscript'
+    'jscript',
   ]
 };
 
@@ -45,61 +45,68 @@ var MIN_CSS_OPTIONS = {
   keepSpecialComments: 0
 };
 
-function getFolders(dir) {
-  return fs.readdirSync(dir)
-    .filter(function(file) {
-      return fs.statSync(path.join(dir, file)).isDirectory();
-    });
-}
+var IMAGEMIN_OPTIONS = {
+  optimizationLevel: 7,
+  progressive: true,
+  multipass: true
+};
 
 // Compile Assets (html/css/js)
-gulp.task('compileAssets', ['copy'], function(){
+gulp.task('compileAssets', ['copy'], function() {
 
-  var elements = getFolders('app/elements').concat('').map(function(folder){
+  var elements = getFolders('app/elements').concat('').map(function(folder) {
     var src, prodName, dest;
-    if(folder === ''){
+    if (folder === '') {
       src = path.join('app', 'index.html');
       dest = path.join('build');
-    }else{
+    } else {
       src = path.join('app', 'elements', folder, '*.html');
       dest = path.join('build', 'elements', folder);
     }
 
     return gulp.src(src)
       .pipe($.usemin({
-          inlinecss: [
-            'concat',
-            $.autoprefixer(AUTOPREFIXER_BROWSERS),
-            $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
-          ],
-          css: [
-            'concat',
-            $.autoprefixer(AUTOPREFIXER_BROWSERS),
-            $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
-          ],
-          js: [
-            $.sourcemaps.init(),
-            'concat',
-            $.babel(BABEL_OPTIONS),
-            $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
-            $.sourcemaps.write('.')
-          ],
-          // Because of a bug in gulp-usemin, i need to do this once for each block in each element...
-          js1: [
-            $.sourcemaps.init(),
-            'concat',
-            $.babel(BABEL_OPTIONS),
-            $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
-            $.sourcemaps.write('.')
-          ]
-        }))
+        inlinecss: [
+          $.cached('inlinecss|' + folder),
+          $.autoprefixer(AUTOPREFIXER_BROWSERS),
+          $.remember('inlinecss|' + folder),
+          'concat',
+          $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
+        ],
+        css: [
+          $.cached('css|' + folder),
+          $.autoprefixer(AUTOPREFIXER_BROWSERS),
+          $.remember('css|' + folder),
+          'concat',
+          $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
+        ],
+        js: [
+          $.sourcemaps.init(),
+          $.cached('js|' + folder),
+          $.babel(BABEL_OPTIONS),
+          $.remember('js|' + folder),
+          'concat',
+          $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
+          $.sourcemaps.write('.')
+        ],
+        // Because of a bug in gulp-usemin, i need to do this once for each block in each element...
+        js1: [
+          $.sourcemaps.init(),
+          $.cached('js1|' + folder),
+          $.babel(BABEL_OPTIONS),
+          $.remember('js1|' + folder),
+          'concat',
+          $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
+          $.sourcemaps.write('.')
+        ]
+      }))
       .pipe(gulp.dest(dest));
   });
 
   return merge(elements);
 });
 
-gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], function(){
+gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], function() {
   return gulp.src(path.join('build', 'index.html'))
     .pipe($.vulcanize({
       dest: 'build',
@@ -108,45 +115,53 @@ gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], functio
       excludes: ['//fonts.googleapis.com/*'],
       inlineScripts: true
     }))
-    .pipe($.if(PROD, $.minifyInline({css: false})))
-    .pipe($.if(PROD, $.minifyHtml({quotes: true, empty: true, spare: true})))
+    .pipe($.if(PROD, $.minifyInline({
+      css: false
+    })))
+    .pipe($.if(PROD, $.minifyHtml({
+      quotes: true,
+      empty: true,
+      spare: true
+    })))
     .pipe($.if(PROD, $.size()))
-    .pipe($.if(PROD, $.size({gzip: true})))
+    .pipe($.if(PROD, $.size({
+      gzip: true
+    })))
     .pipe(gulp.dest('build'));
 });
 
 // Copy everything over
 // Do this before any other compilation passes because it copies EVERYTHING
 // This is to ensure that nothing that isn't compiled isn't missed
-gulp.task('copy', function(){
-  return gulp.src(path.join('app', '**', '*'), {base: 'app'})
-      .pipe(gulp.dest(path.join('build')));
-});
-
-// Compile all images
-gulp.task('compileImages', ['copy'], function(){
-  // For now just copy the images, add in a compression and optimization step later
-  return gulp.src(path.join('app', '**', '*.{ico,jpeg,jpg,gif,png,webp,svg}'), {base: 'app'})
-    .pipe($.if(PROD, $.imagemin({
-        optimizationLevel: 7,
-        progressive: true,
-        multipass: true
-      })))
+gulp.task('copy', function() {
+  return gulp.src(path.join('app', '**', '*'), {
+      base: 'app'
+    })
+    .pipe($.cached('copy'))
     .pipe(gulp.dest(path.join('build')));
 });
 
-gulp.task('copyBowerComponents', function(){
-  return gulp.src(['bower_components/**/*'])
-    .pipe($.if(PROD, $.imagemin({
+// Compile all images
+gulp.task('compileImages', ['copy'], function() {
+  // For now just copy the images, add in a compression and optimization step later
+  return gulp.src(path.join('app', '**', '*.{ico,jpeg,jpg,gif,png,webp,svg}'), {
+      base: 'app'
+    })
+    .pipe($.cached('images'))
+    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    .pipe(gulp.dest(path.join('build')));
+});
 
-    })))
+gulp.task('copyBowerComponents', function() {
+  return gulp.src(['bower_components/**/*'])
+    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest('build/bower_components'));
 });
 
 gulp.task('removeBowerComponents', ['vulcanize'], del.bind(null, [path.join('build', 'bower_components')]));
 
 
-gulp.task('serve', ['build'], function(){
+gulp.task('serve', ['build'], function() {
   browserSync({
     notify: true,
     https: true,
@@ -162,7 +177,7 @@ gulp.task('serve', ['build'], function(){
   gulp.watch(path.join('app', '**', '*'), ['build', browserSync.reload]);
 });
 
-gulp.task('serve:dist', ['build:dist'], function(){
+gulp.task('serve:dist', ['build:dist'], function() {
   browserSync({
     notify: true,
     https: true,
@@ -175,8 +190,11 @@ gulp.task('serve:dist', ['build:dist'], function(){
 });
 
 gulp.task('clean', del.bind(null, ['build']));
-gulp.task('production', function(){
+gulp.task('production', function() {
   PROD = true;
+  // Only Babel loose mode in production
+  // This is to prevent me from actually "using" any of the not-correct "optimizations" in my real
+  // code. If any of them cause issues in the output, it (or all of loose mode) can be removed.
   BABEL_OPTIONS.loose = 'all';
 });
 gulp.task('build', ['compileImages', 'compileAssets', 'copy']);
@@ -189,3 +207,13 @@ gulp.task('build:dist', [
   'vulcanize',
   'removeBowerComponents'
 ]);
+
+
+
+
+function getFolders(dir) {
+  return fs.readdirSync(dir)
+    .filter(function(file) {
+      return fs.statSync(path.join(dir, file)).isDirectory();
+    });
+}

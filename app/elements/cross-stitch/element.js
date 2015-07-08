@@ -24,7 +24,7 @@
       }
     },
 
-    ready: function(){
+    ready(){
       this.$.finalOutput.imageSmoothingEnabled = false;
       this.$.finalOutput.msImageSmoothingEnabled = false;
       this.$.finalOutput.mozImageSmoothingEnabled = false;
@@ -37,7 +37,7 @@
 
     },
 
-    newFile: function(){
+    newFile(){
       this.startTime = performance.now();
       // Scale the image to the correct size
       var scaledImageData = this.scale(this.imageData, Polymer.dom(this).node.offsetWidth);

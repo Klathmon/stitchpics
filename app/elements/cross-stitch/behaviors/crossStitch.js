@@ -2,7 +2,7 @@
   'use strict';
   var crossStitchBehavior = {
 
-    fit: function(imageData, xPixels){
+    fit(imageData, xPixels){
       var scale = xPixels / imageData.width;
       var yPixels = Math.floor(imageData.height * scale);
 
@@ -14,7 +14,7 @@
       };
     },
 
-    split: function(imageData, numberOfParts, fitObj){
+    split(imageData, numberOfParts, fitObj){
       var chunks = [];
       var imageWidth = imageData.width;
       var imageHeight = imageData.height;
@@ -42,7 +42,7 @@
       return chunks;
     },
 
-    stitch: function(chunks, canvas){
+    stitch(chunks, canvas){
       var imageWidth = chunks[0].width;
       var imageHeight = chunks.reduce(function(runningTotal, chunk){
         return runningTotal + chunk.height;
@@ -61,7 +61,7 @@
       }, this);
     },
 
-    scale: function(imageData, imageWidth){
+    scale(imageData, imageWidth){
       // First figure out the number to scale by
       var scale = imageWidth / imageData.width;
 
@@ -81,7 +81,7 @@
       return context.getImageData(0, 0, canvas.width, canvas.height);
     },
 
-    buildPalette: function(imageData, numColors){
+    buildPalette(imageData, numColors){
       var rgbq = new RgbQuant({
         colors: numColors
       });
@@ -105,7 +105,7 @@
       return rgbq;
     },
 
-    quantize: function(imageData, palette, numColors){
+    quantize(imageData, palette, numColors){
       var rgbq = new RgbQuant({
         colorDist: 'manhattan',
         colors: numColors,
@@ -115,12 +115,12 @@
       return new ImageData(quantImageData, imageData.width, imageData.height);
     },
 
-    _readImageData: function(canvas){
+    _readImageData(canvas){
       var context = canvas.getContext('2d');
       return context.getImageData(0,0,canvas.width, canvas.height);
     },
 
-    _writeImageData: function(canvas, imageData){
+    _writeImageData(canvas, imageData){
       canvas.height = imageData.height;
       canvas.width = imageData.width;
       var context = canvas.getContext('2d');

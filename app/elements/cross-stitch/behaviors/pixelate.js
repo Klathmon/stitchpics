@@ -2,7 +2,7 @@
   'use strict';
   var pixelateBehavior = {
 
-    pixelate: function(imageData, fitObj) {
+    pixelate(imageData, fitObj) {
 
       this.isLittleEndian = this._isLittleEndian();
 
@@ -22,7 +22,7 @@
       return imageData;
     },
 
-    _getMode: function(imageData, superPixelX, superPixelY, superPixelSize) {
+    _getMode(imageData, superPixelX, superPixelY, superPixelSize) {
       // I love ES6!
       var [uInt32Array, imageWidth, imageHeight] = this._convertImageDataToUint32Array(imageData);
       var [superPixelWidth, superPixelHeight] = superPixelSize;
@@ -72,7 +72,7 @@
       }
     },
 
-    _setSuperPixelColor: function(imageData, superPixelX, superPixelY, superPixelSize, color) {
+    _setSuperPixelColor(imageData, superPixelX, superPixelY, superPixelSize, color) {
       // I love ES6!
       var [uInt32Array, imageWidth, imageHeight] = this._convertImageDataToUint32Array(imageData);
       var [superPixelWidth, superPixelHeight] = superPixelSize;
@@ -103,7 +103,7 @@
       }
     },
 
-    _setPixelEndianSafe: function(isLittleEndian, red, green, blue, alpha) {
+    _setPixelEndianSafe(isLittleEndian, red, green, blue, alpha) {
       if (isLittleEndian) {
         return (alpha << 24) | (blue << 16) | (green << 8) | red;
       } else {
@@ -111,7 +111,7 @@
       }
     },
 
-    _getPixelEndianSafe: function(isLittleEndian, pixel){
+    _getPixelEndianSafe(isLittleEndian, pixel){
       if(isLittleEndian){
         return [(pixel & 0x000000ff), (pixel & 0x0000ff00) >>> 8, (pixel & 0x00ff0000) >>> 16, (pixel & 0xff000000) >>> 24];
       }else{
@@ -119,7 +119,7 @@
       }
     },
 
-    _isLittleEndian: function() {
+    _isLittleEndian() {
       var buf = new ArrayBuffer(12);
       var uInt32Array = new Uint32Array(buf);
 
@@ -136,7 +136,7 @@
 
 
 
-    _convertImageDataToUint32Array: function(imageData) {
+    _convertImageDataToUint32Array(imageData) {
       return [
         new Uint32Array(imageData.data.buffer),
         imageData.width,

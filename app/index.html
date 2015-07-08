@@ -87,19 +87,15 @@
         <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
           <section data-route="app">
-            <paper-material elevation="1" id="parentPage">
-              <paper-file-upload id="imageUpload" ></paper-file-upload>
+            <paper-material elevation="5" id="parentPage">
+              <paper-file-upload id="imageUpload"></paper-file-upload>
               <paper-input label="Number of 'Stitches' wide" type="number" value="{{gridWidth}}"></paper-input>
               <paper-input label="Number of Colors" type="number" value="{{numColors}}"></paper-input>
               <paper-checkbox id="usefast">Use fast method? (Quicker but less accurate)</paper-checkbox>
 
               <paper-button id="recalc" raised>Calculate</paper-button>
 
-              <cross-stitch
-                id="crossStitchElement"
-                gridWidth="{{gridWidth}}"
-                numColors="{{numColors}}"
-              ></cross-stitch>
+              <cross-stitch id="crossStitchElement" gridWidth="{{gridWidth}}" numColors="{{numColors}}"></cross-stitch>
             </paper-material>
           </section>
 
@@ -107,17 +103,11 @@
       </div>
     </paper-header-panel>
 
-    <paper-toast id="caching-complete"
-                 duration="6000"
-                 text="Caching complete! This app will work offline.">
+    <paper-toast id="caching-complete" duration="6000" text="Caching complete! This app will work offline.">
     </paper-toast>
 
-    <platinum-sw-register auto-register
-                          clients-claim
-                          skip-waiting
-                          on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="networkFirst"
-                         precache-file="precache.json">
+    <platinum-sw-register auto-register clients-claim skip-waiting on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="networkFirst" precache-file="precache.json">
       </platinum-sw-cache>
     </platinum-sw-register>
 

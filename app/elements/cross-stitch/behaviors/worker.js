@@ -9,7 +9,7 @@
       }
     },
 
-    createWorkers: function(url, numWorkers){
+    createWorkers(url, numWorkers){
       //Create new workers
       for(var x = 0; x < numWorkers; x++){
         this.workers.push({
@@ -19,7 +19,7 @@
       }
     },
 
-    dispatchWorker: function(callback, command, data, transferrable){
+    dispatchWorker(callback, command, data, transferrable){
       var foundWorker = false;
 
       this.workers.forEach(function(workerObj, index){
@@ -45,7 +45,7 @@
       }, this);
     },
 
-    buildImageDataFromBuffer: function(buffer, width, height){
+    buildImageDataFromBuffer(buffer, width, height){
       return new ImageData(
         new Uint8ClampedArray(buffer),
         width,

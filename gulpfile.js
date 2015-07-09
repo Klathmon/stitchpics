@@ -86,7 +86,7 @@ gulp.task('compileAssets', ['copy'], function() {
         $.remember(name + '|' + folder),
         'concat',
         $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
-        $.sourcemaps.write('.')
+        $.sourcemaps.write()
       ];
     });
 
@@ -98,7 +98,7 @@ gulp.task('compileAssets', ['copy'], function() {
         $.remember(name + '|' + folder),
         'concat',
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
-        $.sourcemaps.write('.')
+        $.sourcemaps.write()
       ];
     });
 

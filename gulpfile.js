@@ -81,8 +81,10 @@ gulp.task('compileAssets', ['copy'], function() {
       useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|' + folder),
+        $.plumber(),
         $.if(name.indexOf('sass') > -1, $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
+        $.plumber.stop(),
         $.remember(name + '|' + folder),
         'concat',
         $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
@@ -94,7 +96,9 @@ gulp.task('compileAssets', ['copy'], function() {
       useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|' + folder),
+        $.plumber(),
         $.babel(BABEL_OPTIONS),
+        $.plumber.stop(),
         $.remember(name + '|' + folder),
         'concat',
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),

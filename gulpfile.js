@@ -8,21 +8,31 @@ var del = require('del');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var _ = require('lodash');
+var bourbon = require('node-bourbon');
 var $ = require('gulp-load-plugins')();
 
 var PROD = false;
 
-var AUTOPREFIXER_BROWSERS = [
-  'ie >= 10',
-  'ie_mob >= 10',
-  'ff >= 30',
-  'chrome >= 34',
-  'safari >= 7',
-  'opera >= 23',
-  'ios >= 7',
-  'android >= 4.4',
-  'bb >= 10'
-];
+var SASS_OPTIONS = {
+  outputStyle: 'expanded',
+  includePaths: bourbon.includePaths
+};
+
+var AUTOPREFIXER_OPTIONS = {
+  cascade: true,
+  remove: true,
+  browsers: [
+    'ie >= 10',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4.4',
+    'bb >= 10'
+  ]
+};
 
 var BABEL_OPTIONS = {
   compact: false,
@@ -55,7 +65,7 @@ var IMAGEMIN_OPTIONS = {
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], function() {
 
-  var elements = getFolders('app/elements').concat('').map(function(folder) {
+  return getFolders('app/elements').concat('').map(function(folder) {
     var src, prodName, dest;
     if (folder === '') {
       src = path.join('app', 'index.html');
@@ -65,36 +75,27 @@ gulp.task('compileAssets', ['copy'], function() {
       dest = path.join('build', 'elements', folder);
     }
 
-    var useminOptions = {
-      inlinecss: [
-        $.cached('inlinecss|' + folder),
-        $.autoprefixer(AUTOPREFIXER_BROWSERS),
-        $.remember('inlinecss|' + folder),
-        'concat',
-        $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
-      ],
-      css: [
-        $.cached('css|' + folder),
-        $.autoprefixer(AUTOPREFIXER_BROWSERS),
-        $.remember('css|' + folder),
-        'concat',
-        $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS))
-      ]
-    };
+    var useminOptions = {};
 
-    // Because of a 'bug' in usemin that doesn't look like it's going to get fixed, i need to
-    // add all of the js blocks like this...
-    _.times(2, function(x) {
-      var catX = '';
-      if (x !== 0) {
-        catX = x;
-      }
-
-      useminOptions['js' + catX] = [
+    _.forEach(['inlinecss', 'css', 'inlinesass', 'sass'], function(name) {
+      useminOptions[name] = [
         $.sourcemaps.init(),
-        $.cached('js' + catX + '|' + folder),
+        $.cached(name + '|' + folder),
+        $.if(name.indexOf('sass') > -1, $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+        $.autoprefixer(AUTOPREFIXER_OPTIONS),
+        $.remember(name + '|' + folder),
+        'concat',
+        $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
+        $.sourcemaps.write('.')
+      ];
+    });
+
+    _.forEach(['js', 'js1'], function(name) {
+      useminOptions[name] = [
+        $.sourcemaps.init(),
+        $.cached(name + '|' + folder),
         $.babel(BABEL_OPTIONS),
-        $.remember('js' + catX + '|' + folder),
+        $.remember(name + '|' + folder),
         'concat',
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
         $.sourcemaps.write('.')
@@ -105,8 +106,6 @@ gulp.task('compileAssets', ['copy'], function() {
       .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
   });
-
-  return merge(elements);
 });
 
 gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], function() {

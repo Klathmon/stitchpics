@@ -80,14 +80,16 @@ gulp.task('compileAssets', ['copy'], function() {
     _.forEach(['inlinecss', 'css', 'inlinesass', 'sass'], function(name) {
       useminOptions[name] = [
         $.sourcemaps.init(),
-        $.cached(name + '|' + folder),
+        $.cached(name + '|compile|' + folder),
         $.plumber(),
         $.if(name.indexOf('sass') > -1, $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
         $.plumber.stop(),
-        $.remember(name + '|' + folder),
+        $.remember(name + '|compile|' + folder),
         'concat',
+        $.cached(name + '|minify|' + folder),
         $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
+        $.remember(name + '|minify|' + folder),
         $.sourcemaps.write()
       ];
     });
@@ -95,13 +97,15 @@ gulp.task('compileAssets', ['copy'], function() {
     _.forEach(['js', 'js1'], function(name) {
       useminOptions[name] = [
         $.sourcemaps.init(),
-        $.cached(name + '|' + folder),
+        $.cached(name + '|babel|' + folder),
         $.plumber(),
         $.babel(BABEL_OPTIONS),
         $.plumber.stop(),
-        $.remember(name + '|' + folder),
+        $.remember(name + '|babel|' + folder),
         'concat',
+        $.cached(name + '|uglify|' + folder),
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
+        $.remember(name + '|uglify|' + folder),
         $.sourcemaps.write()
       ];
     });

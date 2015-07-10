@@ -106,6 +106,7 @@ gulp.task('compileAssets', ['copy'], () => {
         $.sourcemaps.init(),
         $.cached(name + '|compile|' + folder),
         $.plumber(),
+        //    VVV The "Dumb Face" operator
         $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
         $.plumber.stop(),

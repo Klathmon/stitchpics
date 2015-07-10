@@ -84,9 +84,9 @@ const MINIFY_HTML_OPTIONS = {
 
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], () => {
-  return merge(getFolders(path.join('app', 'elements')).concat('').map((folder) => {
-    var src = path.join.apply(this, (folder ? ['app', 'index.html'] : ['build']));
-    var dest = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['build', 'elements', folder]));
+  return getFolders(path.join('app', 'elements')).concat('').map((folder) => {
+    var src = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
+    var dest = path.join.apply(this, (folder ? ['build', 'elements', folder] : ['build']));
 
     var useminOptions = {};
 
@@ -94,10 +94,10 @@ gulp.task('compileAssets', ['copy'], () => {
       useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|compile|' + folder),
-        $.plumber(),
+        //$.plumber(),
         $.if(name.indexOf('sass') > -1, $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
-        $.plumber.stop(),
+        //$.plumber.stop(),
         $.remember(name + '|compile|' + folder),
         'concat',
         $.cached(name + '|minify|' + folder),
@@ -111,9 +111,9 @@ gulp.task('compileAssets', ['copy'], () => {
       useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|babel|' + folder),
-        $.plumber(),
+        //$.plumber(),
         $.babel(BABEL_OPTIONS),
-        $.plumber.stop(),
+        //$.plumber.stop(),
         $.remember(name + '|babel|' + folder),
         'concat',
         $.cached(name + '|uglify|' + folder),
@@ -123,10 +123,12 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
+    console.log(src, dest, _.keys(useminOptions));
+
     return gulp.src(src)
       .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
-  }));
+  });
 });
 
 gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {

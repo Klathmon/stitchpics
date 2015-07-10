@@ -41,7 +41,7 @@ const BABEL_OPTIONS = {
     'strict',
     'jscript',
   ],
-  //loose: 'all'
+  loose: 'all'
 };
 
 const UGLIFY_OPTIONS = {
@@ -85,15 +85,19 @@ const MINIFY_HTML_OPTIONS = {
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], () => {
   return merge(getFolders(path.join('app', 'elements')).concat('').map((folder) => {
-    var src = path.join.apply(folder ? ['app', 'index.html'] : ['app', 'elements', folder, '*.html']);
-    var dest = path.join.apply(folder ? ['build'] : ['build', 'elements', folder]);
+    var src = path.join.apply(this, (folder ? ['app', 'index.html'] : ['build']));
+    var dest = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['build', 'elements', folder]));
 
-    var cssOptions = ['inlinecss', 'css', 'inlinesass', 'sass'].reduce((obj, name) => {
-      obj[name] = [
+    var useminOptions = {};
+
+    ['inlinecss', 'css', 'inlinesass', 'sass'].forEach((name) => {
+      useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|compile|' + folder),
+        $.plumber(),
         $.if(name.indexOf('sass') > -1, $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
+        $.plumber.stop(),
         $.remember(name + '|compile|' + folder),
         'concat',
         $.cached(name + '|minify|' + folder),
@@ -101,14 +105,15 @@ gulp.task('compileAssets', ['copy'], () => {
         $.remember(name + '|minify|' + folder),
         $.sourcemaps.write()
       ];
-      return obj;
-    }, {});
+    });
 
-    var jsOptions = ['js', 'js1'].reduce((obj, name) => {
-      obj[name] = [
+    ['js', 'js1'].forEach((name) => {
+      useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|babel|' + folder),
+        $.plumber(),
         $.babel(BABEL_OPTIONS),
+        $.plumber.stop(),
         $.remember(name + '|babel|' + folder),
         'concat',
         $.cached(name + '|uglify|' + folder),
@@ -116,15 +121,10 @@ gulp.task('compileAssets', ['copy'], () => {
         $.remember(name + '|uglify|' + folder),
         $.sourcemaps.write()
       ];
-      return obj;
-    }, {});
-
-    console.log(_.keys(_.merge(cssOptions, jsOptions)));
+    });
 
     return gulp.src(src)
-      .pipe($.plumber())
-      .pipe($.usemin(_.merge(cssOptions, jsOptions)))
-      .pipe($.plumber.stop())
+      .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
   }));
 });

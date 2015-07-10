@@ -95,7 +95,6 @@ const MINIFY_HTML_OPTIONS = {
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], () => {
   return getFolders(path.join('app', 'elements')).concat('').map((folder) => {
-    var elementsFilter = $.filter(path.join('app', 'elements'));
     var src = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
     var dest = path.join.apply(this, (folder ? ['build', 'elements', folder] : ['build']));
 
@@ -103,7 +102,7 @@ gulp.task('compileAssets', ['copy'], () => {
 
     ['inlinecss', 'css', 'inlinesass', 'sass'].forEach((name) => {
       useminOptions[name] = [
-        $.sourcemaps.init(),
+        $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|compile|' + folder),
         $.plumber(),
         //    VVV The "Dumb Face" operator
@@ -117,17 +116,15 @@ gulp.task('compileAssets', ['copy'], () => {
         $.cached(name + '|minify|' + folder),
         $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
         $.remember(name + '|minify|' + folder),
-        $.sourcemaps.write()
+        $.if(!PROD, $.sourcemaps.write())
       ];
     });
 
     ['js', 'js1'].forEach((name) => {
       useminOptions[name] = [
-        elementsFilter,
-        $.jshint(),
-        $.jshint.reporter($.jshintStylish),
-        elementsFilter.restore(),
-        $.sourcemaps.init(),
+        $.if('elements', $.jshint()),
+        $.if('elements', $.jshint.reporter($.jshintStylish)),
+        $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|babel|' + folder),
         $.plumber(),
         $.babel(BABEL_OPTIONS),
@@ -137,7 +134,7 @@ gulp.task('compileAssets', ['copy'], () => {
         $.cached(name + '|uglify|' + folder),
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
         $.remember(name + '|uglify|' + folder),
-        $.sourcemaps.write()
+        $.if(!PROD, $.sourcemaps.write())
       ];
     });
 
@@ -149,13 +146,9 @@ gulp.task('compileAssets', ['copy'], () => {
 
 gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
   return gulp.src(path.join('build', 'index.html'))
-    .pipe($.cached('vulcanize'))
     .pipe($.vulcanize(VULCANIZE_OPTIONS))
-    .pipe($.remember('vulcanize'))
-    .pipe($.cached('vulcanize|minify'))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
-    .pipe($.remember('vulcanize|minify'))
     .pipe($.if(PROD, $.size()))
     .pipe(gulp.dest('build'));
 });

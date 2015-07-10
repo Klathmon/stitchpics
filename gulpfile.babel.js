@@ -94,10 +94,10 @@ gulp.task('compileAssets', ['copy'], () => {
       useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|compile|' + folder),
-        //$.plumber(),
-        $.if(name.indexOf('sass') > -1, $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+        $.plumber(),
+        $.if(_.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
-        //$.plumber.stop(),
+        $.plumber.stop(),
         $.remember(name + '|compile|' + folder),
         'concat',
         $.cached(name + '|minify|' + folder),
@@ -111,9 +111,9 @@ gulp.task('compileAssets', ['copy'], () => {
       useminOptions[name] = [
         $.sourcemaps.init(),
         $.cached(name + '|babel|' + folder),
-        //$.plumber(),
+        $.plumber(),
         $.babel(BABEL_OPTIONS),
-        //$.plumber.stop(),
+        $.plumber.stop(),
         $.remember(name + '|babel|' + folder),
         'concat',
         $.cached(name + '|uglify|' + folder),
@@ -122,8 +122,6 @@ gulp.task('compileAssets', ['copy'], () => {
         $.sourcemaps.write()
       ];
     });
-
-    console.log(src, dest, _.keys(useminOptions));
 
     return gulp.src(src)
       .pipe($.usemin(useminOptions))
@@ -149,16 +147,6 @@ gulp.task('copy', () => {
       base: 'app'
     })
     .pipe($.cached('copy'))
-    .pipe(gulp.dest(path.join('build')));
-});
-
-// Compile all images
-gulp.task('compileImages', ['copy'], () => {
-  // For now just copy the images, add in a compression and optimization step later
-  return gulp.src(path.join('app', '**', '*.{ico,jpeg,jpg,gif,png,webp,svg}'), {
-      base: 'app'
-    })
-    .pipe($.cached('images'))
     .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build')));
 });
@@ -172,7 +160,7 @@ gulp.task('copyBowerComponents', () => {
 
 gulp.task('serve', ['build'], () => {
   browserSync({
-    notify: true,
+    notify: false,
     https: true,
     server: {
       baseDir: 'build',
@@ -188,7 +176,7 @@ gulp.task('serve', ['build'], () => {
 
 gulp.task('serve:dist', ['build:dist'], () => {
   browserSync({
-    notify: true,
+    notify: false,
     https: true,
     server: {
       baseDir: 'build'
@@ -202,13 +190,12 @@ gulp.task('clean', del.bind(null, ['build']));
 gulp.task('production', () => {
   PROD = true;
 });
-gulp.task('build', ['compileImages', 'compileAssets', 'copy']);
+gulp.task('build', ['compileAssets', 'copy']);
 gulp.task('build:dist', [
   'production',
   'compileAssets',
-  'copyBowerComponents',
-  'compileImages',
   'copy',
+  'copyBowerComponents',
   'vulcanize'
 ]);
 

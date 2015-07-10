@@ -1,22 +1,32 @@
 /*jslint node: true */
 'use strict';
 
+/*
+  This gulpfile was built for a few internal projects i use and is probably massivly overcomplicated
+  It's meant to be run on a fairly powerful machine, and it does all it can to speed up the compilation
+  process (at the expense of CPU, RAM, disk usage, etc...).
+*/
+
 import fs from 'fs';
 import del from 'del';
-import _ from 'lodash';
 import path from 'path';
 import gulp from 'gulp';
 import merge from 'merge-stream';
-import bourbon from 'node-bourbon';
 import glp from 'gulp-load-plugins';
-import browserSync from 'browser-sync';
-var $ = glp();
+var $ = glp({
+  pattern: ['*'],
+  rename: {
+    'lodash': '_',
+    'babel': 'babelProper',
+    'vulcanize': 'vulcanizeProper'
+  }
+});
 
 var PROD = false;
 
 const SASS_OPTIONS = {
   outputStyle: 'expanded',
-  includePaths: bourbon.includePaths
+  includePaths: $.nodeBourbon.includePaths
 };
 
 const AUTOPREFIXER_OPTIONS = {
@@ -85,6 +95,7 @@ const MINIFY_HTML_OPTIONS = {
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], () => {
   return getFolders(path.join('app', 'elements')).concat('').map((folder) => {
+    var elementsFilter = $.filter(path.join('app', 'elements'));
     var src = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
     var dest = path.join.apply(this, (folder ? ['build', 'elements', folder] : ['build']));
 
@@ -95,10 +106,12 @@ gulp.task('compileAssets', ['copy'], () => {
         $.sourcemaps.init(),
         $.cached(name + '|compile|' + folder),
         $.plumber(),
-        $.if(_.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+        $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
         $.plumber.stop(),
         $.remember(name + '|compile|' + folder),
+        $.csslint(),
+        $.csslint.reporter($.csslintStylish),
         'concat',
         $.cached(name + '|minify|' + folder),
         $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
@@ -109,6 +122,10 @@ gulp.task('compileAssets', ['copy'], () => {
 
     ['js', 'js1'].forEach((name) => {
       useminOptions[name] = [
+        elementsFilter,
+        $.jshint(),
+        $.jshint.reporter($.jshintStylish),
+        elementsFilter.restore(),
         $.sourcemaps.init(),
         $.cached(name + '|babel|' + folder),
         $.plumber(),
@@ -159,7 +176,7 @@ gulp.task('copyBowerComponents', () => {
 });
 
 gulp.task('serve', ['build'], () => {
-  browserSync({
+  $.browserSync({
     notify: false,
     https: true,
     server: {
@@ -171,11 +188,11 @@ gulp.task('serve', ['build'], () => {
     }
   });
 
-  gulp.watch(path.join('app', '**', '*'), ['build', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*'), ['build', $.browserSync.reload]);
 });
 
 gulp.task('serve:dist', ['build:dist'], () => {
-  browserSync({
+  $.browserSync({
     notify: false,
     https: true,
     server: {
@@ -183,7 +200,7 @@ gulp.task('serve:dist', ['build:dist'], () => {
     }
   });
 
-  gulp.watch(path.join('app', '**', '*'), ['build:dist', browserSync.reload]);
+  gulp.watch(path.join('app', '**', '*'), ['build:dist', $.browserSync.reload]);
 });
 
 gulp.task('clean', del.bind(null, ['build']));

@@ -83,7 +83,7 @@ const VULCANIZE_OPTIONS = {
 };
 
 const MINIFY_INLINE_OPTIONS = {
-  css: false
+  css: false // Shit's broken yo
 };
 
 const MINIFY_HTML_OPTIONS = {
@@ -148,10 +148,13 @@ gulp.task('compileAssets', ['copy'], () => {
 
 gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
   return gulp.src(path.join('build', 'index.html'))
-    .pipe($.vulcanize(VULCANIZE_OPTIONS))
     .pipe($.cached('vulcanize'))
+    .pipe($.vulcanize(VULCANIZE_OPTIONS))
+    .pipe($.remember('vulcanize'))
+    .pipe($.cached('vulcanize|minify'))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
+    .pipe($.remember('vulcanize|minify'))
     .pipe($.if(PROD, $.size()))
     .pipe(gulp.dest('build'));
 });

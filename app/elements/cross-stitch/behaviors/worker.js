@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var workerBehavior = {
+  var behavior = {
 
     properties: {
       workers: {
@@ -54,9 +54,13 @@
     },
   };
 
+
+
+  var obj;
   if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
-    self.workerBehavior = workerBehavior;
+    obj = self;
   }else{
-    window.workerBehavior = workerBehavior;
+    obj = window;
   }
+  obj.workerBehavior = behavior;
 })();

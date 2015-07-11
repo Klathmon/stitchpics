@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var pixelateBehavior = {
+  var behavior = {
 
     pixelate(imageData, fitObj) {
       this.isLittleEndian = this._isLittleEndian();
@@ -140,9 +140,13 @@
     },
   };
 
-  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-    self.pixelateBehavior = pixelateBehavior;
-  } else {
-    window.pixelateBehavior = pixelateBehavior;
+
+
+  var obj;
+  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
+    obj = self;
+  }else{
+    obj = window;
   }
+  obj.pixelateBehavior = behavior;
 })();

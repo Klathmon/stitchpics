@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var crossStitchBehavior = {
+  var behavior = {
 
     fit(imageData, xPixels){
       var scale = xPixels / imageData.width;
@@ -126,9 +126,11 @@
 
   };
 
+  var obj;
   if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
-    self.crossStitchBehavior = crossStitchBehavior;
+    obj = self;
   }else{
-    window.crossStitchBehavior = crossStitchBehavior;
+    obj = window;
   }
+  obj.crossStitchBehavior = behavior;
 })();

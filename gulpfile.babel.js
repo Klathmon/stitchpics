@@ -132,7 +132,7 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    $._.map(new Array(10),(value, index)=> 'js' + (index > 0 ? index : '')).forEach((name) => {
+    $._.map(new Array(20),(value, index)=> 'js' + (index > 0 ? index : '')).forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),

@@ -54,6 +54,10 @@ const BABEL_OPTIONS = {
   //loose: 'all'
 };
 
+const COFFEE_OPTIONS = {
+  bare: true
+};
+
 const UGLIFY_OPTIONS = {
   'screw-ie8': true,
   compress: {
@@ -120,14 +124,15 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    ['js', 'js1'].forEach((name) => {
+    ['js', 'js1', 'js2', 'js3', 'js4'].forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),
         $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|babel|' + folder),
         $.plumber(),
-        $.babel(BABEL_OPTIONS),
+        $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
+        $.if('.js', $.babel(BABEL_OPTIONS)),
         $.plumber.stop(),
         $.remember(name + '|babel|' + folder),
         'concat',

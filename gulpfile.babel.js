@@ -51,7 +51,7 @@ const BABEL_OPTIONS = {
     'strict',
     'jscript',
   ],
-  loose: 'all'
+  //loose: 'all'
 };
 
 const UGLIFY_OPTIONS = {

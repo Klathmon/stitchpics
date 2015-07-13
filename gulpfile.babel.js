@@ -132,7 +132,7 @@ gulp.task('compileAssets', ['copy'], () => {
         $.cached(name + '|babel|' + folder),
         $.plumber(),
         $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
-        $.if('.js', $.babel(BABEL_OPTIONS)),
+        $.babel(BABEL_OPTIONS),
         $.plumber.stop(),
         $.remember(name + '|babel|' + folder),
         'concat',

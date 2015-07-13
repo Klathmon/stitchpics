@@ -75,7 +75,15 @@ const MIN_CSS_OPTIONS = {
 const IMAGEMIN_OPTIONS = {
   optimizationLevel: 7,
   progressive: true,
-  multipass: true
+  multipass: true,
+  use: [
+    $.imageminMozjpeg({
+      quality: 100,
+    }),
+    $.imageminPngcrush({
+      reduce: true
+    })
+  ]
 };
 
 const VULCANIZE_OPTIONS = {
@@ -124,7 +132,7 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    ['js', 'js1', 'js2', 'js3', 'js4'].forEach((name) => {
+    $._.map(new Array(10),(value, index)=> 'js' + (index > 0 ? index : '')).forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),

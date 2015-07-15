@@ -10,9 +10,9 @@
      */
     buildPalette({imageData, numColors}) {
       return new Promise((resolve, reject)=>{
-        var rgbq = new RgbQuant();
+        var rgbq = new RgbQuant({colors: numColors});
         rgbq.sample(imageData);
-        var palette = rgbq.palette(false);
+        var palette = rgbq.palette(true);
 
         resolve({imageData, palette}, [imageData.data.buffer]);
       });
@@ -35,11 +35,10 @@
           palette
         };
 
-        console.log(opts);
         var rgbq = new RgbQuant(opts);
 
         var returnImageData = {
-          data: new Uint8ClampedArray(rgbq.reduce(imageData)),
+          data: new Uint8ClampedArray(rgbq.reduce(imageData, 1)),
           width: imageData.width,
           height: imageData.height
         };

@@ -52,7 +52,6 @@
         imageData: this.imageData,
         newWidth: Polymer.dom(this).node.offsetWidth
       }).then((imageData) => {
-
         return this.buildPalette({imageData, numColors: this.numcolors});
       }).then(({imageData, palette})=>{
         var xPixels = this.gridwidth;
@@ -65,29 +64,42 @@
           numberOfParts: this.workers.length,
           pixelHeight: pixelHeight
         }).then((chunks) => {
-          return Promise.all(chunks.map((chunk, index)=>{
+          var promises = chunks.map((chunk, index)=>{
             return this.quantize({
               imageData: chunk,
               palette: palette,
               numColors: this.numcolors,
               index
             });
-          }));
+          });
+          return Promise.all(promises);
         }).then((donePromises)=>{
           // We are all done with all of these chunks here...
 
-          var doneChunks = donePromises.map((resolved, index, array)=>{
-            array[resolved.index] = resolved.imageData;
-          }, new Array(this.workers.length));
+          var doneChunks = new Array(this.workers.length);
+
+          donePromises.forEach(({imageData, index})=>{
+            console.log(index);
+            doneChunks[index] = this._convertToRealImageData(imageData);
+          });
 
           return this.stitch({
             chunks: doneChunks,
             canvas: this.$.finalOutput
           });
         });
-      }).catch(function(error) {
+      }).catch((error) =>{
         console.error(error.stack);
       });
+    },
+
+    _convertToRealImageData(pImageData){
+      var realImageData = document.createElement('canvas')
+        .getContext('2d')
+        .createImageData(pImageData.width, pImageData.height);
+
+      realImageData.data.set(realImageData.data.buffer);
+      return realImageData;
     },
 
     oldNewFile() {

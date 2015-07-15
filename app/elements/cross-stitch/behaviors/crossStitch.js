@@ -14,7 +14,7 @@
       };
     },
 
-    split(imageData, numberOfParts, fitObj){
+    oldBadSplit(imageData, numberOfParts, fitObj){
       var imageWidth = imageData.width;
       var imageHeight = imageData.height;
 
@@ -39,7 +39,7 @@
       });
     },
 
-    stitch(chunks, canvas){
+    oldBadStitch(chunks, canvas){
       var imageWidth = chunks[0].width;
       var imageHeight = chunks.reduce(function(runningTotal, chunk){
         return runningTotal + chunk.height;
@@ -58,7 +58,7 @@
       }, this);
     },
 
-    scale(imageData, imageWidth){
+    badOldScale(imageData, imageWidth){
       // First figure out the number to scale by
       var scale = imageWidth / imageData.width;
 
@@ -78,7 +78,7 @@
       return context.getImageData(0, 0, canvas.width, canvas.height);
     },
 
-    buildPalette(imageData, numColors){
+    asdfbuildPalette(imageData, numColors){
       var rgbq = new RgbQuant({
         colors: numColors
       });
@@ -101,7 +101,7 @@
       return rgbq;
     },
 
-    quantize(imageData, palette, numColors){
+    asdfasdfasdf(imageData, palette, numColors){
       var rgbq = new RgbQuant({
         colorDist: 'manhattan',
         colors: numColors,
@@ -109,19 +109,6 @@
       });
       var quantImageData = new Uint8ClampedArray(rgbq.reduce(imageData));
       return new ImageData(quantImageData, imageData.width, imageData.height);
-    },
-
-    _readImageData(canvas){
-      var context = canvas.getContext('2d');
-      return context.getImageData(0,0,canvas.width, canvas.height);
-    },
-
-    _writeImageData(canvas, imageData){
-      canvas.height = imageData.height;
-      canvas.width = imageData.width;
-      var context = canvas.getContext('2d');
-      context.putImageData(imageData, 0, 0);
-      return context;
     },
 
   };

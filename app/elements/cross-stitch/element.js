@@ -2,11 +2,19 @@
   'use strict';
   /*jshint -W064 */
   Polymer({
-  /*jshint +W064 */
+    /*jshint +W064 */
     is: 'cross-stitch',
-    behaviors: [window.crossStitchBehavior, window.workerBehavior, window.pixelateBehavior],
+    behaviors: [
+      window.sizingBehavior,
+      window.quantizeBehavior,
 
-    properties:{
+
+      window.crossStitchBehavior,
+      window.workerBehavior,
+      window.pixelateBehavior,
+    ],
+
+    properties: {
       numcolors: {
         type: Number,
         value: 16
@@ -24,7 +32,7 @@
       }
     },
 
-    ready(){
+    ready() {
       this.$.finalOutput.imageSmoothingEnabled = false;
       this.$.finalOutput.msImageSmoothingEnabled = false;
       this.$.finalOutput.mozImageSmoothingEnabled = false;
@@ -37,7 +45,52 @@
 
     },
 
-    newFile(){
+
+
+    newFile() {
+      this.scale({
+        imageData: this.imageData,
+        newWidth: Polymer.dom(this).node.offsetWidth
+      }).then((imageData) => {
+
+        return this.buildPalette({imageData, numColors: this.numcolors});
+      }).then(({imageData, palette})=>{
+        var xPixels = this.gridwidth;
+        var yPixels = Math.floor(imageData.height * (xPixels / imageData.width));
+        var pixelWidth = Math.ceil(imageData.width / xPixels);
+        var pixelHeight = Math.ceil(imageData.height / yPixels);
+
+        return this.split({
+          imageData: imageData,
+          numberOfParts: this.workers.length,
+          pixelHeight: pixelHeight
+        }).then((chunks) => {
+          return Promise.all(chunks.map((chunk, index)=>{
+            return this.quantize({
+              imageData: chunk,
+              palette: palette,
+              numColors: this.numcolors,
+              index
+            });
+          }));
+        }).then((donePromises)=>{
+          // We are all done with all of these chunks here...
+
+          var doneChunks = donePromises.map((resolved, index, array)=>{
+            array[resolved.index] = resolved.imageData;
+          }, new Array(this.workers.length));
+
+          return this.stitch({
+            chunks: doneChunks,
+            canvas: this.$.finalOutput
+          });
+        });
+      }).catch(function(error) {
+        console.error(error.stack);
+      });
+    },
+
+    oldNewFile() {
       this.startTime = performance.now();
       // Scale the image to the correct size
       var scaledImageData = this.scale(this.imageData, Polymer.dom(this).node.offsetWidth);
@@ -57,7 +110,7 @@
 
       var doneChunks = [];
 
-      scaledChunks.forEach(function(chunk, index){
+      scaledChunks.forEach(function(chunk, index) {
         var quantizeData = {
           imageDataBuffer: chunk.data.buffer,
           imageWidth: chunk.width,
@@ -67,7 +120,7 @@
           index: index
         };
 
-        this.dispatchWorker(function(event){
+        this.dispatchWorker(function(event) {
           var pixelateData = {
             imageDataBuffer: event.data.imageDataBuffer,
             imageWidth: event.data.imageWidth,
@@ -76,7 +129,7 @@
             index: event.data.index
           };
 
-          this.dispatchWorker(function(event){
+          this.dispatchWorker(function(event) {
 
             var doneImageData = workerBehavior.buildImageDataFromBuffer(
               event.data.imageDataBuffer,
@@ -87,11 +140,11 @@
             // Done everything for this chunk...
             doneChunks[event.data.index] = doneImageData;
 
-            var numberOfChunksDone = doneChunks.filter(function(value){
+            var numberOfChunksDone = doneChunks.filter(function(value) {
               return value !== undefined;
             }).length;
 
-            if(numberOfChunksDone === scaledChunks.length){
+            if (numberOfChunksDone === scaledChunks.length) {
               //If we get here we are completely done!!!
 
               this.stitch(doneChunks, this.$.finalOutput);

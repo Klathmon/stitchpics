@@ -45,6 +45,10 @@ const AUTOPREFIXER_OPTIONS = {
   ]
 };
 
+const PLUMBER_OPTIONS = {
+  errorHandler: $.notify.onError("Error: <%= error.message %>")
+};
+
 const BABEL_OPTIONS = {
   compact: false,
   blacklist: [
@@ -116,7 +120,7 @@ gulp.task('compileAssets', ['copy'], () => {
       useminOptions[name] = [
         $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|compile|' + folder),
-        $.plumber(),
+        $.plumber(PLUMBER_OPTIONS),
         //    VVV The "Dumb Face" operator
         $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
         $.autoprefixer(AUTOPREFIXER_OPTIONS),
@@ -138,7 +142,7 @@ gulp.task('compileAssets', ['copy'], () => {
         $.if('elements', $.jshint.reporter($.jshintStylish)),
         $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|babel|' + folder),
-        $.plumber(),
+        $.plumber(PLUMBER_OPTIONS),
         $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
         $.babel(BABEL_OPTIONS),
         $.plumber.stop(),

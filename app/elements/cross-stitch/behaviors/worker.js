@@ -19,38 +19,35 @@
       }, this);
     },
 
-    dispatchWorker(callback, command, data, transferrable){
-      var foundWorker = false;
+    dispatchWorker(func, data, transferrable){
+      return new Promise((resolve, reject)=>{
+        var wait = (data, callback)=>{
+          var workerObj = _.findWhere(this.workers, {
+            working: false
+          });
+          if(typeof workerObj === "undefined"){
+            // If ther earen't any free workers, wait a bit and try looking again...
+            setTimeout(wait, 100, func, data, transferrable);
+          } else {
+            // We have a free worker here!
+            workerObj.working = true;
 
-      _.forEach(this.workers, function(workerObj, index){
-        if( !foundWorker && !workerObj.working){
-          //Found a worker that's not doing anything right now.
-          foundWorker = true;
-          workerObj.working = true;
+            // Setup the completed function
+            var workerDone = (event)=>{
+              workerObj.worker.removeEventListener('message', workerDone, false);
+              workerObj.working = false;
+              resolve(event.data);
+            };
 
-          // Run this when the worker finishes up
-          var workerDone = function(event){
-            workerObj.worker.removeEventListener('message', workerDone, false);
-            workerObj.working = false;
-            callback.bind(this)(event);
-          }.bind(this);
+            // Attach the listener
+            workerObj.worker.addEventListener('message', workerDone, false);
 
-          // Attach the listener
-          workerObj.worker.addEventListener('message', workerDone, false);
-
-          // And setup then send the message
-          data.command = command;
-          workerObj.worker.postMessage(data, transferrable);
-        }
-      }, this);
-    },
-
-    buildImageDataFromBuffer(buffer, width, height){
-      return new ImageData(
-        new Uint8ClampedArray(buffer),
-        width,
-        height
-      );
+            // Then send the message
+            workerObj.worker.postMessage({func, data}, transferrable); // Don't use transferrable stuff now, it's a bit of a pain in the ass
+          }
+        };
+        wait(func, data, transferrable);
+      });
     },
   };
 

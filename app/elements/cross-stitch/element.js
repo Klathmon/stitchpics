@@ -26,9 +26,8 @@
       imageData: {
         type: Object
       },
-      fastquant: {
-        type: Boolean,
-        value: false
+      superPixelData: {
+        type: Object
       }
     },
 
@@ -48,45 +47,53 @@
 
 
     newFile() {
+
+      // First, scale the image correctly
       this.scale({
         imageData: this.imageData,
         newWidth: Polymer.dom(this).node.offsetWidth
       }).then((imageData) => {
+        // Then build the palette
         return this.buildPalette({imageData, numColors: this.numcolors});
       }).then(({imageData, palette})=>{
-        var xPixels = this.gridwidth;
-        var yPixels = Math.floor(imageData.height * (xPixels / imageData.width));
-        var pixelWidth = Math.ceil(imageData.width / xPixels);
-        var pixelHeight = Math.ceil(imageData.height / yPixels);
+        // Now save the palette and generate the "superPixelData"
+        this.palette = palette;
+        this.superPixelData = {
+          xPixels: this.gridwidth,
+          yPixels: Math.floor(imageData.height * (this.gridwidth / imageData.width))
+        };
+        this.superPixelData.pixelWidth = Math.ceil(imageData.width / this.superPixelData.xPixels);
+        this.superPixelData.pixelHeight =  Math.ceil(imageData.height / this.superPixelData.yPixels);
 
+        // Then split the image into chunks
         return this.split({
-          imageData: imageData,
+          imageData,
           numberOfParts: this.workers.length,
-          pixelHeight: pixelHeight
-        }).then((chunks) => {
-          var promises = chunks.map((chunk, index)=>{
-            return this.quantize({
-              imageData: chunk,
-              palette: palette,
-              numColors: this.numcolors,
-              index
-            });
+          pixelHeight: this.superPixelData.pixelHeight
+        });
+      }).then((chunks) => {
+        // For each chunk, quantize the image
+        return Promise.all(chunks.map((chunk, index)=>{
+          return this.quantize({
+            imageData: chunk,
+            palette: this.palette,
+            index
           });
-          return Promise.all(promises);
-        }).then((donePromises)=>{
-          // We are all done with all of these chunks here...
+        }).map((quantizePromise)=> quantizePromise.then(({imageData, index})=>{
+            // After each chunk is quantized, pixelate it.
 
-          var doneChunks = new Array(this.workers.length);
-
-          donePromises.forEach(({imageData, index})=>{
-            console.log(index);
-            doneChunks[index] = this._convertToRealImageData(imageData);
-          });
-
-          return this.stitch({
-            chunks: doneChunks,
-            canvas: this.$.finalOutput
-          });
+            return Promise.resolve({imageData, index});
+          })
+        ));
+      }).then((donePromises)=>{
+        // We are all done with all of the chunks here, so stitch them back together in the output
+        return this.stitch({
+          chunks: donePromises.reduce((chunks, {imageData, index})=>{
+            // I really like to abuse reduce, it's just so useful!
+            chunks[index] = this._convertToRealImageData(imageData);
+            return chunks;
+          }, new Array(this.workers.length)),
+          canvas: this.$.finalOutput
         });
       }).catch((error) =>{
         console.error(error.stack);
@@ -98,7 +105,7 @@
         .getContext('2d')
         .createImageData(pImageData.width, pImageData.height);
 
-      realImageData.data.set(realImageData.data.buffer);
+      realImageData.data.set(pImageData.data);
       return realImageData;
     },
 

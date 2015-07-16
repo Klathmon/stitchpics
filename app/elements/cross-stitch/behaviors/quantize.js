@@ -22,16 +22,14 @@
      * actually quantizes the image data to reduce the colors down to the number given
      * @param  {object}  imageData the image data to quantize
      * @param  {array}   palette   the palette array returned from buildPalette()
-     * @param  {int}     numColors the number of output colors wanted
      * @param  {int}     index     the index of the chunk (so it can be peaced back together in the right order)
      * @return {Promise}           resolve({imageData, index}, [transferrable])
      */
-    quantize({imageData, palette, numColors, index}) {
+    quantize({imageData, palette, index}) {
       return new Promise((resolve, reject)=>{
 
         var opts = {
           colorDist: 'manhattan',
-          colors: numColors,
           palette
         };
 

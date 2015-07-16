@@ -7,11 +7,8 @@
     behaviors: [
       window.sizingBehavior,
       window.quantizeBehavior,
-
-
-      window.crossStitchBehavior,
-      window.workerBehavior,
       window.pixelateBehavior,
+      window.workerBehavior,
     ],
 
     properties: {

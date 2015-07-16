@@ -81,8 +81,13 @@
           });
         }).map((quantizePromise)=> quantizePromise.then(({imageData, index})=>{
             // After each chunk is quantized, pixelate it.
-
-            return Promise.resolve({imageData, index});
+            return this.pixelate({
+              imageData,
+              pixelWidth: this.superPixelData.pixelWidth,
+              pixelHeight: this.superPixelData.pixelHeight,
+              xPixels: this.superPixelData.xPixels,
+              yPixels: this.superPixelData.yPixels,
+              index});
           })
         ));
       }).then((donePromises)=>{

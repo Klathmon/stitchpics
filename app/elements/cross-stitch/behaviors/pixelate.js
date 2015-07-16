@@ -2,40 +2,39 @@
   'use strict';
   var behavior = {
 
-    pixelate(imageData, fitObj) {
-      this.isLittleEndian = this._isLittleEndian();
 
-      var superPixelSize = [fitObj.pixelWidth, fitObj.pixelHeight];
+    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, index}) {
+      return new Promise((resolve, reject)=>{
+        this.isLittleEndian = this._isLittleEndian();
 
-      var xSuperPixels = fitObj.xPixels;
-      var ySuperPixels = fitObj.yPixels;
-      for (var superPixelX = 0; superPixelX < xSuperPixels; superPixelX++) {
-        for (var superPixelY = 0; superPixelY < ySuperPixels; superPixelY++) {
-          // First get the mode color of the super pixel
-          var color = this._getMode(imageData, superPixelX, superPixelY, superPixelSize);
+        for (var pixelX = 0; pixelX < xPixels; pixelX++) {
+          for (var pixelY = 0; pixelY < yPixels; pixelY++) {
+            // First get the mode color of the super pixel
+            var color = this._getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels});
 
-          // Now set the superPixel to that color entirely
-          this._setSuperPixelColor(imageData, superPixelX, superPixelY, superPixelSize, color);
+            // Now set the superPixel to that color entirely
+            this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color});
+          }
         }
-      }
-      return imageData;
+        resolve({imageData, index}, [imageData.data.buffer]);
+      });
     },
 
-    _getMode(imageData, superPixelX, superPixelY, superPixelSize) {
-      // I love ES6!
-      var [uInt32Array, imageWidth, imageHeight] = this._convertImageDataToUint32Array(imageData);
-      var [superPixelWidth, superPixelHeight] = superPixelSize;
+    _getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels}) {
+      var {data: imageDataData, width: imageWidth, height: imageHeight} = imageData;
+      var uInt32Array = new Uint32Array(imageDataData.buffer);
+      // Locality bro!
       var isLittleEndian = this.isLittleEndian;
 
-      var map = {};
+      var map = new Map();
       var mode = null;
       var largestCount = 1;
 
       // Loop over each "pixel" within this superPixel
-      for (var subPixelX = 0; subPixelX < superPixelWidth; subPixelX++) {
-        for (var subPixelY = 0; subPixelY < superPixelHeight; subPixelY++) {
-          var xPos = (superPixelX * superPixelWidth) + subPixelX;
-          var yPos = (superPixelY * superPixelHeight) + subPixelY;
+      for (var subPixelX = 0; subPixelX < pixelWidth; subPixelX++) {
+        for (var subPixelY = 0; subPixelY < pixelHeight; subPixelY++) {
+          var xPos = (pixelX * pixelWidth) + subPixelX;
+          var yPos = (pixelY * pixelHeight) + subPixelY;
 
           //Make sure we are within the image bounds
           if (xPos < imageWidth && yPos < imageHeight) {
@@ -43,23 +42,20 @@
             var pixel = uInt32Array[((yPos * imageWidth) + xPos) | 0];
 
             if (subPixelX === 0 && subPixelY === 0) {
+              // If this is the first pixel, then it's the mode to start with!
               mode = pixel;
             }
 
-            var thisCount = map[pixel];
-
-            if (!thisCount) {
-              thisCount = 1;
-            } else {
-              thisCount++;
+            if (!map.has(pixel)){
+              map.set(pixel, 1);
+            }else{
+              map.set(pixel, map.get(pixel) + 1);
             }
 
-            if (thisCount > largestCount) {
+            if (map.get(pixel) > largestCount) {
               mode = pixel;
-              largestCount = thisCount;
+              largestCount =  map.get(pixel);
             }
-
-            map[pixel] = thisCount;
           }
         }
       }
@@ -71,29 +67,29 @@
       }
     },
 
-    _setSuperPixelColor(imageData, superPixelX, superPixelY, superPixelSize, color) {
-      // I love ES6!
-      var [uInt32Array, imageWidth, imageHeight] = this._convertImageDataToUint32Array(imageData);
-      var [superPixelWidth, superPixelHeight] = superPixelSize;
+    _setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color}) {
+      var {data: imageDataData, width: imageWidth, height: imageHeight} = imageData;
+      var uInt32Array = new Uint32Array(imageDataData.buffer);
+      // Locality bro!
       var isLittleEndian = this.isLittleEndian;
       var [red, green, blue, alpha] = color;
 
       // Loop over each "pixel" within this superPixel
-      for (var subPixelX = 0; subPixelX < superPixelWidth; subPixelX++) {
-        for (var subPixelY = 0; subPixelY < superPixelHeight; subPixelY++) {
-          var xPos = (superPixelX * superPixelWidth) + subPixelX;
-          var yPos = (superPixelY * superPixelHeight) + subPixelY;
+      for (var subPixelX = 0; subPixelX < pixelWidth; subPixelX++) {
+        for (var subPixelY = 0; subPixelY < pixelHeight; subPixelY++) {
+          var xPos = (pixelX * pixelWidth) + subPixelX;
+          var yPos = (pixelY * pixelHeight) + subPixelY;
 
           //Make sure we are within the image bounds
           if (xPos < imageWidth && yPos < imageHeight) {
             var index = ((yPos * imageWidth) + xPos) | 0;
 
-            if (subPixelX === superPixelWidth - 1 || subPixelY === superPixelHeight - 1) {
+            if (subPixelX === pixelWidth - 1 || subPixelY === pixelHeight - 1) {
               // If it's the bottom or right side, draw the grid
               uInt32Array[index] = this._setPixelEndianSafe(isLittleEndian, 50, 50, 50, 255);
-            } else if(alpha < 200){
+            } else if (alpha < 200) {
               uInt32Array[index] = 0x00000000;
-            }else{
+            } else {
               // Otherwise just fill it with the mode colors (set alpha to 255)
               uInt32Array[index] = this._setPixelEndianSafe(isLittleEndian, red, green, blue, 255);
             }
@@ -110,10 +106,10 @@
       }
     },
 
-    _getPixelEndianSafe(isLittleEndian, pixel){
-      if(isLittleEndian){
+    _getPixelEndianSafe(isLittleEndian, pixel) {
+      if (isLittleEndian) {
         return [(pixel & 0x000000ff), (pixel & 0x0000ff00) >>> 8, (pixel & 0x00ff0000) >>> 16, (pixel & 0xff000000) >>> 24];
-      }else{
+      } else {
         return [(pixel & 0xff000000) >>> 24, (pixel & 0x00ff0000) >>> 16, (pixel & 0x0000ff00) >>> 8, (pixel & 0x000000ff)];
       }
     },
@@ -129,24 +125,9 @@
       } else {
         return true;
       }
-    },
+    }
 
-    _convertImageDataToUint32Array(imageData) {
-      return [
-        new Uint32Array(imageData.data.buffer),
-        imageData.width,
-        imageData.height
-      ];
-    },
   };
 
-
-
-  var obj;
-  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
-    obj = self;
-  }else{
-    obj = window;
-  }
-  obj.pixelateBehavior = behavior;
+  self.pixelateBehavior = behavior;
 })();

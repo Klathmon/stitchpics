@@ -44,6 +44,7 @@
 
 
     newFile() {
+      this.startTime = performance.now();
 
       // First, scale the image correctly
       this.scale({
@@ -51,7 +52,7 @@
         newWidth: Polymer.dom(this).node.offsetWidth
       }).then((imageData) => {
         // Then build the palette
-        return this.buildPalette({imageData, numColors: this.numcolors});
+        return this.dispatchWorker('buildPalette', {imageData, numColors: this.numcolors}, [imageData.data.buffer]);
       }).then(({imageData, palette})=>{
         // Now save the palette and generate the "superPixelData"
         this.palette = palette;
@@ -71,25 +72,24 @@
       }).then((chunks) => {
         // For each chunk, quantize the image
         return Promise.all(chunks.map((chunk, index)=>{
-          return this.quantize({
+          return this.dispatchWorker('quantize', {
             imageData: chunk,
             palette: this.palette,
             index
-          });
+          }, [chunk.data.buffer]);
         }).map((quantizePromise)=> quantizePromise.then(({imageData, index})=>{
             // After each chunk is quantized, pixelate it.
-            return this.pixelate({
+            return this.dispatchWorker('pixelate', {
               imageData,
               pixelWidth: this.superPixelData.pixelWidth,
               pixelHeight: this.superPixelData.pixelHeight,
               xPixels: this.superPixelData.xPixels,
               yPixels: this.superPixelData.yPixels,
-              index});
-          })
-        ));
+              index}, [imageData.data.buffer]);
+          })));
       }).then((donePromises)=>{
         // We are all done with all of the chunks here, so stitch them back together in the output
-        return this.stitch({
+        this.stitch({
           chunks: donePromises.reduce((chunks, {imageData, index})=>{
             // I really like to abuse reduce, it's just so useful!
             chunks[index] = this._convertToRealImageData(imageData);
@@ -97,6 +97,10 @@
           }, new Array(this.workers.length)),
           canvas: this.$.finalOutput
         });
+
+        this.endTime = performance.now()
+        console.log('Done everything in ' + (this.endTime - this.startTime) + ' milliseconds!');
+
       }).catch((error) =>{
         console.error(error.stack);
       });

@@ -21,7 +21,7 @@
 
     dispatchWorker(func, data, transferrable){
       return new Promise((resolve, reject)=>{
-        var wait = (data, callback)=>{
+        var wait = (func, data, transferrable)=>{
           var workerObj = _.findWhere(this.workers, {
             working: false
           });
@@ -52,8 +52,23 @@
 
     receiveWork(event){
       var {func, data} = event.data;
+      var merged = _.merge( this, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior);
+
+      merged[func]
+        .call(merged, data)
+        .then((returnData, returnTransferrable)=>{
+          self.postMessage(returnData, returnTransferrable);
+        }).catch((error) =>{
+          //Make sure any errors are sent SOMEWHERE
+          console.error(error.stack);
+        });;
     }
   };
 
   self.workerBehavior = behavior;
+
+  // If we are inside a worker currently, then attach the listener
+  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
+    self.addEventListener('message', self.workerBehavior.receiveWork, false);
+  }
 })();

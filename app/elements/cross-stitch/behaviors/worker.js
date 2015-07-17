@@ -61,7 +61,7 @@
         }).catch((error) =>{
           //Make sure any errors are sent SOMEWHERE
           console.error(error.stack);
-        });;
+        });
     }
   };
 

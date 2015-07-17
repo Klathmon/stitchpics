@@ -49,15 +49,11 @@
         wait(func, data, transferrable);
       });
     },
+
+    receiveWork(event){
+      var {func, data} = event.data;
+    }
   };
 
-
-
-  var obj;
-  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
-    obj = self;
-  }else{
-    obj = window;
-  }
-  obj.workerBehavior = behavior;
+  self.workerBehavior = behavior;
 })();

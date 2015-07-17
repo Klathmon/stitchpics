@@ -192,7 +192,7 @@ gulp.task('copyBowerComponents', () => {
 gulp.task('serve', ['build'], () => {
   $.browserSync({
     notify: false,
-    https: true,
+    https: false,
     server: {
       baseDir: 'build',
       routes: {

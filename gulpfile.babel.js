@@ -208,7 +208,7 @@ gulp.task('serve', ['build'], () => {
 gulp.task('serve:dist', ['build:dist'], () => {
   $.browserSync({
     notify: false,
-    https: true,
+    https: false,
     server: {
       baseDir: 'build'
     }

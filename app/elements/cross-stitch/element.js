@@ -25,6 +25,9 @@
       },
       superPixelData: {
         type: Object
+      },
+      palette: {
+        type: Array
       }
     },
 

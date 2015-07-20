@@ -101,7 +101,7 @@
           canvas: this.$.finalOutput
         });
 
-        this.endTime = performance.now()
+        this.endTime = performance.now();
         console.log('Done everything in ' + (this.endTime - this.startTime) + ' milliseconds!');
 
       }).catch((error) =>{

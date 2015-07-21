@@ -58,10 +58,11 @@
         .call(merged, data)
         .then((returnData, returnTransferrable)=>{
           self.postMessage(returnData, returnTransferrable);
-        }).catch((error) =>{
-          //Make sure any errors are sent SOMEWHERE
-          console.error(error.stack);
-        });
+        }).catch(this.handleErrors);
+    },
+
+    handleErrors(error) {
+      console.error(error.stack);
     }
   };
 

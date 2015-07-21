@@ -55,6 +55,9 @@ const BABEL_OPTIONS = {
     'strict',
     'jscript',
   ],
+  optional: [
+    'es7.functionBind'
+  ]
   //loose: 'all'
 };
 

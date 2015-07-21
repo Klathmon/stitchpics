@@ -52,17 +52,13 @@
 
     receiveWork(event){
       var {func, data} = event.data;
-      var merged = _.merge( this, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior);
+      var merged = _.merge( this, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior);
 
       merged[func]
         .call(merged, data)
         .then((returnData, returnTransferrable)=>{
           self.postMessage(returnData, returnTransferrable);
-        }).catch(this.handleErrors);
-    },
-
-    handleErrors(error) {
-      console.error(error.stack);
+        }).catch(this._catchErrors);
     }
   };
 

@@ -9,6 +9,7 @@
       window.quantizeBehavior,
       window.pixelateBehavior,
       window.workerBehavior,
+      window.miscBehavior
     ],
 
     properties: {
@@ -49,11 +50,9 @@
 
       // First, scale the image correctly
       this._scaleImage.bind(this)()
-      .then(this._buildPalette.bind(this))
-      .then(this._splitImage.bind(this))
-      .then(this._quantizeChunks.bind(this))
-      .then(this._doneChunks.bind(this))
-      .catch(this.handleErrors);
+      .then(this._dispatchBuildPalette.bind(this))
+      .then(this._processImage.bind(this))
+      .catch(this._catchErrors);
     },
 
     _scaleImage(){
@@ -63,9 +62,27 @@
       });
     },
 
-    _buildPalette(imageData) {
+    _dispatchBuildPalette(imageData) {
       // Then build the palette
       return this.dispatchWorker('buildPalette', {imageData, numColors: this.numcolors}, [imageData.data.buffer]);
+    },
+
+    _processImage({imageData, palette}){
+
+      this.setupSuperPixelData.bind(this)(imageData, palette);
+
+      let splitHash = {
+        imageData,
+        numberOfParts: this.workers.length,
+        pixelHeight: this.superPixelData.pixelHeight
+      };
+
+      for(let {chunk, chunkStartY} of this._splitGenerator.bind(this)(splitHash)){
+        this._dispatchQuantize.bind(this)(chunk)
+          .then(this._dispatchPixelate.bind(this))
+          .then(this._stitchFinal.bind(this))
+          .catch(this._catchErrors);
+      }
     },
 
     _splitImage({imageData, palette}){

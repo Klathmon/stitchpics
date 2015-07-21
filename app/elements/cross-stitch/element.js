@@ -69,24 +69,28 @@
 
     _processImage({imageData, palette}){
 
-      this.setupSuperPixelData.bind(this)(imageData, palette);
+      ::this._setupSuperPixelData(imageData, palette); // jshint ignore:line
+      ::this._resizeOutputCanvas(imageData); // jshint ignore:line
 
+      let context = this.$.finalOutput.getContext('2d');
       let splitHash = {
         imageData,
         numberOfParts: this.workers.length,
         pixelHeight: this.superPixelData.pixelHeight
       };
 
-      for(let {chunk, chunkStartY} of this._splitGenerator.bind(this)(splitHash)){
+      for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(splitHash)){
         this._dispatchQuantize.bind(this)(chunk)
           .then(this._dispatchPixelate.bind(this))
-          .then(this._stitchFinal.bind(this))
+          .then(({imageData})=> {
+            context.putImageData(this._convertToRealImageData(imageData), 0,  chunkStartY);
+            console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
+          })
           .catch(this._catchErrors);
       }
     },
 
-    _splitImage({imageData, palette}){
-      // Now save the palette and generate the "superPixelData"
+    _setupSuperPixelData(imageData, palette){
       this.palette = palette;
       this.superPixelData = {
         xPixels: this.gridwidth,
@@ -94,60 +98,28 @@
       };
       this.superPixelData.pixelWidth = Math.ceil(imageData.width / this.superPixelData.xPixels);
       this.superPixelData.pixelHeight =  Math.ceil(imageData.height / this.superPixelData.yPixels);
+    },
 
-      // Then split the image into chunks
-      return this.split({
+    _resizeOutputCanvas(imageData){
+      this.$.finalOutput.width = imageData.width;
+      this.$.finalOutput.height = imageData.height;
+    },
+
+    _dispatchQuantize(chunk){
+      return this.dispatchWorker('quantize', {
+        imageData: chunk,
+        palette: this.palette
+      }, [chunk.data.buffer])
+    },
+
+    _dispatchPixelate({imageData}){
+      return this.dispatchWorker('pixelate', {
         imageData,
-        numberOfParts: this.workers.length,
-        pixelHeight: this.superPixelData.pixelHeight
-      });
-    },
-
-    _quantizeChunks(chunks){
-      // For each chunk, quantize the image
-      return Promise.all(chunks.map((chunk, index)=>{
-        return this.dispatchWorker('quantize', {
-          imageData: chunk,
-          palette: this.palette,
-          index
-        }, [chunk.data.buffer]);
-      }).map((quantizePromise)=> quantizePromise.then(({imageData, index})=>{
-          // After each chunk is quantized, pixelate it.
-          return this.dispatchWorker('pixelate', {
-            imageData,
-            pixelWidth: this.superPixelData.pixelWidth,
-            pixelHeight: this.superPixelData.pixelHeight,
-            xPixels: this.superPixelData.xPixels,
-            yPixels: this.superPixelData.yPixels,
-            index}, [imageData.data.buffer]);
-        })));
-    },
-
-    _doneChunks(donePromises){
-      // We are all done with all of the chunks here, so stitch them back together in the output
-      this.stitch({
-        chunks: donePromises.reduce((chunks, {imageData, index})=>{
-          // I really like to abuse reduce, it's just so useful!
-          chunks[index] = this._convertToRealImageData(imageData);
-          return chunks;
-        }, new Array(this.workers.length)),
-        canvas: this.$.finalOutput
-      });
-
-      this.endTime = performance.now();
-      console.log('Done everything in ' + (this.endTime - this.startTime) + ' milliseconds!');
-
-    },
-
-
-
-    _convertToRealImageData(pImageData){
-      var realImageData = document.createElement('canvas')
-        .getContext('2d')
-        .createImageData(pImageData.width, pImageData.height);
-
-      realImageData.data.set(pImageData.data);
-      return realImageData;
+        pixelWidth: this.superPixelData.pixelWidth,
+        pixelHeight: this.superPixelData.pixelHeight,
+        xPixels: this.superPixelData.xPixels,
+        yPixels: this.superPixelData.yPixels,
+      }, [imageData.data.buffer]);
     },
 
   });

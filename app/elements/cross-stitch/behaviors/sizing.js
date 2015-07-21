@@ -39,30 +39,31 @@
      * @param  {int}    pixelHeight   the height (in true pixels) of each "block" or "superpixel"
      * @return {Promise}              resolve(chunks)
      */
-    split({imageData, numberOfParts, pixelHeight}) {
-      return new Promise((resolve, reject)=> {
-        var {data, width, height} = imageData;
+    *splitGenerator({imageData, numberOfParts, pixelHeight}) {
+      var {data, width, height} = imageData;
 
-        var chunkHeightExact = Math.floor(height / numberOfParts);
-        var numberOfPixelsHigh = Math.ceil(chunkHeightExact / pixelHeight);
-        var chunkHeight = numberOfPixelsHigh * pixelHeight;
+      var chunkHeightExact = Math.floor(height / numberOfParts);
+      var numberOfPixelsHigh = Math.ceil(chunkHeightExact / pixelHeight);
+      var chunkHeight = numberOfPixelsHigh * pixelHeight;
 
-        var canvas = document.createElement('canvas');
-        var context = canvas.getContext('2d');
-        this._writeImageData(canvas, imageData);
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      this._writeImageData(canvas, imageData);
 
-        resolve(_.times(numberOfParts, (chunkNumber) => {
-          var startY = chunkNumber * chunkHeight;
+      for (let chunkNumber = 0; chunkNumber < numberOfParts; chunkNumber++){
+        var startY = chunkNumber * chunkHeight;
 
-          // If this is the last chunk, add the remainder of pixels that didn't
-          // divide evently on to it.
-          if (chunkNumber === numberOfParts - 1) {
-            chunkHeight = height - (chunkHeight * chunkNumber);
-          }
-          // Push the chunk to the array of chunks
-          return context.getImageData(0, startY, width, chunkHeight);
-        }));
-      });
+        // If this is the last chunk, add the remainder of pixels that didn't
+        // divide evently on to it.
+        if (chunkNumber === numberOfParts - 1) {
+          chunkHeight = height - (chunkHeight * chunkNumber);
+        }
+        // yield the chunk
+        yield {
+          chunk: context.getImageData(0, startY, width, chunkHeight),
+          chunkStartY: startY
+        };
+      }
     },
 
     /**
@@ -88,19 +89,6 @@
         var startY = index * chunks[0].height;
         context.putImageData(chunk, 0,  startY);
       }, this);
-    },
-
-    _readImageData(canvas) {
-      var context = canvas.getContext('2d');
-      return context.getImageData(0, 0, canvas.width, canvas.height);
-    },
-
-    _writeImageData(canvas, imageData) {
-      canvas.height = imageData.height;
-      canvas.width = imageData.width;
-      var context = canvas.getContext('2d');
-      context.putImageData(imageData, 0, 0);
-      return context;
     }
   };
 

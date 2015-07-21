@@ -3,7 +3,7 @@
   var behavior = {
 
 
-    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, index}) {
+    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels}) {
       return new Promise((resolve, reject)=>{
         this.isLittleEndian = this._isLittleEndian();
 
@@ -16,7 +16,7 @@
             this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color});
           }
         }
-        resolve({imageData, index}, [imageData.data.buffer]);
+        resolve({imageData}, [imageData.data.buffer]);
       });
     },
 

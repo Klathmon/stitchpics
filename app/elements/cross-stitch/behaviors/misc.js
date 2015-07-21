@@ -11,6 +11,19 @@
       return realImageData;
     },
 
+    _readImageData(canvas) {
+      var context = canvas.getContext('2d');
+      return context.getImageData(0, 0, canvas.width, canvas.height);
+    },
+
+    _writeImageData(canvas, imageData) {
+      canvas.height = imageData.height;
+      canvas.width = imageData.width;
+      var context = canvas.getContext('2d');
+      context.putImageData(imageData, 0, 0);
+      return context;
+    },
+
     _catchErrors(error) {
       console.error(error.stack);
     }

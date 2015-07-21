@@ -64,6 +64,7 @@
   <link rel="import" href="styles/app-theme.html">
   <link rel="import" href="elements/cross-stitch/cross-stitch.html">
   <link rel="import" href="elements/paper-file-upload/paper-file-upload.html">
+  <link rel="import" href="elements/palette-viewer/palette-viewer.html">
 
 </head>
 
@@ -95,7 +96,8 @@
 
               <paper-button id="recalc" raised>Calculate</paper-button>
 
-              <cross-stitch id="crossStitchElement" gridWidth="{{gridWidth}}" numColors="{{numColors}}"></cross-stitch>
+              <cross-stitch id="crossStitchElement" gridWidth="{{gridWidth}}" numColors="{{numColors}}" palette="{{palette}}"></cross-stitch>
+              <palette-viewer palette="{{palette}}"></palette-viewer>
             </paper-material>
           </section>
 

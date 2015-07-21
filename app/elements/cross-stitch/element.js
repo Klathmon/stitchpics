@@ -27,7 +27,8 @@
         type: Object
       },
       palette: {
-        type: Array
+        type: Array,
+        notify: true
       }
     },
 
@@ -48,6 +49,7 @@
 
     newFile() {
       this.startTime = performance.now();
+      console.log(this.numcolors);
 
       // First, scale the image correctly
       this.scale({

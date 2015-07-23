@@ -21,7 +21,7 @@
         type: Number,
         value: 50
       },
-      imageData: {
+      imagedata: {
         type: Object
       },
       superPixelData: {
@@ -46,6 +46,7 @@
     },
 
     newFile() {
+
       this.startTime = performance.now();
 
       // First, scale the image correctly
@@ -57,7 +58,7 @@
 
     _scaleImage(){
       return this.scale({
-        imageData: this.imageData,
+        imageData: this.imagedata,
         newWidth: Polymer.dom(this).node.offsetWidth
       });
     },
@@ -66,7 +67,7 @@
       // First 1/4 the image size before passing it to the worker
       // (this will drastically speed up the palette buiding)
       return this.scale({
-        imageData: this.imageData,
+        imageData: this.imagedata,
         newWidth: Math.floor(imageData.width / 4)
       }).then((resizedImageData)=>{
         return this.dispatchWorker('buildPalette', {

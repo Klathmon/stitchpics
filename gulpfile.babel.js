@@ -139,7 +139,11 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    $._.map(new Array(20),(value, index)=> 'js' + (index > 0 ? index : '')).forEach((name) => {
+    var jsArray = $._.flattenDeep($._.map(new Array(20), (value, index)=>{
+      return $._.map(['js', 'inlinejs'], (type)=> type + (index > 0 ? index : ''));
+    }));
+
+    jsArray.forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),

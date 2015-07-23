@@ -38,7 +38,9 @@
   <link rel="stylesheet" href="styles/app.css">
   <!-- endbuild -->
 
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- build:inlinejs -->
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
 
   <!-- Iron elements -->
   <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
@@ -47,7 +49,6 @@
   <!-- Paper elements -->
   <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
   <link rel="import" href="bower_components/paper-styles/paper-styles-classes.html">
-  <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
   <link rel="import" href="bower_components/paper-material/paper-material.html">
   <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
   <link rel="import" href="bower_components/paper-button/paper-button.html">
@@ -89,15 +90,21 @@
 
           <section data-route="app">
             <paper-material elevation="5" id="parentPage">
-              <paper-file-upload id="imageUpload"></paper-file-upload>
+              <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
               <paper-input label="Number of 'Stitches' wide" type="number" value="{{gridWidth}}"></paper-input>
               <paper-input label="Number of Colors" type="number" value="{{numColors}}"></paper-input>
-              <paper-checkbox id="usefast">Use fast method? (Quicker but less accurate)</paper-checkbox>
 
               <paper-button id="recalc" raised>Calculate</paper-button>
 
-              <cross-stitch id="crossStitchElement" gridWidth="{{gridWidth}}" numColors="{{numColors}}" palette="{{palette}}"></cross-stitch>
+
               <palette-viewer palette="{{palette}}"></palette-viewer>
+
+              <cross-stitch
+                id="crossStitchElement"
+                imagedata="{{imageData}}"
+                gridWidth="{{gridWidth}}"
+                numColors="{{numColors}}"
+                palette="{{palette}}"></cross-stitch>
             </paper-material>
           </section>
 
@@ -114,8 +121,7 @@
     </platinum-sw-register>
 
   </template>
-
-  <!-- build:js scripts/app.js -->
+  <!-- build:js1 scripts/app.js -->
   <script src="scripts/app.js"></script>
   <!-- endbuild -->
 </body>

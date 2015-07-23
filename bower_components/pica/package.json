@@ -1,0 +1,41 @@
+{
+  "name": "pica",
+  "description": "High quality image resize in browser.",
+  "version": "1.0.7",
+  "keywords": [
+    "resize",
+    "scale",
+    "image",
+    "lanczos",
+    "canvas"
+  ],
+  "homepage": "https://github.com/nodeca/pica",
+  "contributors": [
+    "Loïc Faure-Lacroix (lamerstar@gmail.com)",
+    "Vitaly Puzrin (https://github.com/puzrin)"
+  ],
+  "bugs": {
+    "url": "https://github.com/nodeca/pica/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/nodeca/pica/blob/master/LICENSE"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nodeca/pica.git"
+  },
+  "main": "./index.js",
+  "dependencies": {
+    "webworkify": "1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "*",
+    "eslint": "0.8.0",
+    "eslint-plugin-nodeca": "^1.0.0",
+    "uglify-js": "*",
+    "canvas": "1.1.x",
+    "benchmark": "1.0.x",
+    "ansi": "0.3.x"
+  }
+}

@@ -224,6 +224,11 @@ gulp.task('serve:dist', ['build:dist'], () => {
   gulp.watch(path.join('app', '**', '*'), ['build:dist', $.browserSync.reload]);
 });
 
+gulp.task('deploy', ['build:dist'], ()=>{
+  return gulp.src(path.join('build', '**', '*'))
+    .pipe($.ghPages());
+});
+
 gulp.task('clean', del.bind(null, ['build']));
 gulp.task('production', () => {
   PROD = true;

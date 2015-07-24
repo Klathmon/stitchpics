@@ -19,6 +19,7 @@
         value: 0
       },
     },
+
     _test() {
       console.log(this.aidaClothCounts[this.aidaClothSelected]);
     }

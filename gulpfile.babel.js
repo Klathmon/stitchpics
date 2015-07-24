@@ -158,6 +158,7 @@ gulp.task('compileAssets', ['copy'], () => {
         $.cached(name + '|uglify|' + folder),
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
         $.remember(name + '|uglify|' + folder),
+        $.stripComments({safe: false, line: true}),
         $.if(!PROD, $.sourcemaps.write())
       ];
     });

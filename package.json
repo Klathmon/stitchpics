@@ -27,6 +27,7 @@
     "gulp-sass": "^2.0.3",
     "gulp-size": "^1.2.2",
     "gulp-sourcemaps": "^1.5.2",
+    "gulp-strip-comments": "^1.0.1",
     "gulp-uglify": "git+https://github.com/Klathmon/gulp-uglify.git",
     "gulp-usemin": "git+https://github.com/zont/gulp-usemin.git#f52d6094d02644a9c42acd4da954754089756423",
     "gulp-vulcanize": "^6.0.1",

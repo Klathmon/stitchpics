@@ -25,7 +25,7 @@
       var context = canvas.getContext('2d');
 
       // First make the whole thing white
-      context.fillStyle = 'white'
+      context.fillStyle = 'white';
       context.fillRect(0, 0, width, height);
 
       this.palette.forEach((color, index)=>{

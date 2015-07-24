@@ -52,9 +52,8 @@
   <link rel="import" href="bower_components/paper-material/paper-material.html">
   <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
   <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link rel="import" href="bower_components/paper-toast/paper-toast.html">
   <link rel="import" href="bower_components/paper-input/paper-input.html">
-  <link rel="import" href="bower_components/paper-item/paper-item.html">
+  <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
 
   <!-- Platinum elements -->
 
@@ -66,6 +65,7 @@
   <link rel="import" href="elements/cross-stitch/cross-stitch.html">
   <link rel="import" href="elements/paper-file-upload/paper-file-upload.html">
   <link rel="import" href="elements/palette-viewer/palette-viewer.html">
+  <link rel="import" href="elements/app-configurator/app-configurator.html">
 
 </head>
 
@@ -80,7 +80,7 @@
         <div class="middle paper-font-display2 app-name">StitchPics</div>
 
         <!-- Application sub title -->
-        <div class="bottom title"></div>
+        <div class="bottom title">Convert Images into Cross-Stitch Patterns!</div>
 
       </paper-toolbar>
 
@@ -90,6 +90,7 @@
 
           <section data-route="app">
             <paper-material elevation="5" id="parentPage">
+              <app-configurator></app-configurator>
               <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
               <paper-input label="Number of 'Stitches' wide" type="number" value="{{gridWidth}}"></paper-input>
               <paper-input label="Number of Colors" type="number" value="{{numColors}}"></paper-input>

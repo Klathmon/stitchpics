@@ -139,7 +139,7 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    var jsArray = $._.flattenDeep($._.map(new Array(20), (value, index)=>{
+    var jsArray = $._.flattenDeep($._.map(new Array(5), (value, index)=>{
       return $._.map(['js', 'inlinejs'], (type)=> type + (index > 0 ? index : ''));
     }));
 

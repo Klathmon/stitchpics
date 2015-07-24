@@ -8,7 +8,8 @@
     "neon-elements": "PolymerElements/neon-elements#1.0.0",
     "page": "visionmedia/page.js#~1.6.3",
     "RgbQuant.js": "leeoniya/RgbQuant.js",
-    "lodash": "~3.10.0"
+    "lodash": "~3.10.0",
+    "paper-menu-button": "PolymerElements/paper-menu-button#~1.0.0"
   },
   "devDependencies": {
     "web-component-tester": "*",

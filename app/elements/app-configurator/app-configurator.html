@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles-classes.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<dom-module id="app-configurator">
+  <style is="custom-style">
+    :host {
+      --paper-tabs-selection-bar-color: #FEFEFE;
+      --paper-tab-ink: #FEFEFE;
+
+      --iron-icon-width: 20px;
+      --iron-icon-height: 20px;
+    }
+
+    paper-tabs {
+      background-color: #00bcd4;
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+  </style>
+  <template>
+    <paper-material elevation="2" id="parentPage">
+      <paper-tabs
+        selected="{{selected}}"
+        raised>
+        <paper-tab><h3>Easy Mode</h3></paper-tab>
+        <paper-tab><h3>Advanced Mode</h3></paper-tab>
+      </paper-tabs>
+
+      <iron-pages selected="{{selected}}">
+        <div>
+          <div class="center horizontal layout">
+            <div>Aida cloth count:</div>
+            <paper-slider min="7" max="25" step="1" snaps pin editable></paper-slider>
+          </div>
+        </div>
+
+
+        <div>
+          <p>This is HARD mode!</p>
+        </div>
+      </iron-pages>
+    <paper-material>
+
+  </template>
+</dom-module>
+<!-- build:js1 element.js -->
+<script src="element.js"></script>
+<!-- endbuild -->

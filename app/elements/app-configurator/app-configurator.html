@@ -12,6 +12,7 @@
 <dom-module id="app-configurator">
   <style is="custom-style">
     :host {
+      display: block;
       --paper-tabs-selection-bar-color: #FEFEFE;
       --paper-tab-ink: #FEFEFE;
 
@@ -50,7 +51,7 @@
 
   </style>
   <template>
-    <paper-material elevation="2" id="parentPage">
+    <paper-material elevation="2">
       <paper-tabs
         selected="{{selected}}"
         raised>

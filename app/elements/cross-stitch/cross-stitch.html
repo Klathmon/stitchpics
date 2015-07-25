@@ -1,9 +1,11 @@
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 
 <dom-module id="cross-stitch">
-  <!-- build:inlinesass -->
-  <link rel="stylesheet" href="element.sass">
-  <!-- endbuild -->
+  <style is="custom-style">
+    :host {
+      display: block;
+    }
+  </style>
   <template>
     <canvas id="finalOutput"></canvas>
   </template>

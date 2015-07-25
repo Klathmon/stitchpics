@@ -95,16 +95,17 @@
                 imageData="{{imageData}}">
               </app-configurator>
 
+              <div>
+                <palette-viewer palette="{{palette}}"></palette-viewer>
 
-              <palette-viewer palette="{{palette}}"></palette-viewer>
-
-              <cross-stitch
-                id="crossStitchElement"
-                imagedata="[[imageData]]"
-                gridWidth="[[gridWidth]]"
-                numColors="[[numColors]]"
-                palette="{{palette}}">
-              </cross-stitch>
+                <cross-stitch
+                  id="crossStitchElement"
+                  imagedata="[[imageData]]"
+                  gridWidth="[[gridWidth]]"
+                  numColors="[[numColors]]"
+                  palette="{{palette}}">
+                </cross-stitch>
+              </div>
             </paper-material>
           </section>
 

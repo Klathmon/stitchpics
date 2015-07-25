@@ -48,8 +48,6 @@
 
     propertyChanged(){
       if(typeof this.imagedata !== 'undefined'){
-        console.log(this.numcolors);
-        console.log('Let\'s do this shit!');
         this.newFile();
       }
     },
@@ -81,7 +79,7 @@
       }).then((resizedImageData)=>{
         return this.dispatchWorker('buildPalette', {
           imageData: resizedImageData,
-          numColors: this.numcolors}, [resizedImageData.data.buffer]);
+          numColors: this.numcolors+1}, [resizedImageData.data.buffer]);
       }).then(({resizedImageData, palette})=>{
         return Promise.resolve({imageData, palette});
       });

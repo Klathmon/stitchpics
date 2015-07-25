@@ -70,16 +70,13 @@
 
 <body unresolved class="fullbleed layout vertical">
   <template is="dom-bind" id="app">
-    <paper-header-panel main mode="waterfall-tall">
+    <paper-header-panel main mode="waterfall">
 
       <!-- Main Toolbar -->
       <paper-toolbar id="mainToolbar">
 
         <!-- Application name -->
         <div class="middle paper-font-display2 app-name">StitchPics</div>
-
-        <!-- Application sub title -->
-        <div class="bottom title">Convert Images into Cross-Stitch Patterns!</div>
 
       </paper-toolbar>
 
@@ -95,9 +92,12 @@
                 imageData="{{imageData}}">
               </app-configurator>
 
-              <div>
-                <palette-viewer palette="{{palette}}"></palette-viewer>
+              <div></div>
 
+              <paper-material>
+                <template is="dom-if" if="[[imageData]]">
+                  <h2>Cross-Stitch:</h2>
+                </template>
                 <cross-stitch
                   id="crossStitchElement"
                   imagedata="[[imageData]]"
@@ -105,7 +105,12 @@
                   numColors="[[numColors]]"
                   palette="{{palette}}">
                 </cross-stitch>
-              </div>
+
+                <template is="dom-if" if="[[imageData]]">
+                  <h2>Colors Used:</h2>
+                </template>
+                <palette-viewer palette="{{palette}}"></palette-viewer>
+              </paper-material>
             </paper-material>
           </section>
 

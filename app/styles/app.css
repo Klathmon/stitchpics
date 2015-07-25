@@ -17,12 +17,27 @@ body {
   display: flex;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 900px) {
+  app-configurator {
+    margin-bottom: 20px;
+  }
+
   #parentPage {
     flex-direction: column;
   }
 }
 
-#parentPage > div {
+@media screen and (min-width: 901px) {
+  app-configurator {
+    width: 45%;
+  }
+
+  #parentPage > div {
+    width: 1%;
+  }
+}
+
+#parentPage > *:not(div) {
+  margin-top: 0;
   flex: 1;
 }

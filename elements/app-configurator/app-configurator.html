@@ -1,0 +1,91 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+
+<link rel="import" href="../paper-file-upload/paper-file-upload.html">
+
+<dom-module id="app-configurator">
+  <style is="custom-style">
+    :host {
+      display: block;
+      --paper-tabs-selection-bar-color: #FEFEFE;
+      --paper-tab-ink: #FEFEFE;
+
+      --iron-icon-width: 20px;
+      --iron-icon-height: 20px;
+    }
+
+    paper-tabs {
+      background-color: #00bcd4;
+      color: #fff;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    iron-pages .page {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .page > paper-item {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page > paper-item:not(:last-child) {
+      border-bottom: #CCC 1px solid;
+    }
+
+    .page paper-slider {
+      flex: 1;
+      max-width: 80%;
+      align-self: flex-end;
+    }
+
+  </style>
+  <template>
+    <paper-material elevation="2">
+      <paper-tabs
+        selected="{{selected}}"
+        raised>
+        <paper-tab><h3>Easy Mode</h3></paper-tab>
+        <paper-tab><h3>Advanced Mode</h3></paper-tab>
+      </paper-tabs>
+
+      <iron-pages selected="{{selected}}">
+        <div class="page">
+          <paper-item>
+            <div>Aida cloth count:</div>
+            <paper-slider min="6" max="24" step="2" value="{{internalClothCount}}" snaps maxMarkers="3" pin editable></paper-slider>
+          </paper-item>
+          <paper-item>
+            <div>Cross stitch size:</div>
+            <paper-slider min="4" max="12" step="1" value="{{internalSize}}" snaps pin editable></paper-slider>
+          </paper-item>
+          <paper-item>
+            <div>Number of colors:</div>
+            <paper-slider min="4" max="32" step="4" value="{{internalNumColors}}" snaps pin editable></paper-slider>
+          </paper-item>
+          <paper-item>
+            <div>File:</div>
+            <paper-file-upload id="imageUpload" imagedata="{{imagedata}}"></paper-file-upload>
+          </paper-item>
+        </div>
+
+
+        <div>
+          <p>Hard mode isn't quite done yet, sorry...</p>
+        </div>
+      </iron-pages>
+    <paper-material>
+
+  </template>
+</dom-module>
+<script src="element.js"></script>

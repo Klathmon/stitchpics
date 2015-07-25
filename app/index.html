@@ -63,7 +63,6 @@
   <!-- Add your elements here -->
   <link rel="import" href="styles/app-theme.html">
   <link rel="import" href="elements/cross-stitch/cross-stitch.html">
-  <link rel="import" href="elements/paper-file-upload/paper-file-upload.html">
   <link rel="import" href="elements/palette-viewer/palette-viewer.html">
   <link rel="import" href="elements/app-configurator/app-configurator.html">
 
@@ -90,22 +89,22 @@
 
           <section data-route="app">
             <paper-material elevation="5" id="parentPage">
-              <app-configurator></app-configurator>
-              <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
-              <paper-input label="Number of 'Stitches' wide" type="number" value="{{gridWidth}}"></paper-input>
-              <paper-input label="Number of Colors" type="number" value="{{numColors}}"></paper-input>
-
-              <paper-button id="recalc" raised>Calculate</paper-button>
+              <app-configurator
+                gridWidth="{{gridWidth}}"
+                numColors="{{numColors}}"
+                imageData="{{imageData}}">
+              </app-configurator>
 
 
               <palette-viewer palette="{{palette}}"></palette-viewer>
 
               <cross-stitch
                 id="crossStitchElement"
-                imagedata="{{imageData}}"
-                gridWidth="{{gridWidth}}"
-                numColors="{{numColors}}"
-                palette="{{palette}}"></cross-stitch>
+                imagedata="[[imageData]]"
+                gridWidth="[[gridWidth]]"
+                numColors="[[numColors]]"
+                palette="{{palette}}">
+              </cross-stitch>
             </paper-material>
           </section>
 

@@ -29,10 +29,10 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      max-width: 500px;
     }
 
     .page > paper-item {
+      min-height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -62,25 +62,25 @@
         <div class="page">
           <paper-item>
             <div>Aida cloth count:</div>
-            <paper-slider min="6" max="24" step="2" value="14" snaps maxMarkers="3" pin editable></paper-slider>
+            <paper-slider min="6" max="24" step="2" value="{{internalClothCount}}" snaps maxMarkers="3" pin editable></paper-slider>
           </paper-item>
           <paper-item>
             <div>Cross stitch size:</div>
-            <paper-slider min="4" max="12" step="1" value="6" snaps pin editable></paper-slider>
+            <paper-slider min="4" max="12" step="1" value="{{internalSize}}" snaps pin editable></paper-slider>
           </paper-item>
           <paper-item>
             <div>Number of colors:</div>
-            <paper-slider min="4" max="32" step="4" value="16" snaps pin editable></paper-slider>
+            <paper-slider min="4" max="32" step="4" value="{{internalNumColors}}" snaps pin editable></paper-slider>
           </paper-item>
           <paper-item>
             <div>File:</div>
-            <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
+            <paper-file-upload id="imageUpload" imagedata="{{imagedata}}"></paper-file-upload>
           </paper-item>
         </div>
 
 
         <div>
-          <p>Hard mode isn't quite done yet...</p>
+          <p>Hard mode isn't quite done yet, sorry...</p>
         </div>
       </iron-pages>
     <paper-material>

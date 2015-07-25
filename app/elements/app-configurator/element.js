@@ -5,24 +5,55 @@
   /*jshint +W064 */
     is: 'app-configurator',
 
+    calcGridWidth(internalClothCount, internalSize){
+      return internalClothCount * internalSize;
+    },
+
+    translateNumColors(){
+      this._setNumcolors(this.internalNumColors);
+    },
+
     properties: {
       numcolors: {
         type: Number,
+        notify: true,
         readOnly: true
       },
       gridwidth: {
         type: Number,
-        readOnly: true
+        notify: true,
+        computed: 'calcGridWidth(internalClothCount, internalSize)'
+      },
+      imagedata: {
+        type: Array,
+        notify: true,
+      },
+
+      internalClothCount: {
+        type: Number,
+        value: 14
+      },
+      internalSize: {
+        type: Number,
+        value: 6
+      },
+      internalNumColors: {
+        type: Number,
+        value: 12,
+        observer: 'translateNumColors'
       },
       selected: {
         type: Number,
         value: 0
       },
+
+      ready(){
+        this.translateNumColors();
+      }
+
     },
 
-    _test() {
-      console.log(this.aidaClothCounts[this.aidaClothSelected]);
-    }
+
 
   });
 })();

@@ -15,14 +15,15 @@
     properties: {
       numcolors: {
         type: Number,
-        value: 16
+        observer: 'propertyChanged'
       },
       gridwidth: {
         type: Number,
-        value: 50
+        observer: 'propertyChanged'
       },
       imagedata: {
-        type: Object
+        type: Object,
+        observer: 'propertyChanged'
       },
       superPixelData: {
         type: Object
@@ -43,6 +44,14 @@
 
       this.createWorkers('libs.js', numberOfCores);
 
+    },
+
+    propertyChanged(){
+      if(typeof this.imagedata !== 'undefined'){
+        console.log(this.numcolors);
+        console.log('Let\'s do this shit!');
+        this.newFile();
+      }
     },
 
     newFile() {

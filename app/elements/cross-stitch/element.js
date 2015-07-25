@@ -44,6 +44,8 @@
 
       this.createWorkers('libs.js', numberOfCores);
 
+      window.addEventListener('resize', _.debounce(this.propertyChanged.bind(this), 250));
+
     },
 
     propertyChanged(){
@@ -61,6 +63,14 @@
       .then(this._dispatchBuildPalette.bind(this))
       .then(this._processImage.bind(this))
       .catch(this._catchErrors);
+    },
+
+    saveAsImage(){
+      var context = this.$.finalOutput.getContext('2d');
+
+      this.$.finalOutput.toBlob((blob)=>{
+        saveAs(blob, "CrossStitch.png");
+      });
     },
 
     _scaleImage(){

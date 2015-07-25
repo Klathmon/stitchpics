@@ -62,8 +62,7 @@
 
   <!-- Add your elements here -->
   <link rel="import" href="styles/app-theme.html">
-  <link rel="import" href="elements/cross-stitch/cross-stitch.html">
-  <link rel="import" href="elements/palette-viewer/palette-viewer.html">
+  <link rel="import" href="elements/output-container/output-container.html">
   <link rel="import" href="elements/app-configurator/app-configurator.html">
 
 </head>
@@ -94,23 +93,11 @@
 
               <div></div>
 
-              <paper-material>
-                <template is="dom-if" if="[[imageData]]">
-                  <h2>Cross-Stitch:</h2>
-                </template>
-                <cross-stitch
-                  id="crossStitchElement"
-                  imagedata="[[imageData]]"
-                  gridWidth="[[gridWidth]]"
-                  numColors="[[numColors]]"
-                  palette="{{palette}}">
-                </cross-stitch>
-
-                <template is="dom-if" if="[[imageData]]">
-                  <h2>Colors Used:</h2>
-                </template>
-                <palette-viewer palette="{{palette}}"></palette-viewer>
-              </paper-material>
+              <output-container
+                imagedata="[[imageData]]"
+                gridWidth="[[gridWidth]]"
+                numColors="[[numColors]]">
+              </output-container>
             </paper-material>
           </section>
 

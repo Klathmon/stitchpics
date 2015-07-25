@@ -2,6 +2,8 @@
   "name": "StitchPics",
   "private": true,
   "dependencies": {
+    "FileSaver.js": "eligrey/FileSaver.js",
+    "canvas-toBlob.js": "eligrey/canvas-toBlob.js",
     "iron-elements": "PolymerElements/iron-elements#1.0.0",
     "paper-elements": "PolymerElements/paper-elements#1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#1.0.1",

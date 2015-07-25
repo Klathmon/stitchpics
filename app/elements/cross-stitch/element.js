@@ -75,7 +75,7 @@
       // (this will drastically speed up the palette buiding)
       return this.scale({
         imageData: this.imagedata,
-        newWidth: Math.floor(imageData.width / 4)
+        newWidth: 400
       }).then((resizedImageData)=>{
         return this.dispatchWorker('buildPalette', {
           imageData: resizedImageData,

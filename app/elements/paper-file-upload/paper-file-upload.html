@@ -1,11 +1,18 @@
-<link rel="import" href="..\..\bower_components/polymer/polymer.html">
+<link rel="import" href="..\..\bower_components/polymer/polymer.html">\
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="paper-file-upload">
   <!-- build:inlinecss -->
   <link rel="stylesheet" href="element.css">
   <!-- endbuild -->
   <template>
-    <label>Choose an image to convert: <input type="file" id="imageLoader" on-change="fileUpload"/></label>
+      <paper-button raised on-click="translateClick">
+        <iron-icon id="buttonIcon" class="hidden" icon="check"></iron-icon>
+        <span>{{buttonText}}</span>
+      </paper-button>
+      <input type="file" id="imageLoader" on-change="fileUpload"/>
   </template>
 </dom-module>
 <!-- build:js1 element.js -->

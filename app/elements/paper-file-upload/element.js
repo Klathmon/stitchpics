@@ -9,14 +9,22 @@
       imagedata: {
         type: Object,
         notify: true
+      },
+      buttonText: {
+        type: String,
+        value: "Upload Image"
       }
     },
 
+    translateClick(){
+      this.$.imageLoader.click();
+    },
+
     fileUpload(event){
-      var target = event.target;
+      var file = event.target.files[0];
       var canvas = document.createElement('canvas');
 
-      if(target.files && target.files[0]){
+      if(event.target.files && file){
         var reader = new FileReader();
         reader.onload = (readerLoaded)=>{
           var context = canvas.getContext('2d');
@@ -26,10 +34,19 @@
             canvas.height = img.height;
             context.drawImage(img, 0, 0);
             this.imagedata = context.getImageData(0, 0, canvas.width, canvas.height);
+
+            var fileName = file.name;
+
+            if(fileName.length > 20){
+              fileName = "Image";
+            }
+
+            this.buttonText = fileName + " Uploaded";
+            this.$.buttonIcon.classList.remove('hidden');
           };
           img.src = readerLoaded.target.result;
         };
-        reader.readAsDataURL(target.files[0]);
+        reader.readAsDataURL(file);
       }
     }
 

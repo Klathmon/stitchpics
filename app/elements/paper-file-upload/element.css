@@ -1,3 +1,11 @@
 :host {
   display: block;
 }
+
+#imageLoader {
+  display: none;
+}
+
+#buttonIcon.hidden {
+  display: none;
+}

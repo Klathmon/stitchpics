@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+
+<link rel="import" href="../palette-viewer/palette-viewer.html">
+<link rel="import" href="../cross-stitch/cross-stitch.html">
+
+<dom-module id="output-container">
+  <style is="custom-style">
+    :host {
+      margin-top: 0;
+    }
+    paper-material {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    paper-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+    }
+    palette-viewer {
+      flex: 1;
+      max-width: 70%;
+    }
+    .outputRow:not(:first-child) {
+      border-top: #CCC 1px solid;
+    }
+    #paletteContainer {
+      margin-top: -4px;
+    }
+    #saveButton {
+      margin-bottom: 5px;
+    }
+  </style>
+  <template>
+    <paper-material>
+      <paper-toolbar>
+        <h3>Cross Stitch</h3>
+      </paper-toolbar>
+
+      <div id="csContainer" class="outputRow">
+        <cross-stitch
+          id="crossStitchElement"
+          imagedata="[[imagedata]]"
+          gridWidth="[[gridwidth]]"
+          numColors="[[numcolors]]"
+          palette="{{palette}}">
+        </cross-stitch>
+      </div>
+
+      <paper-item id="paletteContainer" class="outputRow">
+        <div>Colors Used:</div>
+        <palette-viewer palette="{{palette}}"></palette-viewer>
+      </paper-item>
+
+      <paper-item class="outputRow">
+        <div>Save as an image:</div>
+        <paper-button id="saveButton" raised on-tap="saveImage">Save</paper-button>
+      </paper-item>
+    </paper-material>
+  </template>
+</dom-module>
+<script src="element.js"></script>

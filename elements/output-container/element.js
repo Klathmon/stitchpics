@@ -1,0 +1,1 @@
+!function(){"use strict";Polymer({is:"output-container",properties:{numcolors:{type:Number},gridwidth:{type:Number},imagedata:{type:Array}},saveImage:function(){this.$.crossStitchElement.saveAsImage()}})}();

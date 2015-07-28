@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<dom-module id="my-ad">
+  <style is="custom-style">
+    :host {
+      display: block;
+    }
+    paper-material {
+      border-radius: 2px;
+      height: 100%;
+      padding: 0px;
+      width: calc(98.66% - 16px);
+      margin: 16px auto;
+      background: white;
+      overflow: hidden;
+    }
+  </style>
+  <template>
+    <paper-material elevation="[[elevation]]">
+    </paper-material>
+  </template>
+</dom-module>
+<script>
+(function() {
+  'use strict';
+  /*jshint -W064 */
+  Polymer({
+  /*jshint +W064 */
+    is: 'my-ad',
+
+    properties: {
+      adClient: {
+        type: String
+      },
+      adSlot: {
+        type: String
+      },
+      adFormat: {
+        type:String,
+        value: "auto"
+      }
+    }
+  });
+})();
+</script>

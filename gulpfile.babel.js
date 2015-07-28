@@ -97,7 +97,10 @@ const VULCANIZE_OPTIONS = {
   dest: 'build',
   inlineCss: true,
   stripExcludes: false,
-  excludes: ['//fonts.googleapis.com/*'],
+  excludes: [
+    '//fonts.googleapis.com/*',
+    '//pagead2.googlesyndication.com/*'
+  ],
   inlineScripts: true
 };
 

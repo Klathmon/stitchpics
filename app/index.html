@@ -57,6 +57,7 @@
   <link rel="import" href="bower_components/paper-button/paper-button.html">
   <link rel="import" href="bower_components/paper-input/paper-input.html">
   <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="bower_components/paper-item/paper-item.html">
 
   <!-- Platinum elements -->
 
@@ -66,8 +67,6 @@
   <!-- Add your elements here -->
   <link rel="import" href="styles/app-theme.html">
   <link rel="import" href="elements/main-page/main-page.html">
-  <link rel="import" href="elements/output-container/output-container.html">
-  <link rel="import" href="elements/app-configurator/app-configurator.html">
 
 </head>
 
@@ -92,11 +91,6 @@
           <a data-route="faq" href="/faq">
             <iron-icon icon="info"></iron-icon>
             <span>FAQ</span>
-          </a>
-
-          <a data-route="contact" href="/contact">
-            <iron-icon icon="mail"></iron-icon>
-            <span>Contact</span>
           </a>
         </paper-menu>
       </paper-scroll-header-panel>
@@ -128,13 +122,82 @@
             <main-page data-route="app"></main-page>
             <section data-route="faq">
               <paper-material>
-                  <h1>LOL FAQ</h1>
+                  <h1>FAQ</h1>
+                  <div>
+                    <paper-item>
+                      <paper-item-body two-line>
+                        <h2>Should I follow the pattern exactly?</h2>
+                        <p>
+                          The website does its best to try and create a great cross stitch from
+                          any image, however its not always perfect. Feel free to use your best
+                          judgement and alter your pattern after it has been generated.
+                        </p>
+                      </paper-item-body>
+                    </paper-item>
+                    <paper-item>
+                      <paper-item-body two-line>
+                        <h2>Why doesn't my pattern match the sizes I selected?</h2>
+                        <p>
+                          StitchPics does its best to match the pattern size you requested, however
+                          sometimes the site needs to adjust the pattern options in order
+                          to fit your image perfectly.
+                        </p>
+                      </paper-item-body>
+                    </paper-item>
+                    <paper-item>
+                      <paper-item-body two-line>
+                        <h2>How can I get my image to look better?</h2>
+                        <p>
+                          There are a few ways to get your pattern to look better.
+                          <ul>
+                            <li>
+                              Increasing the number of colors can add more "life" to your
+                              images.
+                            </li>
+                            <li>
+                              Increasing the cross stitch size can help smaller details show up in the image and
+                              can help increase the overall quality.
+                            </li>
+                            <li>
+                              Using a higher count Aida cloth can help get the most detail from
+                              an image.
+                            </li>
+                          </ul>
+                        </p>
+                      </paper-item-body>
+                    </paper-item>
+                    <paper-item>
+                      <paper-item-body two-line>
+                        <h2>Why are the colors all wrong?</h2>
+                        <p>
+                          Try setting the number of colors a little higher. The site tries to pick
+                          the best colors for each image, but can look off when the number
+                          of colors is very low. You can always choose a larger number of colors
+                          and combine similar ones, or you can just pick a thread that is closer
+                          to what you orignally wanted instead of that color.
+                        </p>
+                      </paper-item-body>
+                    </paper-item>
+                    <paper-item>
+                      <paper-item-body two-line>
+                        <h2>Why are the "print" and "open in new tab" buttons greyed out?</h2>
+                        <p>
+                          We plan on adding those features soon, but as of right now they are not
+                          available.
+                        </p>
+                      </paper-item-body>
+                    </paper-item>
+                    <!--
+                    <paper-item>
+                      <paper-item-body two-line>
+                        <h2></h2>
+                        <p></p>
+                      </paper-item-body>
+                    </paper-item>
+                    -->
+                  </div>
               </paper-material>
             </section>
-            <section data-route="contact">
-              <h1>lolcontact</h1>
-            </section>
-
           </iron-pages>
         </div>
       </paper-scroll-header-panel>

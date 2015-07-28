@@ -12,32 +12,3 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
 }
-
-#parentPage {
-  display: flex;
-}
-
-@media screen and (max-width: 900px) {
-  app-configurator {
-    margin-bottom: 20px;
-  }
-
-  #parentPage {
-    flex-direction: column;
-  }
-}
-
-@media screen and (min-width: 901px) {
-  app-configurator {
-    width: 45%;
-  }
-
-  #parentPage > div {
-    width: 1%;
-  }
-}
-
-#parentPage > *:not(div) {
-  margin-top: 0;
-  flex: 1;
-}

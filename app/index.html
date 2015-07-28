@@ -47,8 +47,11 @@
   <link rel="import" href="bower_components/iron-pages/iron-pages.html">
 
   <!-- Paper elements -->
-  <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+  <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
   <link rel="import" href="bower_components/paper-styles/paper-styles-classes.html">
+  <link rel="import" href="bower_components/paper-menu/paper-menu.html">
   <link rel="import" href="bower_components/paper-material/paper-material.html">
   <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
   <link rel="import" href="bower_components/paper-button/paper-button.html">
@@ -62,6 +65,7 @@
 
   <!-- Add your elements here -->
   <link rel="import" href="styles/app-theme.html">
+  <link rel="import" href="elements/main-page/main-page.html">
   <link rel="import" href="elements/output-container/output-container.html">
   <link rel="import" href="elements/app-configurator/app-configurator.html">
 
@@ -69,49 +73,72 @@
 
 <body unresolved class="fullbleed layout vertical">
   <template is="dom-bind" id="app">
-    <paper-header-panel main mode="waterfall">
+    <paper-drawer-panel id="paperDrawerPanel">
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
 
-      <!-- Main Toolbar -->
-      <paper-toolbar id="mainToolbar">
+        <!-- Drawer Toolbar -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
 
-        <!-- Application name -->
-        <div class="middle paper-font-display2 app-name">StitchPics</div>
+        <!-- Drawer Content -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+          <a data-route="home" href="/">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
 
-      </paper-toolbar>
+          <a data-route="faq" href="/faq">
+            <iron-icon icon="info"></iron-icon>
+            <span>FAQ</span>
+          </a>
 
-      <!-- Main Content -->
-      <div class="content">
-        <iron-pages attr-for-selected="data-route" selected="{{route}}">
+          <a data-route="contact" href="/contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Contact</span>
+          </a>
+        </paper-menu>
+      </paper-scroll-header-panel>
 
-          <section data-route="app">
-            <paper-material elevation="5" id="parentPage">
-              <app-configurator
-                gridWidth="{{gridWidth}}"
-                numColors="{{numColors}}"
-                imageData="{{imageData}}">
-              </app-configurator>
+      <!-- Main Area -->
+      <paper-scroll-header-panel main condenses keep-condensed-header>
 
-              <div></div>
+        <!-- Main Toolbar -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
 
-              <output-container
-                imagedata="[[imageData]]"
-                gridWidth="[[gridWidth]]"
-                numColors="[[numColors]]">
-              </output-container>
-            </paper-material>
-          </section>
+          <!-- Application name -->
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">StitchPics</div>
+          </div>
 
-        </iron-pages>
-      </div>
-    </paper-header-panel>
+          <!-- Application sub title -->
+          <div class="bottom bottom-container center horizontal layout">
+            <div class="bottom-title paper-font-subhead">Turn any picture into a cross stitch pattern</div>
+          </div>
 
-    <paper-toast id="caching-complete" duration="6000" text="Caching complete! This app will work offline.">
-    </paper-toast>
+        </paper-toolbar>
 
-    <platinum-sw-register auto-register clients-claim skip-waiting on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="networkFirst" precache-file="precache.json">
-      </platinum-sw-cache>
-    </platinum-sw-register>
+        <!-- Main Content -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+            <main-page data-route="app"></main-page>
+            <section data-route="faq">
+              <paper-material>
+                  <h1>LOL FAQ</h1>
+              </paper-material>
+            </section>
+            <section data-route="contact">
+              <h1>lolcontact</h1>
+            </section>
+
+          </iron-pages>
+        </div>
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
 
   </template>
   <!-- build:js1 scripts/app.js -->

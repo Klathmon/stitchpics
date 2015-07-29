@@ -2,26 +2,25 @@
 
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
 <dom-module id="my-ad">
   <style is="custom-style">
     :host {
       display: block;
     }
-    paper-material {
-      border-radius: 2px;
-      height: 100%;
-      padding: 0px;
-      width: calc(98.66% - 16px);
-      margin: 16px auto;
-      background: white;
-      overflow: hidden;
+    #container {
+      display: block;
+      height: 300px;
     }
   </style>
   <template>
-    <paper-material elevation="[[elevation]]">
-    </paper-material>
+    <div id="container">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <ins class="adsbygoogle innerad"
+         style="display:block;"
+         data-ad-client="{{adClient}}"
+         data-ad-slot="{{adSlot}}"
+         data-ad-format="{{adFormat}}"></ins>
+     </div>
   </template>
 </dom-module>
 <script>
@@ -40,9 +39,34 @@
         type: String
       },
       adFormat: {
-        type:String,
+        type: String,
         value: "auto"
+      },
+      elevation: {
+        type: String,
+        value: "1"
+      },
+      isEnabled: {
+        type: Boolean,
+        value: false
       }
+    },
+
+    ready: function ready(){
+      setTimeout(function (){
+        var ad = document.createElement('ins');
+        ad.classList.add('adsbygoogle');
+        ad.style.display = "block";
+        ad.setAttribute('data-ad-client', this.adClient);
+        ad.setAttribute('data-ad-slot', this.adSlot);
+        ad.setAttribute('data-ad-format', this.adFormat);
+        Polymer.dom(this.$.container).appendChild(ad);
+        var adEnabler = document.createElement('script');
+        adEnabler.async = true;
+        adEnabler.innerHTML = "(adsbygoogle = window.adsbygoogle || []).push({});";
+        Polymer.dom(this.$.container).appendChild(adEnabler);
+        console.log("did stuff!");
+      }.bind(this), 1000);
     }
   });
 })();

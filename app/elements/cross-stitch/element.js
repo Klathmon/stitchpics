@@ -81,16 +81,10 @@
     },
 
     _dispatchBuildPalette(imageData) {
-      // First 1/4 the image size before passing it to the worker
-      // (this will drastically speed up the palette buiding)
-      return this.scale({
-        imageData: this.imagedata,
-        newWidth: 400
-      }).then((resizedImageData)=>{
-        return this.dispatchWorker('buildPalette', {
-          imageData: resizedImageData,
-          numColors: this.numcolors+1}, [resizedImageData.data.buffer]);
-      }).then(({resizedImageData, palette})=>{
+      return this.dispatchWorker('buildPalette', {
+        imageData: imageData,
+        numColors: this.numcolors+1}, [imageData.data.buffer])
+      .then(({imageData, palette})=>{
         return Promise.resolve({imageData, palette});
       });
     },

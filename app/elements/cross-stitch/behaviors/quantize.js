@@ -10,9 +10,16 @@
      */
     buildPalette({imageData, numColors}) {
       return new Promise((resolve, reject)=>{
-        var rgbq = new RgbQuant({colors: numColors});
+        const opts = {
+          colors: numColors,
+          colorDist: 'euclidean',
+          method: 1,
+          initColors: 2048,
+          useCache: false,
+        }
+        let rgbq = new RgbQuant(opts);
         rgbq.sample(imageData);
-        var palette = rgbq.palette(true);
+        let palette = rgbq.palette(true);
 
         resolve({imageData, palette}, [imageData.data.buffer]);
       });
@@ -27,14 +34,17 @@
     quantize({imageData, palette}) {
       return new Promise((resolve, reject)=>{
 
-        var opts = {
-          colorDist: 'manhattan',
+        const opts = {
+          colorDist: 'euclidean',
+          method: 1,
+          initColors: 2048,
+          useCache: false,
           palette
         };
 
-        var rgbq = new RgbQuant(opts);
+        let rgbq = new RgbQuant(opts);
 
-        var returnImageData = {
+        let returnImageData = {
           data: new Uint8ClampedArray(rgbq.reduce(imageData, 1)),
           width: imageData.width,
           height: imageData.height

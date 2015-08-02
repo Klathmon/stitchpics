@@ -12,6 +12,10 @@
       }
     },
 
+    getImageAsURI(){
+      return this.$.paletteOutput.toDataURL('image/png');
+    },
+
     _showPalette(){
 
       var canvas = this.$.paletteOutput; //document.createElement('canvas');

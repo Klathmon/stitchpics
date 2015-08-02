@@ -129,7 +129,7 @@
             </my-paper-material>
             <h3>Colors Used</h3>
             <my-paper-material elevation="1" class="indent">
-              <palette-viewer palette="[[palette]]"></palette-viewer>
+              <palette-viewer id="imagePalette" palette="[[palette]]"></palette-viewer>
             </my-paper-material>
             <div class="mobileshow">
               <h3>Save</h3>
@@ -145,72 +145,5 @@
     </section>
   </template>
 </dom-module>
-<script>
-(function() {
-  'use strict';
-  /*jshint -W064 */
-  Polymer({
-  /*jshint +W064 */
-    is: 'main-page',
 
-
-    calcGridWidth: function calcGridWidth(clothCount, size){
-      return clothCount * size;
-    },
-
-    saveImage: function saveImage(){
-      this.$.crossStitchElement.saveAsImage();
-    },
-
-    getImageAsDataURI: function getImageAsDataURI(){
-      var imageContainer = new Image();
-      imageContainer.src = this.$.crossStitchElement.getImageAsURI();
-      imageContainer.style['image-rendering']='pixelated';
-      return imageContainer;
-    },
-
-    openNewTab: function openNewTab(){
-      var imageContainer = this.getImageAsDataURI();
-      imageContainer.style.width='100%';
-
-      var newTab = window.open('');
-      newTab.document.write(imageContainer.outerHTML);
-    },
-
-    printImage: function printImage(){
-      var imageContainer = this.getImageAsDataURI();
-      imageContainer.style.height = '100%';
-      imageContainer.style.display = 'block';
-      imageContainer.style.marginLeft = 'auto';
-      imageContainer.style.marginRight = 'auto';
-      imageContainer.style.marginTop = '0';
-      imageContainer.style.marginBottom = '0';
-
-      var newTab = window.open('');
-      newTab.document.write(imageContainer.outerHTML);
-      newTab.focus(); // Required for IE (if I ever support it...)
-      newTab.print();
-    },
-
-    properties: {
-      clothCount: {
-        type: Number,
-        value: 14
-      },
-      size: {
-        type: Number,
-        value: 6
-      },
-      numColors: {
-        type: Number,
-        value: 12
-      },
-      gridWidth: {
-        type: Number,
-        computed: 'calcGridWidth(clothCount, size)'
-      },
-
-    }
-  });
-})();
-</script>
+<script src="element.js"></script>

@@ -97,9 +97,9 @@
             <div class="mobilehide">
               <h3>Save</h3>
               <my-paper-material elevation="1" class="indent">
-                  <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
-                  <paper-button id="saveButton" raised on-tap="openNewTab" disabled>Open In New Tab</paper-button>
-                  <paper-button id="saveButton" raised on-tap="printImage" disabled>Print</paper-button>
+                <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
+                <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab</paper-button>
+                <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
               </my-paper-material>
             </div>
 
@@ -135,8 +135,8 @@
               <h3>Save</h3>
               <my-paper-material elevation="1" class="indent buttonsContainer">
                 <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
-                <paper-button id="saveButton" raised on-tap="openNewTab" disabled>Open In New Tab</paper-button>
-                <paper-button id="saveButton" raised on-tap="printImage" disabled>Print</paper-button>
+                <paper-button id="newTabButton" raised on-tap="openNewTab">Open In New Tab</paper-button>
+                <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
               </my-paper-material>
             </div>
           </div>
@@ -160,6 +160,36 @@
 
     saveImage: function saveImage(){
       this.$.crossStitchElement.saveAsImage();
+    },
+
+    getImageAsDataURI: function getImageAsDataURI(){
+      var imageContainer = new Image();
+      imageContainer.src = this.$.crossStitchElement.getImageAsURI();
+      imageContainer.style['image-rendering']='pixelated';
+      return imageContainer;
+    },
+
+    openNewTab: function openNewTab(){
+      var imageContainer = this.getImageAsDataURI();
+      imageContainer.style.width='100%';
+
+      var newTab = window.open('');
+      newTab.document.write(imageContainer.outerHTML);
+    },
+
+    printImage: function printImage(){
+      var imageContainer = this.getImageAsDataURI();
+      imageContainer.style.height = '100%';
+      imageContainer.style.display = 'block';
+      imageContainer.style.marginLeft = 'auto';
+      imageContainer.style.marginRight = 'auto';
+      imageContainer.style.marginTop = '0';
+      imageContainer.style.marginBottom = '0';
+
+      var newTab = window.open('');
+      newTab.document.write(imageContainer.outerHTML);
+      newTab.focus(); // Required for IE (if I ever support it...)
+      newTab.print();
     },
 
     properties: {

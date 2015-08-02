@@ -73,6 +73,10 @@
       });
     },
 
+    getImageAsURI(){
+      return this.$.finalOutput.toDataURL('image/png');
+    },
+
     _scaleImage(){
       return this.scale({
         imageData: this.imagedata,

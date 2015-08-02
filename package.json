@@ -42,6 +42,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "image-q": "^0.1.4",
     "node-bourbon": "^4.2.3"
   }
 }

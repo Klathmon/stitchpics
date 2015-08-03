@@ -9,7 +9,8 @@
       window.quantizeBehavior,
       window.pixelateBehavior,
       window.workerBehavior,
-      window.miscBehavior
+      window.miscBehavior,
+      window.dmcColorBehavior
     ],
 
     properties: {

@@ -14,8 +14,10 @@
           colors: numColors,
           colorDist: 'euclidean',
           method: 1,
-          initColors: 2048,
+          initColors: this._getDmcColorMap().size,
           useCache: false,
+          palette: this._getColorsAsRGB(),
+          reIndex: true
         }
         let rgbq = new RgbQuant(opts);
         rgbq.sample(imageData);

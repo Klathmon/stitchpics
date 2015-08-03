@@ -14,6 +14,7 @@
     "gulp-coffee": "^2.3.1",
     "gulp-csslint": "^0.1.5",
     "gulp-gh-pages": "^0.5.2",
+    "gulp-html-autoprefixer": "0.0.1",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.3.0",
     "gulp-jshint": "^1.11.2",

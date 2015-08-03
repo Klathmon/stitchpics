@@ -169,6 +169,7 @@ gulp.task('compileAssets', ['copy'], () => {
     });
 
     return gulp.src(src)
+      .pipe($.htmlAutoprefixer(AUTOPREFIXER_OPTIONS))
       .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
   });
@@ -199,14 +200,14 @@ gulp.task('copy', () => {
       base: 'app'
     })
     .pipe($.cached('copy'))
-    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build')));
 });
 
 gulp.task('copyBowerComponents', () => {
   return gulp.src(path.join('bower_components', '**', '*'))
     .pipe($.cached('copyBower'))
-    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build', 'bower_components')));
 });
 

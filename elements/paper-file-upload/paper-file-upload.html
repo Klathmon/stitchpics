@@ -6,11 +6,11 @@
 <dom-module id="paper-file-upload">
   <style>:host{display:block}#buttonIcon.hidden,#imageLoader{display:none}</style>
   <template>
-      <paper-button raised on-tap="translateClick">
+      <paper-button raised="" on-tap="translateClick">
         <iron-icon id="buttonIcon" class="hidden" icon="check"></iron-icon>
         <span>{{buttonText}}</span>
       </paper-button>
-      <input type="file" id="imageLoader" on-change="fileUpload"/>
+      <input type="file" id="imageLoader" on-change="fileUpload">
   </template>
 </dom-module>
 <script src="element.js"></script>

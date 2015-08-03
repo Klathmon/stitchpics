@@ -25,9 +25,15 @@
       border-bottom: #CCC 1px solid;
     }
     .buttonsContainer ::content > *{
+      display: -webkit-flex;
+      display: -ms-flexbox;
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-justify-content: space-around;
+          -ms-flex-pack: distribute;
+              justify-content: space-around;
     }
 
     @media screen and (max-width: 1200px) {
@@ -56,9 +62,15 @@
     }
     @media screen and (max-width: 750px) {
       .buttonsContainer ::content > *{
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-align-items: stretch;
+            -ms-flex-align: stretch;
+                align-items: stretch;
       }
       .buttonsContainer paper-button {
         margin-top: 10px;
@@ -77,7 +89,7 @@
           </p>
           <p>
             Simply choose any picture to upload, choose the Aida cloth count, the cross stitch
-            size and number of colors and you're on your way to creating an amazing cross stitch
+            size and number of colors and you&apos;re on your way to creating an amazing cross stitch
             for friends, family or even as an adornment for your home.
           </p>
         </div>
@@ -86,31 +98,27 @@
             <h3>Setup</h3>
             <my-paper-material elevation="1" class="indent">
               <div>Aida cloth count</div>
-              <paper-slider min="6" max="28" step="2" value="{{clothCount}}" snaps pin editable></paper-slider>
+              <paper-slider min="6" max="28" step="2" value="{{clothCount}}" snaps="" pin="" editable=""></paper-slider>
               <div>Cross Stitch Size (in inches)</div>
-              <paper-slider min="4" max="12" step="1" value="{{size}}" snaps pin editable></paper-slider>
+              <paper-slider min="4" max="12" step="1" value="{{size}}" snaps="" pin="" editable=""></paper-slider>
               <div>Number of colors</div>
-              <paper-slider min="4" max="32" step="4" value="{{numColors}}" snaps pin editable></paper-slider>
+              <paper-slider min="4" max="32" step="4" value="{{numColors}}" snaps="" pin="" editable=""></paper-slider>
               <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
             </my-paper-material>
 
             <div class="mobilehide">
               <h3>Save</h3>
               <my-paper-material elevation="1" class="indent">
-                <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
-                <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab</paper-button>
-                <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
+                <paper-button id="saveButton" raised="" on-tap="saveImage">Save As Image</paper-button>
+                <paper-button id="newTabButton" raised="" on-tap="openNewTab">Open In New Tab</paper-button>
+                <paper-button id="printButton" raised="" on-tap="printImage">Print</paper-button>
               </my-paper-material>
             </div>
 
             <my-paper-material elevation="1" class="indent">
               <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
               <!-- Main App Ad -->
-              <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8694540020289271"
-                 data-ad-slot="4087460740"
-                 data-ad-format="auto"></ins>
+              <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8694540020289271" data-ad-slot="4087460740" data-ad-format="auto"></ins>
               <script>
               (adsbygoogle = window.adsbygoogle || []).push({});
               </script>
@@ -119,12 +127,7 @@
           <div class="minsize flex">
             <h3>Cross Stitch</h3>
             <my-paper-material elevation="1" class="indent">
-              <cross-stitch
-                id="crossStitchElement"
-                gridWidth="{{gridWidth}}"
-                numColors="{{numColors}}"
-                imageData="{{imageData}}"
-                palette="{{palette}}">
+              <cross-stitch id="crossStitchElement" gridwidth="{{gridWidth}}" numcolors="{{numColors}}" imagedata="{{imageData}}" palette="{{palette}}">
               </cross-stitch>
             </my-paper-material>
             <h3>Colors Used</h3>
@@ -134,9 +137,9 @@
             <div class="mobileshow">
               <h3>Save</h3>
               <my-paper-material elevation="1" class="indent buttonsContainer">
-                <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
-                <paper-button id="newTabButton" raised on-tap="openNewTab">Open In New Tab</paper-button>
-                <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
+                <paper-button id="saveButton" raised="" on-tap="saveImage">Save As Image</paper-button>
+                <paper-button id="newTabButton" raised="" on-tap="openNewTab">Open In New Tab</paper-button>
+                <paper-button id="printButton" raised="" on-tap="printImage">Print</paper-button>
               </my-paper-material>
             </div>
           </div>

@@ -29,7 +29,7 @@
 
       var palette = this.getImageAsDataURI(this.$.imagePalette);
       palette.style.width='100%';
-      
+
       var container = document.createElement('div');
       container.innerHTML = image.outerHTML + palette.outerHTML;
       var newTab = window.open('');
@@ -38,7 +38,10 @@
 
     printImage(){
       var image = this.getImageAsDataURI(this.$.crossStitchElement);
-      image.style.height = '100%';
+      image.style.height = 'auto';
+      image.style.width = 'auto';
+      image.style.maxHeight = '100%';
+      image.style.maxWidth = '100%';
       image.style.marginLeft = 'auto';
       image.style.marginRight = 'auto';
       image.style.marginTop = '0';
@@ -48,7 +51,10 @@
       palette.style.width='100%';
 
       var container = document.createElement('div');
-      container.innerHTML = image.outerHTML + palette.outerHTML;
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.margin = '0';
+      container.innerHTML = image.outerHTML; // + palette.outerHTML;
       var newTab = window.open('');
       newTab.document.write(container.outerHTML);
       newTab.focus(); // Required for IE (if I ever support it...)

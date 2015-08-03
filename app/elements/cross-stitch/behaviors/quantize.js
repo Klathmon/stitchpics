@@ -39,7 +39,7 @@
         const opts = {
           colorDist: 'euclidean',
           method: 1,
-          initColors: 2048,
+          initColors: this._getDmcColorMap().size,
           useCache: false,
           palette
         };

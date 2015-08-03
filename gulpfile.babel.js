@@ -151,12 +151,14 @@ gulp.task('compileAssets', ['copy'], () => {
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),
         $.if(!PROD, $.sourcemaps.init()),
-        $.cached(name + '|babel|' + folder),
         $.plumber(PLUMBER_OPTIONS),
+        $.cached(name + '|coffeescript|' + folder),
         $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
+        $.remember(name + '|coffeescript|' + folder),
+        $.cached(name + '|babel|' + folder),
         $.babel(BABEL_OPTIONS),
-        $.plumber.stop(),
         $.remember(name + '|babel|' + folder),
+        $.plumber.stop(),
         'concat',
         $.cached(name + '|uglify|' + folder),
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
@@ -172,13 +174,21 @@ gulp.task('compileAssets', ['copy'], () => {
   });
 });
 
-gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
+gulp.task('minifyIndex', ['copy', 'copyBowerComponents', 'compileAssets', 'vulcanize'], () => {
   return gulp.src(path.join('build', 'index.html'))
-    .pipe($.vulcanize(VULCANIZE_OPTIONS))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
     .pipe($.if(PROD, $.size()))
     .pipe(gulp.dest('build'));
+});
+
+gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
+  return gulp.src(path.join('build', 'elements', 'elements.html'))
+    .pipe($.vulcanize(VULCANIZE_OPTIONS))
+    .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
+    .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
+    .pipe($.if(PROD, $.size()))
+    .pipe(gulp.dest(path.join('build', 'elements')));
 });
 
 // Copy everything over
@@ -189,14 +199,14 @@ gulp.task('copy', () => {
       base: 'app'
     })
     .pipe($.cached('copy'))
-    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build')));
 });
 
 gulp.task('copyBowerComponents', () => {
   return gulp.src(path.join('bower_components', '**', '*'))
     .pipe($.cached('copyBower'))
-    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build', 'bower_components')));
 });
 
@@ -243,7 +253,8 @@ gulp.task('build:dist', [
   'compileAssets',
   'copy',
   'copyBowerComponents',
-  'vulcanize'
+  'vulcanize',
+  'minifyIndex'
 ]);
 
 

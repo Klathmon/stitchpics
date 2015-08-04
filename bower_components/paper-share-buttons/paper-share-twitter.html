@@ -1,0 +1,112 @@
+<!--
+A paper share button for twitter
+
+Example:
+
+    <paper-share-twitter
+      user="nasa"
+      text="NASA's Kepler Discovers First Earth-Size Planet In The 'Habitable Zone' of Another Star"
+      href="http://www.nasa.gov/ames/kepler/nasas-kepler-discovers-first-earth-size-planet-in-the-habitable-zone-of-another-star"
+      raised></paper-share-twitter>
+
+@demo
+-->
+<dom-module id="paper-share-twitter">
+  <style>
+    #button {
+      color: #24A9F2;
+    }
+
+    #button[raised] {
+      background: #24A9F2;
+      color: white;
+    }
+  </style>
+
+  <template>
+    <paper-button
+      id="button"
+      on-click="navigate"
+      raised$={{raised}}
+      noink$={{noink}}>
+      Twitter
+    </paper-button>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    /**
+     * Element Prototype
+     */
+    is: 'paper-share-twitter',
+
+    /**
+     * Element properties
+     */
+    properties: {
+
+      /**
+       * The text displayed on the tweet
+       */
+      text: {
+        type: String,
+        value: ''
+      },
+
+      /**
+       * The user displayed on the tweet and in the @mention
+       */
+      user: {
+        type: String,
+        value: ''
+      },
+
+      /**
+       * Optional; Defaults to the current page's url
+       */
+      href: {
+        type: String,
+        value: window.location.href
+      },
+
+      /**
+       * Apply `raised` property to `paper-button`
+       */
+      raised: {
+        type: Boolean,
+        notify: true,
+        reflectToAttribute: true
+      },
+
+      /**
+       * Apply `noink` property to `paper-button`
+       */
+      noink: {
+        type: Boolean,
+        notify: true,
+        reflectToAttribute: true
+      },
+
+      _url: {
+        type: String,
+        computed: 'computeUrl(href, text, user)'
+      },
+    },
+
+    /**
+     * Concat the share url
+     */
+    computeUrl: function(href, text, user) {
+      return 'https://twitter.com/intent/tweet?url=' + href;
+    },
+
+    /**
+     * Navigate to the social authorization
+     */
+    navigate: function() {
+      window.open(this._url, 'twitter-share', 'width=580,height=296');
+      return false;
+    }
+  });
+</script>

@@ -1,0 +1,63 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+
+<link rel="import" href="my-ad/my-ad.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="side-menu">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <paper-menu attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+      <paper-item>
+        <a class="menuItem" data-route="home" href="/">
+          <iron-icon icon="home"></iron-icon>
+          <span>Home</span>
+        </a>
+      </paper-item>
+
+      <paper-item>
+        <a class="menuItem" data-route="faq" href="/faq">
+          <iron-icon icon="info"></iron-icon>
+          <span>FAQ</span>
+        </a>
+      </paper-item>
+
+      <my-ad
+        client="ca-pub-8694540020289271"
+        slot="8307020742">
+      </my-ad>
+
+      <div class="socialButtons menuItem">
+        <h3>Share:</h3>
+        <paper-share-facebook
+          class="button"
+          raised>
+        </paper-share-facebook>
+        <paper-share-twitter
+          class="button"
+          raised>
+        </paper-share-twitter>
+        <paper-share-google
+          class="button"
+          raised>
+        </paper-share-google>
+      </div>
+    </paper-menu>
+  </template>
+</dom-module>
+<script>
+(function() {
+  'use strict';
+  /*jshint -W064 */
+  Polymer({
+  /*jshint +W064 */
+    is: 'side-menu'
+  });
+})();
+</script>

@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<link rel="import" href="../my-ad/my-ad.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="side-menu">
+  <!-- build:inlinesass -->
+  <link rel="stylesheet" href="element.sass">
+  <!-- endbuild -->
+  <template>
+    <paper-toolbar id="drawerToolbar">
+      <span class="paper-font-title">Menu</span>
+    </paper-toolbar>
+
+    <!-- Drawer Content -->
+    <paper-menu attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+      <div class="menuWrapper">
+        <paper-item class="menuItem">
+          <a data-route="home" href="/">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
+        </paper-item>
+
+        <paper-item class="menuItem">
+          <a data-route="faq" href="/faq">
+            <iron-icon icon="info"></iron-icon>
+            <span>FAQ</span>
+          </a>
+        </paper-item>
+
+        <my-ad
+          class="menuItem"
+          client="ca-pub-8694540020289271"
+          slot="8307020742">
+        </my-ad>
+
+        <div class="socialButtons menuItem">
+          <h3>Share:</h3>
+          <paper-button
+            class="facebook button"
+            on-click="shareFacebook"
+            raised>
+            Facebook
+          </paper-button>
+          <paper-button
+            class="google button"
+            on-click="shareGoogle"
+            raised>
+            Google +
+          </paper-button>
+          <paper-button
+            class="twitter button"
+            on-click="shareTwitter"
+            raised>
+            Twitter
+          </paper-button>
+        </div>
+      </div>
+    </paper-menu>
+  </template>
+</dom-module>
+
+<!-- build:inlinejs -->
+<script src="element.js"></script>
+<!-- endbuild -->

@@ -1,1 +1,1 @@
-body{background:#fafafa;font-family:Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333}.socialButtons>* paper-button{width:100%}.socialButtons>.button{display:block;width:90%;margin:7px auto}
+body{background:#fafafa;font-family:Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#333}.socialButtons>* paper-button{width:100%}.socialButtons>.button{display:block;width:90%;margin:7px auto}.drawer .socialButtons{position:fixed;bottom:0;width:256px}

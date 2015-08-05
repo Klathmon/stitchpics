@@ -22,3 +22,9 @@ body {
   width: 90%;
   margin: 7px auto;
 }
+
+.drawer .socialButtons {
+  position: fixed;
+  bottom: 0;
+  width: 256px;
+}

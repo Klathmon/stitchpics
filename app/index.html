@@ -30,7 +30,7 @@
 
   <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-  
+
   <meta name="description" content="Stitchpics is your best way to turn any picture into a crossstitch pattern. No more tracing or drawing pictures by hand, in less than an minute you can have a picture ready for cross stitching.">
 
 
@@ -60,30 +60,18 @@
         </paper-toolbar>
 
         <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-          <a data-route="home" href="/">
+        <paper-menu class="list drawer" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+          <a class="menuItem" data-route="home" href="/">
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
 
-          <a data-route="faq" href="/faq">
+          <a class="menuItem" data-route="faq" href="/faq">
             <iron-icon icon="info"></iron-icon>
             <span>FAQ</span>
           </a>
 
-          <div>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Sidebar Ad -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8694540020289271"
-                 data-ad-slot="8307020742"
-                 data-ad-format="vertical"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
-          <div class="socialButtons">
+          <div class="socialButtons menuItem">
             <h3>Share:</h3>
             <paper-share-facebook
               class="button"

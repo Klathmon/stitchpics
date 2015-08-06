@@ -5,6 +5,46 @@
   /*jshint +W064 */
     is: 'side-menu',
 
+    properties: {
+      routes: {
+        type: Array,
+        value: [
+          {
+            'route': 'home',
+            'icon': 'home',
+            'href': '/',
+            'text': 'Home'
+          },
+          {
+            'route': 'faq',
+            'icon': 'info',
+            'href': '/#!/faq',
+            'text': 'FAQ'
+          },
+        ]
+      },
+      socialButtons: {
+        type: Array,
+        value: [
+          {
+            'class': 'facebook button',
+            'onclick': 'shareFacebook',
+            'text': 'Facebook'
+          },
+          {
+            'class': 'google button',
+            'onclick': 'shareGoogle',
+            'text': 'Google +'
+          },
+          {
+            'class': 'twitter button',
+            'onclick': 'shareTwitter',
+            'text': 'Twitter'
+          },
+        ]
+      }
+    },
+
     shareFacebook(){
       window.open('https://www.facebook.com/sharer/sharer.php?u=' + window.location.href, 'facebook-share', 'width=580,height=296');
     },

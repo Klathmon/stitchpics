@@ -17,51 +17,39 @@
     </paper-toolbar>
 
     <!-- Drawer Content -->
-    <paper-menu attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-      <div class="menuWrapper">
-        <paper-item class="menuItem">
-          <a data-route="home" href="/">
-            <iron-icon icon="home"></iron-icon>
-            <span>Home</span>
-          </a>
-        </paper-item>
+    <div id="sideBarContainerContainer">
+      <div id="sideBarContainer">
+        <paper-menu
+          class="sideBarItem"
+          attr-for-selected="data-route"
+          selected="{{route}}"
+          on-iron-select="onMenuSelect">
+          <template is="dom-repeat" items="{{routes}}">
+            <paper-item>
+              <a data-route="{{item.route}}" href="{{item.href}}">
+                <iron-icon icon="{{item.icon}}"></iron-icon>
+                <span>{{item.text}}</span>
+              </a>
+            </paper-item>
+          </template>
+        </paper-menu>
 
-        <paper-item class="menuItem">
-          <a data-route="faq" href="/faq">
-            <iron-icon icon="info"></iron-icon>
-            <span>FAQ</span>
-          </a>
-        </paper-item>
+        <div class="adContainer">
+          <my-ad
+            class="sideBarItem"
+            client="ca-pub-8694540020289271"
+            slot="8307020742">
+          </my-ad>
+        </div>
 
-        <my-ad
-          class="menuItem"
-          client="ca-pub-8694540020289271"
-          slot="8307020742">
-        </my-ad>
-
-        <div class="socialButtons menuItem">
+        <div class="socialButtons sideBarItem">
           <h3>Share:</h3>
-          <paper-button
-            class="facebook button"
-            on-click="shareFacebook"
-            raised>
-            Facebook
-          </paper-button>
-          <paper-button
-            class="google button"
-            on-click="shareGoogle"
-            raised>
-            Google +
-          </paper-button>
-          <paper-button
-            class="twitter button"
-            on-click="shareTwitter"
-            raised>
-            Twitter
-          </paper-button>
+          <template is="dom-repeat" items="{{socialButtons}}">
+            <paper-button class$="{{item.class}}" on-click="{{item.onclick}}" raised>{{item.text}}</paper-button>
+          </template>
         </div>
       </div>
-    </paper-menu>
+    </div>
   </template>
 </dom-module>
 

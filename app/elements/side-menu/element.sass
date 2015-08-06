@@ -1,7 +1,7 @@
 \:host
   font-family: 'Roboto', 'Noto', sans-serif
-  display: block
   height: 100%
+  display: block
   overflow: hidden
 
   paper-toolbar
@@ -9,26 +9,24 @@
     background-color: #ffffff
     border-bottom: 1px solid rgba(0, 0, 0, 0.22)
 
-  paper-menu
+  #sideBarContainerContainer
+    display: block
+    height: calc(100% - 64px)
+
+  #sideBarContainer
     height: 100%
+    display: flex
+    flex-direction: column
     overflow: hidden
 
-    .menuWrapper
-      display: flex
-      flex-direction: column
-      height: 100%
-      overflow: hidden
+    .adContainer
+      flex: 1
 
-      .menuItem
-        flex-shrink: 1
 
-        my-ad
-          flex-grow: 2
-
+    paper-menu
       iron-icon
         margin-right: 33px
         opacity: 0.54
-
       a
         text-decoration: none
         color: #111111
@@ -42,5 +40,4 @@
         min-height: 48px
         padding: 0 16px
 
-
-  @import 'socialButtons'
+    @import 'socialButtons.sass'

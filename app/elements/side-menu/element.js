@@ -6,6 +6,11 @@
     is: 'side-menu',
 
     properties: {
+      route: {
+        type: String,
+        notify: true,
+        observer: 'routeChanged'
+      },
       routes: {
         type: Array,
         value: [
@@ -18,7 +23,7 @@
           {
             'route': 'faq',
             'icon': 'info',
-            'href': '/#!/faq',
+            'href': '/faq',
             'text': 'FAQ'
           },
         ]
@@ -43,6 +48,12 @@
           },
         ]
       }
+    },
+
+    routeChanged(){
+      this.fire('routeChanged', {
+        route: this.route
+      });
     },
 
     shareFacebook(){

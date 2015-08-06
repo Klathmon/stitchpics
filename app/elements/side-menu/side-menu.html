@@ -21,11 +21,10 @@
         <paper-menu
           class="sideBarItem"
           attr-for-selected="data-route"
-          selected="{{route}}"
-          on-iron-select="onMenuSelect">
+          selected="{{route}}">
           <template is="dom-repeat" items="{{routes}}">
-            <paper-item>
-              <a data-route="{{item.route}}" href="{{item.href}}">
+            <paper-item data-route$="{{item.route}}">
+              <a data-route$="{{item.route}}" href$="{{item.href}}">
                 <iron-icon icon="{{item.icon}}"></iron-icon>
                 <span>{{item.text}}</span>
               </a>

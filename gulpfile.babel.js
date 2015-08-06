@@ -122,7 +122,7 @@ gulp.task('compileAssets', ['copy'], () => {
 
     var useminOptions = {};
 
-    ['inlinecss', 'css', 'inlinesass', 'sass'].forEach((name) => {
+    buildUseminLoops(['css', 'sass', 'scss'], 1).forEach((name) => {
       useminOptions[name] = [
         $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|compile|' + folder),
@@ -142,11 +142,7 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    var jsArray = $._.flattenDeep($._.map(new Array(5), (value, index)=>{
-      return $._.map(['js', 'inlinejs'], (type)=> type + (index > 0 ? index : ''));
-    }));
-
-    jsArray.forEach((name) => {
+    buildUseminLoops(['js', 'coffee'], 3).forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),
@@ -266,4 +262,14 @@ function getFolders(dir) {
     .filter((file) => {
       return fs.statSync(path.join(dir, file)).isDirectory();
     });
+}
+
+function buildUseminLoops(types, number){
+  return $._.flattenDeep($._.map(new Array(number), (value, index)=>{
+    return $._.map(types, (type)=> {
+      return $._.map(['', 'inline'], (inline)=> {
+        return inline + type + (index > 0 ? index : '');
+      });
+    });
+  }));
 }

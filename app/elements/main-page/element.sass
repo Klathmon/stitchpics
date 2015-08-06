@@ -1,0 +1,43 @@
+$desktop-width: 1200px
+
+=phone
+  @media (max-width: #{$desktop-width - 1px})
+    @content
+
+=desktop
+  @media (min-width: #{$desktop-width})
+    @content
+
+
+\:host
+  font-family: 'Roboto', 'Noto', sans-serif
+  display: block
+
+  paper-slider
+    width: 100%
+
+  .indent
+    margin-left: 25px
+    margin-right: 25px
+
+  #mainPageContainer
+    &:after
+      content: ""
+      display: table
+      clear: both
+
+    #introBox
+      border-bottom: #CCC 1px solid
+
+    +desktop
+      > div:not(#introBox)
+        width: 50%
+
+      #setupBox
+        float: left
+
+      #crossStitchBox
+        float: right
+
+      #saveBox
+        float: left

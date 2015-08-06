@@ -26,7 +26,7 @@ var PROD = false;
 
 const SASS_OPTIONS = {
   outputStyle: 'expanded',
-  includePaths: $.nodeBourbon.includePaths
+  includePaths: [$.nodeBourbon.includePaths, path.join('app', 'styles')]
 };
 
 const AUTOPREFIXER_OPTIONS = {

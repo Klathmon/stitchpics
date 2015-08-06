@@ -43,7 +43,7 @@
         <div class="socialButtons sideBarItem">
           <h3>Share:</h3>
           <template is="dom-repeat" items="{{socialButtons}}">
-            <paper-button class$="{{item.class}}" on-click="{{item.onclick}}" raised>{{item.text}}</paper-button>
+            <paper-button class$="{{item.class}}" on-tap="loadHref" data-href$="{{item.href}}" raised>{{item.text}}</paper-button>
           </template>
         </div>
       </div>

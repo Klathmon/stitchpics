@@ -33,17 +33,17 @@
         value: [
           {
             'class': 'facebook button',
-            'onclick': 'shareFacebook',
+            'href': 'https://www.facebook.com/sharer/sharer.php?u=',
             'text': 'Facebook'
           },
           {
             'class': 'google button',
-            'onclick': 'shareGoogle',
+            'href': 'https://plus.google.com/share?url=',
             'text': 'Google +'
           },
           {
             'class': 'twitter button',
-            'onclick': 'shareTwitter',
+            'href': 'https://twitter.com/intent/tweet?url=',
             'text': 'Twitter'
           },
         ]
@@ -56,16 +56,9 @@
       });
     },
 
-    shareFacebook(){
-      window.open('https://www.facebook.com/sharer/sharer.php?u=' + window.location.href, 'facebook-share', 'width=580,height=296');
-    },
-
-    shareGoogle(){
-      window.open('https://plus.google.com/share?url=' + window.location.href, 'google-share', 'width=580,height=296');
-    },
-
-    shareTwitter(){
-      window.open('https://twitter.com/intent/tweet?url=' + window.location.href, 'twitter-share', 'width=580,height=296');
-    },
+    loadHref(event){
+      let button = event.path[1];
+      window.open(button.dataset.href + window.location.href, 'Share', 'width=580,height=296');
+    }
   });
 })();

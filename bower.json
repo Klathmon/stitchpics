@@ -12,7 +12,7 @@
     "RgbQuant.js": "leeoniya/RgbQuant.js",
     "lodash": "~3.10.0",
     "paper-menu-button": "PolymerElements/paper-menu-button#~1.0.0",
-    "paper-share-buttons": "Klathmon/paper-share-buttons#master"
+    "marked-element": "PolymerElements/marked-element#~1.0.2"
   },
   "devDependencies": {
     "web-component-tester": "*",

@@ -1,0 +1,35 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+
+<dom-module id="my-paper-material">
+  <style is="custom-style">
+    :host {
+      display: block;
+    }
+    paper-material {
+      display: block;
+      border-radius: 2px;
+      height: 100%;
+      padding: 16px;
+      width: calc(98.66% - 16px);
+      margin: 16px auto;
+      background: white;
+    }
+  </style>
+  <template>
+    <paper-material elevation="{{elevation}}">
+      <content></content>
+    </paper-material>
+  </template>
+</dom-module>
+<script>
+(function() {
+  'use strict';
+  /*jshint -W064 */
+  Polymer({
+  /*jshint +W064 */
+    is: 'my-paper-material'
+  });
+})();
+</script>

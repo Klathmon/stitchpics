@@ -1,90 +1,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../my-paper-material.html">
-<link rel="import" href="../cross-stitch/cross-stitch.html">
-<link rel="import" href="../palette-viewer/palette-viewer.html">
-<link rel="import" href="../paper-file-upload/paper-file-upload.html">
-
-<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-
 <dom-module id="main-page">
-  <style is="custom-style">
-    :host {
-      display: block;
-    }
-    my-paper-material {
-      display: block;
-    }
-    paper-slider {
-      width: 100%;
-    }
-    .indent {
-      margin-left: 25px;
-      margin-right: 25px;
-    }
-    #intro {
-      border-bottom: #CCC 1px solid;
-    }
-    .buttonsContainer ::content > *{
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-flex-direction: row;
-          -ms-flex-direction: row;
-              flex-direction: row;
-      -webkit-justify-content: space-around;
-          -ms-flex-pack: distribute;
-              justify-content: space-around;
-    }
-
-    @media screen and (max-width: 1200px) {
-      .mobilehide{
-        display: none;
-      }
-      .mobileshow {
-        display: inherit;
-      }
-      .minsize {
-        min-width: 450px;
-      }
-    }
-    @media screen and (min-width: 1201px) {
-      .mobilehide{
-        display: inherit;
-      }
-      .mobileshow {
-        display: none;
-      }
-    }
-    @media screen and (max-width: 500px) {
-      .minsize {
-        min-width: 250px;
-      }
-    }
-    @media screen and (max-width: 750px) {
-      .buttonsContainer ::content > *{
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-direction: column;
-            -ms-flex-direction: column;
-                flex-direction: column;
-        -webkit-align-items: stretch;
-            -ms-flex-align: stretch;
-                align-items: stretch;
-      }
-      .buttonsContainer paper-button {
-        margin-top: 10px;
-        width: 100%;
-      }
-    }
-  </style>
+  <style>\:host{font-family:Roboto,Noto,sans-serif;display:block}\:host paper-slider{width:100%}\:host .indent{margin-left:25px;margin-right:25px}\:host #mainPageContainer:after{content:"";display:table;clear:both}\:host #mainPageContainer #introBox{border-bottom:#CCC 1px solid}@media (min-width:1200px){\:host #mainPageContainer>div:not(#introBox){width:50%}\:host #mainPageContainer #saveBox,\:host #mainPageContainer #setupBox{float:left}\:host #mainPageContainer #crossStitchBox{float:right}}</style>
   <template>
-    <section>
-      <my-paper-material elevation="5" class="layout vertical">
-        <div id="intro">
+    <my-paper-material elevation="5">
+      <div id="mainPageContainer">
+        <div id="introBox">
           <p>
             Stitchpics is your best way to turn any picture into a crossstitch pattern. No more
             tracing or drawing pictures by hand, in less than an minute you can have a picture
@@ -96,59 +17,46 @@
             for friends, family or even as an adornment for your home.
           </p>
         </div>
-        <div class="layout horizontal wrap">
-          <div class="minsize flex">
-            <h3>Setup</h3>
-            <my-paper-material elevation="1" class="indent">
-              <div>Aida cloth count</div>
-              <paper-slider min="6" max="28" step="2" value="{{clothCount}}" snaps="" pin="" editable=""></paper-slider>
-              <div>Cross Stitch Size (in inches)</div>
-              <paper-slider min="4" max="12" step="1" value="{{size}}" snaps="" pin="" editable=""></paper-slider>
-              <div>Number of colors</div>
-              <paper-slider min="4" max="32" step="4" value="{{numColors}}" snaps="" pin="" editable=""></paper-slider>
-              <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
-            </my-paper-material>
 
-            <div class="mobilehide">
-              <h3>Save</h3>
-              <my-paper-material elevation="1" class="indent">
-                <paper-button id="saveButton" raised="" on-tap="saveImage">Save As Image</paper-button>
-                <paper-button id="newTabButton" raised="" on-tap="openNewTab">Open In New Tab</paper-button>
-                <paper-button id="printButton" raised="" on-tap="printImage">Print</paper-button>
-              </my-paper-material>
-            </div>
-
-            <my-paper-material elevation="1" class="indent">
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-              <!-- Main App Ad -->
-              <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8694540020289271" data-ad-slot="4087460740" data-ad-format="auto"></ins>
-              <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
-            </my-paper-material>
-          </div>
-          <div class="minsize flex">
-            <h3>Cross Stitch</h3>
-            <my-paper-material elevation="1" class="indent">
-              <cross-stitch id="crossStitchElement" gridwidth="{{gridWidth}}" numcolors="{{numColors}}" imagedata="{{imageData}}" palette="{{palette}}">
-              </cross-stitch>
-            </my-paper-material>
-            <h3>Colors Used</h3>
-            <my-paper-material elevation="1" class="indent">
-              <palette-viewer id="imagePalette" palette="[[palette]]"></palette-viewer>
-            </my-paper-material>
-            <div class="mobileshow">
-              <h3>Save</h3>
-              <my-paper-material elevation="1" class="indent buttonsContainer">
-                <paper-button id="saveButton" raised="" on-tap="saveImage">Save As Image</paper-button>
-                <paper-button id="newTabButton" raised="" on-tap="openNewTab">Open In New Tab</paper-button>
-                <paper-button id="printButton" raised="" on-tap="printImage">Print</paper-button>
-              </my-paper-material>
-            </div>
-          </div>
+        <div id="setupBox">
+          <h3>Setup</h3>
+          <my-paper-material elevation="1" class="indent">
+            <div>Aida cloth count</div>
+            <paper-slider min="6" max="28" step="2" value="{{clothCount}}" snaps="" pin="" editable=""></paper-slider>
+            <div>Cross Stitch Size (in inches)</div>
+            <paper-slider min="4" max="12" step="1" value="{{size}}" snaps="" pin="" editable=""></paper-slider>
+            <div>Number of colors</div>
+            <paper-slider min="4" max="32" step="4" value="{{numColors}}" snaps="" pin="" editable=""></paper-slider>
+            <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
+          </my-paper-material>
         </div>
-      </my-paper-material>
-    </section>
+
+        <div id="crossStitchBox">
+          <h3>Cross Stitch</h3>
+          <my-paper-material elevation="1" class="indent">
+            <cross-stitch id="crossStitchElement" gridwidth="{{gridWidth}}" numcolors="{{numColors}}" imagedata="{{imageData}}" palette="{{palette}}">
+            </cross-stitch>
+          </my-paper-material>
+          <h3>Colors Used</h3>
+          <my-paper-material elevation="1" class="indent">
+            <palette-viewer id="imagePalette" palette="[[palette]]"></palette-viewer>
+          </my-paper-material>
+        </div>
+
+        <div id="saveBox">
+          <h3>Save</h3>
+          <my-paper-material elevation="1" class="indent">
+            <paper-button id="saveButton" raised="" on-tap="saveImage">Save As Image</paper-button>
+            <paper-button id="newTabButton" raised="" on-tap="openNewTab">Open In New Tab</paper-button>
+            <paper-button id="printButton" raised="" on-tap="printImage">Print</paper-button>
+          </my-paper-material>
+
+          <my-ad client="ca-pub-8694540020289271" slot="4087460740">
+          </my-ad>
+        </div>
+
+      </div>
+    </my-paper-material>
   </template>
 </dom-module>
 

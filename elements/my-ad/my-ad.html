@@ -1,0 +1,10 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="my-ad">
+  <style>\:host{display:block}</style>
+  <template>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  </template>
+</dom-module>
+
+<script>!function(){"use strict";Polymer({is:"my-ad",properties:{client:{type:String},slot:{type:String},format:{type:String,value:"auto"}},ready:function(){var t=document.createElement("ins");t.dataset.adClient=this.client,t.dataset.adSlot=this.slot,t.dataset.adFormat=this.format,t.style.display="block",t.classList.add("adsbygoogle"),Polymer.dom(this.root).appendChild(t);var e=document.createElement("script");e.type="text/javascript",e.appendChild(document.createTextNode("(adsbygoogle = window.adsbygoogle || []).push({});")),Polymer.dom(this.root).appendChild(e)}})}();</script>

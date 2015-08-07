@@ -1,0 +1,46 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../my-ad/my-ad.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="side-menu">
+  <style>\:host{font-family:Roboto,Noto,sans-serif;height:100%;display:block;overflow:hidden}\:host paper-toolbar{color:#727272;background-color:#fff;border-bottom:1px solid rgba(0,0,0,.22)}\:host #sideBarContainerContainer{display:block;height:calc(100% - 64px)}\:host #sideBarContainer{height:100%;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;overflow:hidden}\:host #sideBarContainer .adContainer{-webkit-flex:1;-ms-flex:1;flex:1}\:host #sideBarContainer paper-menu iron-icon{margin-right:33px;opacity:.54}\:host #sideBarContainer paper-menu a{text-decoration:none;color:#111;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;text-rendering:optimizeLegibility;font-size:14px;font-weight:400;line-height:24px;min-height:48px;padding:0 16px}\:host #sideBarContainer .socialButtons paper-button.button{display:block;width:90%;margin:7px auto}\:host #sideBarContainer .socialButtons .facebook{color:#4B65BE}\:host #sideBarContainer .socialButtons .facebook[raised]{background:#4B65BE;color:#fff}\:host #sideBarContainer .socialButtons .google{color:#DC4335}\:host #sideBarContainer .socialButtons .google[raised]{background:#DC4335;color:#fff}\:host #sideBarContainer .socialButtons .twitter{color:#24A9F2}\:host #sideBarContainer .socialButtons .twitter[raised]{background:#24A9F2;color:#fff}</style>
+  <template>
+    <paper-toolbar id="drawerToolbar">
+      <span class="paper-font-title">Menu</span>
+    </paper-toolbar>
+
+    <!-- Drawer Content -->
+    <div id="sideBarContainerContainer">
+      <div id="sideBarContainer">
+        <paper-menu class="sideBarItem" attr-for-selected="data-route" selected="{{route}}">
+          <template is="dom-repeat" items="{{routes}}">
+            <paper-item data-route$="{{item.route}}">
+              <a data-route$="{{item.route}}" href$="{{item.href}}">
+                <iron-icon icon="{{item.icon}}"></iron-icon>
+                <span>{{item.text}}</span>
+              </a>
+            </paper-item>
+          </template>
+        </paper-menu>
+
+        <div class="adContainer">
+          <my-ad class="sideBarItem" client="ca-pub-8694540020289271" slot="8307020742">
+          </my-ad>
+        </div>
+
+        <div class="socialButtons sideBarItem">
+          <h3>Share:</h3>
+          <template is="dom-repeat" items="{{socialButtons}}">
+            <paper-button class$="{{item.class}}" on-tap="loadHref" data-href$="{{item.href}}" raised="">{{item.text}}</paper-button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>!function(){"use strict";Polymer({is:"side-menu",properties:{route:{type:String,notify:!0,observer:"routeChanged"},routes:{type:Array,value:[{route:"home",icon:"home",href:"/",text:"Home"},{route:"faq",icon:"info",href:"/faq",text:"FAQ"}]},socialButtons:{type:Array,value:[{"class":"facebook button",href:"https://www.facebook.com/sharer/sharer.php?u=",text:"Facebook"},{"class":"google button",href:"https://plus.google.com/share?url=",text:"Google +"},{"class":"twitter button",href:"https://twitter.com/intent/tweet?url=",text:"Twitter"}]}},routeChanged:function(){this.fire("routeChanged",{route:this.route})},loadHref:function(t){var e=t.path[1];window.open(e.dataset.href+window.location.href,"Share","width=580,height=296")}})}();</script>

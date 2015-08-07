@@ -105,11 +105,13 @@ const VULCANIZE_OPTIONS = {
 };
 
 const MINIFY_INLINE_OPTIONS = {
-  css: false // Shit's broken yo
+  css: false, // Shit's broken yo
+  jsSelector: 'script[type!="text/markdown"]'
 };
 
 const MINIFY_HTML_OPTIONS = {
   quotes: true,
+  cdata: true,
   empty: true,
   spare: true
 };
@@ -183,7 +185,7 @@ gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
   return gulp.src(path.join('build', 'elements', 'elements.html'))
     .pipe($.vulcanize(VULCANIZE_OPTIONS))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
-    .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
+    //.pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
     .pipe($.if(PROD, $.size()))
     .pipe(gulp.dest(path.join('build', 'elements')));
 });
@@ -196,14 +198,14 @@ gulp.task('copy', () => {
       base: 'app'
     })
     .pipe($.cached('copy'))
-    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build')));
 });
 
 gulp.task('copyBowerComponents', () => {
   return gulp.src(path.join('bower_components', '**', '*'))
     .pipe($.cached('copyBower'))
-    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build', 'bower_components')));
 });
 

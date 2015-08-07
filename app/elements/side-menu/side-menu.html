@@ -23,12 +23,10 @@
           attr-for-selected="data-route"
           selected="{{route}}">
           <template is="dom-repeat" items="{{routes}}">
-            <paper-item data-route$="{{item.route}}">
-              <a data-route$="{{item.route}}" href$="{{item.href}}">
-                <iron-icon icon="{{item.icon}}"></iron-icon>
-                <span>{{item.text}}</span>
-              </a>
-            </paper-item>
+            <a data-route$="{{item.route}}" href$="{{item.href}}">
+              <iron-icon icon="{{item.icon}}"></iron-icon>
+              <span>{{item.text}}</span>
+            </a>
           </template>
         </paper-menu>
 

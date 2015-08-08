@@ -87,7 +87,7 @@
     _dispatchBuildPalette(imageData) {
       return this.dispatchWorker('buildPalette', {
         imageData: imageData,
-        numColors: this.numcolors+1}, [imageData.data.buffer])
+        numColors: this.numcolors}, [imageData.data.buffer])
       .then(({imageData, palette})=>{
         return Promise.resolve({imageData, palette});
       });

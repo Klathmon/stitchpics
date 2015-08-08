@@ -26,6 +26,10 @@
         type: Object,
         observer: 'propertyChanged'
       },
+      usedmccolors: {
+        type: Boolean,
+        observer: 'propertyChanged'
+      },
       superPixelData: {
         type: Object
       },
@@ -88,7 +92,8 @@
     _dispatchBuildPalette(imageData) {
       return this.dispatchWorker('buildPalette', {
         imageData: imageData,
-        numColors: this.numcolors+1}, [imageData.data.buffer])
+        numColors: this.numcolors+1,
+        useDmcColors: this.usedmccolors}, [imageData.data.buffer])
       .then(({imageData, palette})=>{
         return Promise.resolve({imageData, palette});
       });
@@ -135,7 +140,8 @@
     _dispatchQuantize(chunk){
       return this.dispatchWorker('quantize', {
         imageData: chunk,
-        palette: this.palette
+        palette: this.palette,
+        useDmcColors: this.usedmccolors
       }, [chunk.data.buffer])
     },
 

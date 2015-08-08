@@ -8,15 +8,15 @@
      * @param  {int}      numColors the number of output colors wanted
      * @return {Promise}            resolve({imageData, palette}, [transferrable])
      */
-    buildPalette({imageData, numColors}) {
+    buildPalette({imageData, numColors, useDmcColors}) {
       return new Promise((resolve, reject)=>{
         const opts = {
           colors: numColors,
           colorDist: 'euclidean',
           method: 1,
-          initColors: this._getDmcColorMap().size,
+          initColors: (useDmcColors ? this._getDmcColorMap().size : 2048),
           useCache: false,
-          palette: this._getColorsAsRGB(),
+          palette: (useDmcColors ? this._getColorsAsRGB() : undefined),
           reIndex: true
         }
         let rgbq = new RgbQuant(opts);
@@ -33,13 +33,13 @@
      * @param  {array}   palette   the palette array returned from buildPalette()
      * @return {Promise}           resolve({imageData, index}, [transferrable])
      */
-    quantize({imageData, palette}) {
+    quantize({imageData, palette, useDmcColors}) {
       return new Promise((resolve, reject)=>{
 
         const opts = {
           colorDist: 'euclidean',
           method: 1,
-          initColors: this._getDmcColorMap().size,
+          initColors: (useDmcColors ? this._getDmcColorMap().size : 2048),
           useCache: false,
           palette
         };

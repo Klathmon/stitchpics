@@ -29,7 +29,10 @@
             <paper-slider min="2" max="16" value="{{size}}" snaps pin editable></paper-slider>
             <div>Number of colors</div>
             <paper-slider min="4" max="32" value="{{numColors}}" snaps pin editable></paper-slider>
-            <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
+            <div class="bottomRow">
+              <paper-checkbox checked="{{useDmcColors}}">Only use DMC colors</paper-checkbox>
+              <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
+            </div>
           </my-paper-material>
         </div>
 
@@ -41,6 +44,7 @@
               gridWidth="{{gridWidth}}"
               numColors="{{numColors}}"
               imageData="{{imageData}}"
+              useDmcColors="{{useDmcColors}}"
               palette="{{palette}}">
             </cross-stitch>
           </my-paper-material>

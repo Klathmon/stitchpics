@@ -52,7 +52,7 @@
 
     receiveWork(event){
       var {func, data} = event.data;
-      var merged = _.merge( self.workerBehavior, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior);
+      var merged = _.merge( self.workerBehavior, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior, self.dmcColorBehavior);
 
       merged[func]
         .call(merged, data)

@@ -26,7 +26,7 @@ var PROD = false;
 
 const SASS_OPTIONS = {
   outputStyle: 'expanded',
-  includePaths: $.nodeBourbon.includePaths
+  includePaths: [$.nodeBourbon.includePaths, path.join('app', 'styles')]
 };
 
 const AUTOPREFIXER_OPTIONS = {
@@ -105,11 +105,13 @@ const VULCANIZE_OPTIONS = {
 };
 
 const MINIFY_INLINE_OPTIONS = {
-  css: false // Shit's broken yo
+  css: false, // Shit's broken yo
+  jsSelector: 'script[type!="text/markdown"]'
 };
 
 const MINIFY_HTML_OPTIONS = {
   quotes: true,
+  cdata: true,
   empty: true,
   spare: true
 };
@@ -122,7 +124,7 @@ gulp.task('compileAssets', ['copy'], () => {
 
     var useminOptions = {};
 
-    ['inlinecss', 'css', 'inlinesass', 'sass'].forEach((name) => {
+    buildUseminLoops(['css', 'sass', 'scss'], 1).forEach((name) => {
       useminOptions[name] = [
         $.if(!PROD, $.sourcemaps.init()),
         $.cached(name + '|compile|' + folder),
@@ -142,21 +144,19 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    var jsArray = $._.flattenDeep($._.map(new Array(5), (value, index)=>{
-      return $._.map(['js', 'inlinejs'], (type)=> type + (index > 0 ? index : ''));
-    }));
-
-    jsArray.forEach((name) => {
+    buildUseminLoops(['js', 'coffee'], 3).forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),
         $.if(!PROD, $.sourcemaps.init()),
-        $.cached(name + '|babel|' + folder),
         $.plumber(PLUMBER_OPTIONS),
+        $.cached(name + '|coffeescript|' + folder),
         $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
+        $.remember(name + '|coffeescript|' + folder),
+        $.cached(name + '|babel|' + folder),
         $.babel(BABEL_OPTIONS),
-        $.plumber.stop(),
         $.remember(name + '|babel|' + folder),
+        $.plumber.stop(),
         'concat',
         $.cached(name + '|uglify|' + folder),
         $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
@@ -167,18 +167,27 @@ gulp.task('compileAssets', ['copy'], () => {
     });
 
     return gulp.src(src)
+      .pipe($.htmlAutoprefixer(AUTOPREFIXER_OPTIONS))
       .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
   });
 });
 
-gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
+gulp.task('minifyIndex', ['copy', 'copyBowerComponents', 'compileAssets', 'vulcanize'], () => {
   return gulp.src(path.join('build', 'index.html'))
-    .pipe($.vulcanize(VULCANIZE_OPTIONS))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
     .pipe($.if(PROD, $.size()))
     .pipe(gulp.dest('build'));
+});
+
+gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
+  return gulp.src(path.join('build', 'elements', 'elements.html'))
+    .pipe($.vulcanize(VULCANIZE_OPTIONS))
+    .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
+    //.pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
+    .pipe($.if(PROD, $.size()))
+    .pipe(gulp.dest(path.join('build', 'elements')));
 });
 
 // Copy everything over
@@ -243,7 +252,8 @@ gulp.task('build:dist', [
   'compileAssets',
   'copy',
   'copyBowerComponents',
-  'vulcanize'
+  'vulcanize',
+  'minifyIndex'
 ]);
 
 
@@ -254,4 +264,14 @@ function getFolders(dir) {
     .filter((file) => {
       return fs.statSync(path.join(dir, file)).isDirectory();
     });
+}
+
+function buildUseminLoops(types, number){
+  return $._.flattenDeep($._.map(new Array(number), (value, index)=>{
+    return $._.map(types, (type)=> {
+      return $._.map(['', 'inline'], (inline)=> {
+        return inline + type + (index > 0 ? index : '');
+      });
+    });
+  }));
 }

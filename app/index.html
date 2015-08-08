@@ -31,6 +31,8 @@
   <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
+  <meta name="description" content="Stitchpics is your best way to turn any picture into a crossstitch pattern. No more tracing or drawing pictures by hand, in less than an minute you can have a picture ready for cross stitching.">
+
 
   <!-- Imports and stuff -->
 
@@ -40,33 +42,13 @@
 
   <!-- build:inlinejs -->
   <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <!-- endbuild -->
+  <!-- endbuild-->
 
-  <!-- Iron elements -->
-  <link rel="import" href="bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-  <link rel="import" href="bower_components/iron-pages/iron-pages.html">
+  <!-- build:js babel-polyfill.js -->
+  <script src="../node_modules/babel-core/browser-polyfill.js"></script>
+  <!-- endbuild-->
 
-  <!-- Paper elements -->
-  <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
-  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
-  <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
-  <link rel="import" href="bower_components/paper-styles/paper-styles-classes.html">
-  <link rel="import" href="bower_components/paper-menu/paper-menu.html">
-  <link rel="import" href="bower_components/paper-material/paper-material.html">
-  <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
-  <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link rel="import" href="bower_components/paper-input/paper-input.html">
-  <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-  <link rel="import" href="bower_components/paper-item/paper-item.html">
-
-  <!-- Platinum elements -->
-
-  <!-- Configure your routes here -->
-  <link rel="import" href="elements/routing.html">
-
-  <!-- Add your elements here -->
-  <link rel="import" href="styles/app-theme.html">
-  <link rel="import" href="elements/main-page/main-page.html">
+ <link rel="import" href="elements/elements.html">
 
 </head>
 
@@ -75,37 +57,8 @@
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
-
         <!-- Drawer Toolbar -->
-        <paper-toolbar id="drawerToolbar">
-          <span class="paper-font-title">Menu</span>
-        </paper-toolbar>
-
-        <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-          <a data-route="home" href="/">
-            <iron-icon icon="home"></iron-icon>
-            <span>Home</span>
-          </a>
-
-          <a data-route="faq" href="/faq">
-            <iron-icon icon="info"></iron-icon>
-            <span>FAQ</span>
-          </a>
-
-          <div>
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Sidebar Ad -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8694540020289271"
-                 data-ad-slot="8307020742"
-                 data-ad-format="vertical"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
-        </paper-menu>
+        <side-menu on-menu-select="onMenuSelect"></side-menu>
       </paper-scroll-header-panel>
 
       <!-- Main Area -->
@@ -139,85 +92,7 @@
 
             <template is="dom-if" if="{{faqRoute}}">
               <section data-route="faq">
-                <paper-material>
-                    <h1>FAQ</h1>
-                    <div>
-                      <paper-item>
-                        <paper-item-body two-line>
-                          <h2>Should I follow the pattern exactly?</h2>
-                          <p>
-                            The website does its best to try and create a great cross stitch from
-                            any image, however its not always perfect. Feel free to use your best
-                            judgement and alter your pattern after it has been generated.
-                          </p>
-                        </paper-item-body>
-                      </paper-item>
-                      <paper-item>
-                        <paper-item-body two-line>
-                          <h2>Why doesn't my pattern match the sizes I selected?</h2>
-                          <p>
-                            StitchPics does its best to match the pattern size you requested, however
-                            sometimes the site needs to adjust the pattern options in order
-                            to fit your image perfectly.
-                          </p>
-                        </paper-item-body>
-                      </paper-item>
-                      <paper-item>
-                        <paper-item-body two-line>
-                          <h2>How can I get my image to look better?</h2>
-                          <p>
-                            There are a few ways to get your pattern to look better.
-                            <ul>
-                              <li>
-                                Increasing the number of colors can add more "life" to your
-                                images.
-                              </li>
-                              <li>
-                                Increasing the cross stitch size can help smaller details show up in the image and
-                                can help increase the overall quality.
-                              </li>
-                              <li>
-                                Using a higher count Aida cloth can help get the most detail from
-                                an image.
-                              </li>
-                            </ul>
-                          </p>
-                        </paper-item-body>
-                      </paper-item>
-                      <paper-item>
-                        <paper-item-body two-line>
-                          <h2>Why are the colors all wrong?</h2>
-                          <p>
-                            Try setting the number of colors a little higher. The site tries to pick
-                            the best colors for each image, but can look off when the number
-                            of colors is very low. You can always choose a larger number of colors
-                            and combine similar ones, or you can just pick a thread that is closer
-                            to what you orignally wanted instead of that color.
-                          </p>
-                        </paper-item-body>
-                      </paper-item>
-                      <div>
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- FAQ Ad -->
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-8694540020289271"
-                             data-ad-slot="6576595545"
-                             data-ad-format="auto"></ins>
-                        <script>
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                      </div>
-                      <!--
-                      <paper-item>
-                        <paper-item-body two-line>
-                          <h2></h2>
-                          <p></p>
-                        </paper-item-body>
-                      </paper-item>
-                      -->
-                    </div>
-                </paper-material>
+                <faq-page></faq-page>
               </section>
             </template>
         </div>

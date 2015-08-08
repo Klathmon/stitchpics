@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="side-menu">
+  <!-- build:inlinesass -->
+  <link rel="stylesheet" href="element.sass">
+  <!-- endbuild -->
+  <template>
+    <paper-toolbar id="drawerToolbar">
+      <span class="paper-font-title">Menu</span>
+    </paper-toolbar>
+
+    <!-- Drawer Content -->
+    <div id="sideBarContainerContainer">
+      <div id="sideBarContainer">
+        <paper-menu
+          class="sideBarItem"
+          attr-for-selected="data-route"
+          selected="{{route}}">
+          <template is="dom-repeat" items="{{routes}}">
+            <a data-route$="{{item.route}}" href$="{{item.href}}">
+              <iron-icon icon="{{item.icon}}"></iron-icon>
+              <span>{{item.text}}</span>
+            </a>
+          </template>
+        </paper-menu>
+
+        <div class="adContainer">
+          <my-ad
+            class="sideBarItem"
+            client="ca-pub-8694540020289271"
+            slot="8307020742">
+          </my-ad>
+        </div>
+
+        <div class="socialButtons sideBarItem">
+          <h3>Share:</h3>
+          <template is="dom-repeat" items="{{socialButtons}}">
+            <paper-button class$="{{item.class}}" on-tap="loadHref" data-href$="{{item.href}}" raised>{{item.text}}</paper-button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<!-- build:inlinejs -->
+<script src="element.js"></script>
+<!-- endbuild -->

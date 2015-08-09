@@ -4,40 +4,48 @@
   Polymer({
   /*jshint +W064 */
     is: 'palette-viewer',
+    behaviors: [
+      window.dmcColorBehavior
+    ],
 
     properties: {
       palette: {
         type: Array,
         observer: '_showPalette'
-      }
+      },
+      colors: {
+        type: Array
+      },
+      usedmccolors: {
+        type: Boolean
+      },
     },
 
-    getImageAsURI(){
-      return this.$.paletteOutput.toDataURL('image/png');
+    getColorKey(){
+      var container = document.createElement('div');
+      container.innerHTML = Polymer.dom(this.$.tableContainer).innerHTML;
+
+      var realContainer = container.childNodes[1];
+
+      console.log(realContainer);
+      realContainer.style.cssText = window.getComputedStyle(this.$.paletteTable, null).cssText;
+
+      return realContainer;
     },
 
     _showPalette(){
+      let dmcColorMap = this._getDmcColorMap();
+      this.colors = this.palette.map(([r, g, b], index)=>{
+        let hex = this._convertRGBToHex([r, g, b]).toUpperCase();
+        let colorName =  window.ntc.name('#' + hex)[1];
+        let dmcColor = (this.usedmccolor ? false : dmcColorMap.get(hex));
 
-      var canvas = this.$.paletteOutput; //document.createElement('canvas');
-      var width = Polymer.dom(this).node.offsetWidth;
-      var multiplier = Math.floor(width / 10);
-      width = multiplier * 10;
-      var height = Math.ceil((multiplier * this.palette.length) / width) * multiplier;
-
-      canvas.width = width;
-      canvas.height = height;
-      var context = canvas.getContext('2d');
-
-      // First make the whole thing white
-      context.fillStyle = 'white';
-      context.fillRect(0, 0, width, height);
-
-      this.palette.forEach((color, index)=>{
-        context.fillStyle = `rgb(${color.join(',')})`;
-        var indexMultiplied = index * multiplier;
-        var x = indexMultiplied % width;
-        var y = Math.floor(indexMultiplied / width) * multiplier;
-        context.fillRect(x, y, multiplier, multiplier);
+        return {
+          hex: '#' + hex,
+          swatchStyle: 'background-color: #' + hex,
+          colorName,
+          dmcColor
+        };
       });
     }
 

@@ -9,7 +9,8 @@
       window.quantizeBehavior,
       window.pixelateBehavior,
       window.workerBehavior,
-      window.miscBehavior
+      window.miscBehavior,
+      window.dmcColorBehavior
     ],
 
     properties: {
@@ -23,6 +24,10 @@
       },
       imagedata: {
         type: Object,
+        observer: 'propertyChanged'
+      },
+      usedmccolors: {
+        type: Boolean,
         observer: 'propertyChanged'
       },
       superPixelData: {
@@ -87,7 +92,8 @@
     _dispatchBuildPalette(imageData) {
       return this.dispatchWorker('buildPalette', {
         imageData: imageData,
-        numColors: this.numcolors}, [imageData.data.buffer])
+        numColors: this.numcolors,
+        useDmcColors: this.usedmccolors}, [imageData.data.buffer])
       .then(({imageData, palette})=>{
         return Promise.resolve({imageData, palette});
       });
@@ -134,7 +140,8 @@
     _dispatchQuantize(chunk){
       return this.dispatchWorker('quantize', {
         imageData: chunk,
-        palette: this.palette
+        palette: this.palette,
+        useDmcColors: this.usedmccolors
       }, [chunk.data.buffer])
     },
 

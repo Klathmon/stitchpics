@@ -3,7 +3,7 @@
   var behavior = {
 
 
-    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels}) {
+    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {
       return new Promise((resolve, reject)=>{
         this.isLittleEndian = this._isLittleEndian();
 
@@ -13,7 +13,7 @@
             var color = this._getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels});
 
             // Now set the superPixel to that color entirely
-            this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color});
+            this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid});
           }
         }
         resolve({imageData}, [imageData.data.buffer]);
@@ -67,7 +67,7 @@
       }
     },
 
-    _setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color}) {
+    _setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid}) {
       var {data: imageDataData, width: imageWidth, height: imageHeight} = imageData;
       var uInt32Array = new Uint32Array(imageDataData.buffer);
       // Locality bro!
@@ -84,7 +84,7 @@
           if (xPos < imageWidth && yPos < imageHeight) {
             var index = ((yPos * imageWidth) + xPos) | 0;
 
-            if (subPixelX === pixelWidth - 1 || subPixelY === pixelHeight - 1) {
+            if (!hideTheGrid && (subPixelX === pixelWidth - 1 || subPixelY === pixelHeight - 1)) {
               // If it's the bottom or right side, draw the grid
               uInt32Array[index] = this._setPixelEndianSafe(isLittleEndian, 50, 50, 50, 255);
             } else if (alpha < 200) {

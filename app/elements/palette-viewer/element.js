@@ -21,8 +21,16 @@
       },
     },
 
-    getImageAsURI(){
-      return this.$.paletteOutput.toDataURL('image/png');
+    getColorKey(){
+      var container = document.createElement('div');
+      container.innerHTML = Polymer.dom(this.$.tableContainer).innerHTML;
+
+      var realContainer = container.childNodes[1];
+
+      console.log(realContainer);
+      realContainer.style.cssText = window.getComputedStyle(this.$.paletteTable, null).cssText;
+
+      return realContainer;
     },
 
     _showPalette(){

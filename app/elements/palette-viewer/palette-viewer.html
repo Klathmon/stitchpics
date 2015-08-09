@@ -10,18 +10,14 @@
         <tr>
           <th>Color</th>
           <th>Color Name</th>
-          <template is="dom-if" if="{{usedmccolors}}">
-            <th>DMC Color Number</th>
-          </template>
+          <th>DMC Color Number</th>
           <th>Hex Code</th>
         </tr>
         <template is="dom-repeat" items="{{colors}}">
           <tr>
             <td class="swatch" style$="{{item.swatchStyle}}"></td>
             <td class="colorName">{{item.colorName}}</td>
-            <template is="dom-if" if="{{item.dmcColor}}">
-              <td class="dmcColor">{{item.dmcColor}}</td>
-            </template>
+            <td class="dmcColor">{{item.dmcColor}}</td>
             <td class="hex">{{item.hex}}</td>
           </tr>
         </template>

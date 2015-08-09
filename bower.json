@@ -12,7 +12,8 @@
     "RgbQuant.js": "leeoniya/RgbQuant.js",
     "lodash": "~3.10.0",
     "paper-menu-button": "PolymerElements/paper-menu-button#~1.0.0",
-    "marked-element": "PolymerElements/marked-element#~1.0.2"
+    "marked-element": "PolymerElements/marked-element#~1.0.2",
+    "nameThatColor": "http://chir.ag/projects/ntc/ntc.js"
   },
   "devDependencies": {
     "web-component-tester": "*",

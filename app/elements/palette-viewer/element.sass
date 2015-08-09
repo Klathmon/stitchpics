@@ -1,8 +1,21 @@
-:host
+$border-color: #CCC
+
+\:host
+  font-family: 'Roboto', 'Noto', sans-serif
   display: block
 
-img
-  display: block
-  width: 100%
-  height: auto
-  image-rendering: pixelated
+  #paletteTable
+    border-collapse: collapse;
+    width: 100%
+
+    td
+      border: 1px solid $border-color
+      padding: 0.2em
+      vertical-align: middle
+      text-align: left
+
+
+    th
+      @extend td
+      text-align: center
+      border-bottom: 2px solid $border-color

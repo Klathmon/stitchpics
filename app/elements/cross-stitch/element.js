@@ -30,6 +30,10 @@
         type: Boolean,
         observer: 'propertyChanged'
       },
+      hidethegrid: {
+        type: Boolean,
+        observer: 'propertyChanged'
+      },
       superPixelData: {
         type: Object
       },
@@ -152,6 +156,7 @@
         pixelHeight: this.superPixelData.pixelHeight,
         xPixels: this.superPixelData.xPixels,
         yPixels: this.superPixelData.yPixels,
+        hideTheGrid: this.hidethegrid
       }, [imageData.data.buffer]);
     },
 

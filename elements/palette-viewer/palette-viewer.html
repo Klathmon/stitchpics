@@ -1,9 +1,26 @@
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 
 <dom-module id="palette-viewer">
-  <style>:host,img{display:block}img{width:100%;height:auto;-ms-interpolation-mode:nearest-neighbor;image-rendering:-webkit-optimize-contrast;image-rendering:-moz-crisp-edges;image-rendering:pixelated}</style>
+  <style>\:host{font-family:Roboto,Noto,sans-serif;display:block}\:host #paletteTable{border-collapse:collapse;width:100%}\:host #paletteTable td,\:host #paletteTable th{border:1px solid #CCC;padding:.2em;vertical-align:middle;text-align:left}\:host #paletteTable th{text-align:center;border-bottom:2px solid #CCC}</style>
   <template>
-    <canvas id="paletteOutput"></canvas>
+    <dom id="tableContainer">
+      <table id="paletteTable">
+        <tr>
+          <th>Color</th>
+          <th>Color Name</th>
+          <th>DMC Color Number</th>
+          <th>Hex Code</th>
+        </tr>
+        <template is="dom-repeat" items="{{colors}}">
+          <tr>
+            <td class="swatch" style$="{{item.swatchStyle}}"></td>
+            <td class="colorName">{{item.colorName}}</td>
+            <td class="dmcColor">{{item.dmcColor}}</td>
+            <td class="hex">{{item.hex}}</td>
+          </tr>
+        </template>
+      </table>
+    </dom>
   </template>
 </dom-module>
 <script src="element.js"></script>

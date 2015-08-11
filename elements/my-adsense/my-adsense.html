@@ -1,0 +1,9 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="my-adsense">
+  <style>\:host{display:block;visibility:hidden;height:0;width:0}</style>
+  <template>
+  </template>
+</dom-module>
+
+<script>!function(){"use strict";Polymer({is:"my-adsense",properties:{trackingcode:{type:String}},ready:function(){this.isogram(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create",this.trackingcode,"auto"),ga("send","pageview")},isogram:function(e,t,n,a,s,i,c){e.GoogleAnalyticsObject=s,e[s]=e[s]||function(){(e[s].q=e[s].q||[]).push(arguments)},e[s].l=1*new Date,i=t.createElement(n),c=t.getElementsByTagName(n)[0],i.async=1,i.src=a,c.parentNode.insertBefore(i,c)}})}();</script>

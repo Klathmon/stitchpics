@@ -13,6 +13,8 @@ import path from 'path';
 import gulp from 'gulp';
 import merge from 'merge-stream';
 import glp from 'gulp-load-plugins';
+import webComponentTester from 'web-component-tester';
+webComponentTester.gulp.init(gulp);
 var $ = glp({
   pattern: ['*'],
   rename: {
@@ -237,6 +239,13 @@ gulp.task('serve:dist', ['build:dist'], () => {
   gulp.watch(path.join('app', '**', '*'), ['build:dist', $.browserSync.reload]);
 });
 
+
+
+gulp.task('test:local', ['build', 'copy', 'copyBowerComponents'], ()=>{
+  test({plugins: {local: false, sauce: {}}},   cleanDone(done));
+});
+
+
 gulp.task('deploy', ['build:dist'], ()=>{
   return gulp.src(path.join('build', '**', '*'))
     .pipe($.ghPages());
@@ -255,7 +264,6 @@ gulp.task('build:dist', [
   'vulcanize',
   'minifyIndex'
 ]);
-
 
 
 

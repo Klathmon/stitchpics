@@ -4,7 +4,7 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="paper-file-upload">
-  <style>:host{display:block}#buttonIcon.hidden,#imageLoader{display:none}</style>
+  <style>\:host{font-family:Roboto,Noto,sans-serif;display:block}#buttonIcon.hidden,#imageLoader{display:none}</style>
   <template>
       <paper-button raised="" on-tap="translateClick">
         <iron-icon id="buttonIcon" class="hidden" icon="check"></iron-icon>
@@ -13,4 +13,5 @@
       <input type="file" id="imageLoader" on-change="fileUpload">
   </template>
 </dom-module>
-<script src="element.js"></script>
+
+<script>!function(){"use strict";Polymer({is:"paper-file-upload",properties:{imagedata:{type:Object,notify:!0},buttonText:{type:String,value:"Upload Image"}},translateClick:function(){this.$.imageLoader.click()},fileUpload:function(e){var t=this,a=e.target.files[0],i=document.createElement("canvas");if(e.target.files&&a){var n=new FileReader;n.onload=function(e){var n=i.getContext("2d"),o=new Image;o.onload=function(){i.width=o.width,i.height=o.height,n.drawImage(o,0,0),t.imagedata=n.getImageData(0,0,i.width,i.height);var e=a.name;e.length>20&&(e="Image"),t.buttonText=e+" Uploaded",t.$.buttonIcon.classList.remove("hidden")},o.src=e.target.result},n.readAsDataURL(a)}}})}();</script>

@@ -1,1 +1,54 @@
-!function(){"use strict";Polymer({is:"paper-file-upload",properties:{imagedata:{type:Object,notify:!0},buttonText:{type:String,value:"Upload Image"}},translateClick:function(){this.$.imageLoader.click()},fileUpload:function(e){var t=this,a=e.target.files[0],i=document.createElement("canvas");if(e.target.files&&a){var n=new FileReader;n.onload=function(e){var n=i.getContext("2d"),o=new Image;o.onload=function(){i.width=o.width,i.height=o.height,n.drawImage(o,0,0),t.imagedata=n.getImageData(0,0,i.width,i.height);var e=a.name;e.length>20&&(e="Image"),t.buttonText=e+" Uploaded",t.$.buttonIcon.classList.remove("hidden")},o.src=e.target.result},n.readAsDataURL(a)}}})}();
+(function() {
+  'use strict';
+  /*jshint -W064 */
+  Polymer({
+  /*jshint +W064 */
+    is: 'paper-file-upload',
+
+    properties: {
+      imagedata: {
+        type: Object,
+        notify: true
+      },
+      buttonText: {
+        type: String,
+        value: "Upload Image"
+      }
+    },
+
+    translateClick(){
+      this.$.imageLoader.click();
+    },
+
+    fileUpload(event){
+      var file = event.target.files[0];
+      var canvas = document.createElement('canvas');
+
+      if(event.target.files && file){
+        var reader = new FileReader();
+        reader.onload = (readerLoaded)=>{
+          var context = canvas.getContext('2d');
+          var img = new Image();
+          img.onload = ()=>{
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0);
+            this.imagedata = context.getImageData(0, 0, canvas.width, canvas.height);
+
+            var fileName = file.name;
+
+            if(fileName.length > 20){
+              fileName = "Image";
+            }
+
+            this.buttonText = fileName + " Uploaded";
+            this.$.buttonIcon.classList.remove('hidden');
+          };
+          img.src = readerLoaded.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+  });
+})();

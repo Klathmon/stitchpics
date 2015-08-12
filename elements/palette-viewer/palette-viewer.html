@@ -1,7 +1,7 @@
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 
 <dom-module id="palette-viewer">
-  <style>\:host{font-family:Roboto,Noto,sans-serif;display:block}\:host #paletteTable{border-collapse:collapse;width:100%}\:host #paletteTable td,\:host #paletteTable th{border:1px solid #CCC;padding:.2em;vertical-align:middle;text-align:left}\:host #paletteTable th{text-align:center;border-bottom:2px solid #CCC}</style>
+  <style>\:host{font-family:Roboto,Noto,sans-serif;display:block}#paletteTable{border-collapse:collapse;width:100%}#paletteTable td,#paletteTable th{border:1px solid #CCC;padding:.2em;vertical-align:middle;text-align:left}#paletteTable th{text-align:center;border-bottom:2px solid #CCC}</style>
   <template>
     <dom id="tableContainer">
       <table id="paletteTable">
@@ -23,4 +23,5 @@
     </dom>
   </template>
 </dom-module>
-<script src="element.js"></script>
+
+<script>var _slicedToArray=function(){function e(e,t){var r=[],o=!0,n=!1,a=void 0;try{for(var i,l=e[Symbol.iterator]();!(o=(i=l.next()).done)&&(r.push(i.value),!t||r.length!==t);o=!0);}catch(c){n=!0,a=c}finally{try{!o&&l["return"]&&l["return"]()}finally{if(n)throw a}}return r}return function(t,r){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,r);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}();!function(){"use strict";Polymer({is:"palette-viewer",behaviors:[window.dmcColorBehavior],properties:{palette:{type:Array,observer:"_showPalette"},colors:{type:Array},usedmccolors:{type:Boolean}},getColorKey:function(){var e=document.createElement("div");e.innerHTML=Polymer.dom(this.$.tableContainer).innerHTML;var t=e.childNodes[1];return console.log(t),t.style.cssText=window.getComputedStyle(this.$.paletteTable,null).cssText,t},_showPalette:function(){var e=this,t=this._getDmcColorMap();this.colors=this.palette.map(function(r){var o=_slicedToArray(r,3),n=o[0],a=o[1],i=o[2],l=e._convertRGBToHex([n,a,i]).toUpperCase(),c=window.ntc.name("#"+l)[1],s=e.usedmccolor?!1:t.get(l);return{hex:"#"+l,swatchStyle:"background-color: #"+l,colorName:c,dmcColor:s}})}})}();</script>

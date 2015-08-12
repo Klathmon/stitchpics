@@ -1,4 +1,2 @@
-# robotstxt.org
-
 User-agent: *
-Disallow:
+Disallow: /no-secrets-here/admin/plaintext-passwords/root/superroot/ultramegaroot/stuff

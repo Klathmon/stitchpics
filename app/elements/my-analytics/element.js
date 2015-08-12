@@ -3,7 +3,7 @@
   /*jshint -W064 */
   Polymer({
   /*jshint +W064 */
-    is: 'my-adsense',
+    is: 'my-analytics',
 
     properties: {
       trackingcode: {

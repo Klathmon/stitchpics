@@ -63,9 +63,11 @@
         <div id="saveBox">
           <h3>Save</h3>
           <my-paper-material elevation="1" class="indent">
-            <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
-            <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab</paper-button>
-            <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
+            <div class="flexContainer">
+              <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
+              <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab</paper-button>
+              <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
+            </div>
           </my-paper-material>
 
           <my-ad

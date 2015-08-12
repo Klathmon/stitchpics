@@ -33,9 +33,6 @@ paper-slider
     display: table
     clear: both
 
-  #introBox
-    border-bottom: #CCC 1px solid
-
   +desktop
     > div:not(#introBox)
       width: 50%
@@ -48,3 +45,14 @@ paper-slider
 
     #saveBox
       float: left
+
+
+#introBox
+  border-bottom: #CCC 1px solid
+
+#saveBox .flexContainer
+  @extend .bottomRow
+  paper-button
+    display: block
+    min-width: 160px
+    flex: 1

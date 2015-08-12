@@ -16,14 +16,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>Elements Test Runner</title>
     <meta charset="UTF-8">
 
-    <script src="../../bower_components/webcomponentsjs/webcomponents.min.js"></script>
-    <script src="../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
   </head>
 
   <body>
 
     <script>
-      WCT.loadSuites(['my-greeting-basic.html', 'my-list-basic.html']);
+      WCT.loadSuites([
+        '../elements/my-paper-material/tests/my-paper-material.html',
+        '../elements/faq-page/tests/faq-page.html',
+      ]);
     </script>
 
 

@@ -36,7 +36,7 @@
     "imagemin-pngcrush": "^4.1.0",
     "jshint-stylish": "^2.0.1",
     "lodash": "^3.10.0",
-    "merge-stream": "^0.1.8",
+    "merge-stream": "^1.0.0",
     "vulcanize": ">= 1.4.2",
     "web-component-tester": "^3.3.10"
   },

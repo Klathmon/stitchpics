@@ -1,6 +1,7 @@
 {
-  "suites": ["build/test.html"],
-  "testTimeout": 10000,
+  "root": "build",
+  "suites": ["test.html"],
+  "testTimeout": 100000,
   "plugins": {
     "local": {
       "browsers": ["chrome", "firefox"]

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <script src="../bower_components/web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../elements/my-paper-material/my-paper-material.html">
+
+</head>
+<body>
+
+      <my-paper-material id="testElement" elevation="4"><h2>This is content!</h2></my-paper-material>
+
+<script>
+suite('Smoke Tests', function () {
+  var element;
+
+  setup(function (done) {
+    element = document.getElementById('testElement');
+  });
+
+  test('Element Has Layout', function (done) {
+    expect(element.offsetHeight).to.be.above(10);
+    done();
+  });
+});
+</script>
+</body>
+</html>

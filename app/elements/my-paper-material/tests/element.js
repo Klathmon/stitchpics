@@ -2,7 +2,7 @@ suite('Element Tests', ()=> {
   'use strict';
   let element;
 
-  setup(()=> element = fixture('basic'));
+  setup(()=> element = fixture('mypapermaterial'));
 
   test('Elevation is set', ()=> {
     expect(element.elevation).to.equal('4');

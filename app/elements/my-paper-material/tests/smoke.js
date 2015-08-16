@@ -2,7 +2,7 @@ suite('Smoke Tests', ()=> {
   'use strict';
   let element;
 
-  setup(()=> element = fixture('basic'));
+  setup(()=> element = fixture('mypapermaterial'));
 
   test('Element Name Correct', ()=> {
     expect(element.tagName).to.equal(element.is.toUpperCase());

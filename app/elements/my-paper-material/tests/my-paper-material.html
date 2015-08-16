@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+  <script src="../../../bower_components/web-component-tester/browser.js"></script>
+  <link rel="import" href="../../../bower_components/test-fixture/test-fixture.html">
+  <script src="../../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+
+  <link rel="import" href="../../elements.html">
+
+</head>
+<body>
+
+  <test-fixture id="mypapermaterial">
+    <template>
+      <my-paper-material elevation="4"><h2>This is content!</h2></my-paper-material>
+    </template>
+  </test-fixture>
+
+<!-- build:inlinejs -->
+<script src="smoke.js"></script>
+<script src="element.js"></script>
+<!-- endbuild-->
+</body>
+</html>

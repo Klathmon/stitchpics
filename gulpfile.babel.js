@@ -13,6 +13,8 @@ import path from 'path';
 import gulp from 'gulp';
 import merge from 'merge-stream';
 import glp from 'gulp-load-plugins';
+import webComponentTester from 'web-component-tester';
+webComponentTester.gulp.init(gulp);
 var $ = glp({
   pattern: ['*'],
   rename: {
@@ -118,7 +120,7 @@ const MINIFY_HTML_OPTIONS = {
 
 // Compile Assets (html/css/js)
 gulp.task('compileAssets', ['copy'], () => {
-  return getFolders(path.join('app', 'elements')).concat('').map((folder) => {
+  return merge(getFolders(path.join('app', 'elements')).concat('').map((folder) => {
     var src = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
     var dest = path.join.apply(this, (folder ? ['build', 'elements', folder] : ['build']));
 
@@ -144,7 +146,7 @@ gulp.task('compileAssets', ['copy'], () => {
       ];
     });
 
-    buildUseminLoops(['js', 'coffee'], 3).forEach((name) => {
+    buildUseminLoops(['js', 'coffee'], 2).forEach((name) => {
       useminOptions[name] = [
         $.if('elements', $.jshint()),
         $.if('elements', $.jshint.reporter($.jshintStylish)),
@@ -170,7 +172,7 @@ gulp.task('compileAssets', ['copy'], () => {
       .pipe($.htmlAutoprefixer(AUTOPREFIXER_OPTIONS))
       .pipe($.usemin(useminOptions))
       .pipe(gulp.dest(dest));
-  });
+  }));
 });
 
 gulp.task('minifyIndex', ['copy', 'copyBowerComponents', 'compileAssets', 'vulcanize'], () => {
@@ -237,6 +239,13 @@ gulp.task('serve:dist', ['build:dist'], () => {
   gulp.watch(path.join('app', '**', '*'), ['build:dist', $.browserSync.reload]);
 });
 
+
+
+//gulp.task('test:local', ['build', 'copy', 'copyBowerComponents'], ()=>{
+//  test({plugins: {local: false, sauce: {}}},   cleanDone(done));
+//});
+
+
 gulp.task('deploy', ['build:dist'], ()=>{
   return gulp.src(path.join('build', '**', '*'))
     .pipe($.ghPages());
@@ -256,22 +265,33 @@ gulp.task('build:dist', [
   'minifyIndex'
 ]);
 
+gulp.task('debugThing', ()=>{
+  console.log(getFolders(path.join('app', 'elements')));
+});
 
 
 
-function getFolders(dir) {
-  return fs.readdirSync(dir)
-    .filter((file) => {
-      return fs.statSync(path.join(dir, file)).isDirectory();
-    });
-}
+var getFolders = function getFolders(dir, rootDir = dir) {
+  let folderArray = [];
+  fs.readdirSync(dir).forEach((file) => {
+    let dirName = path.join(dir, file);
+    if(fs.statSync(dirName).isDirectory()){
+      [].push.apply(folderArray, getFolders(dirName, rootDir).concat(dirName));
+    }
+  });
+  return folderArray.map((filePath)=>filePath.replace(rootDir + '\\', ''));
+};
 
 function buildUseminLoops(types, number){
   return $._.flattenDeep($._.map(new Array(number), (value, index)=>{
     return $._.map(types, (type)=> {
       return $._.map(['', 'inline'], (inline)=> {
-        return inline + type + (index > 0 ? index : '');
+        if(index > 0 && inline === 'inline'){
+          return null;
+        }else{
+          return inline + type + (index > 0 ? index : '');
+        }
       });
     });
-  }));
+  })).filter((item)=> item);
 }

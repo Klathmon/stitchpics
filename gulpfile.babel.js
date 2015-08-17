@@ -13,8 +13,6 @@ import path from 'path';
 import gulp from 'gulp';
 import merge from 'merge-stream';
 import glp from 'gulp-load-plugins';
-import webComponentTester from 'web-component-tester';
-webComponentTester.gulp.init(gulp);
 var $ = glp({
   pattern: ['*'],
   rename: {
@@ -23,6 +21,8 @@ var $ = glp({
     'vulcanize': 'vulcanizeProper'
   }
 });
+
+$.webComponentTester.gulp.init(gulp);
 
 var PROD = false;
 
@@ -37,10 +37,10 @@ const AUTOPREFIXER_OPTIONS = {
   browsers: [
     'ie >= 10',
     'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
+    'ff >= 35',
+    'chrome >= 40',
+    'opera >= 26',
     'safari >= 7',
-    'opera >= 23',
     'ios >= 7',
     'android >= 4.4',
     'bb >= 10'
@@ -98,12 +98,12 @@ const IMAGEMIN_OPTIONS = {
 const VULCANIZE_OPTIONS = {
   dest: 'build',
   inlineCss: true,
+  inlineScripts: true,
   stripExcludes: false,
   excludes: [
     '//fonts.googleapis.com/*',
     '//pagead2.googlesyndication.com/*'
-  ],
-  inlineScripts: true
+  ]
 };
 
 const MINIFY_INLINE_OPTIONS = {
@@ -118,77 +118,85 @@ const MINIFY_HTML_OPTIONS = {
   spare: true
 };
 
-// Compile Assets (html/css/js)
+var compileCss = function compileCss(name, folder){
+  return [
+    $.plumber(PLUMBER_OPTIONS),
+    $.cached(name + '|css|' + folder),
+    $.if(!PROD, $.sourcemaps.init()),
+    $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+    $.autoprefixer(AUTOPREFIXER_OPTIONS),
+    $.remember(name + '|css|' + folder),
+    $.csslint(),
+    $.csslint.reporter($.csslintStylish),
+    'concat',
+    $.if(PROD, $.cached(name + '|minifycss|' + folder)),
+    $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
+    $.if(PROD, $.remember(name + '|minifycss|' + folder)),
+    $.if(!PROD, $.sourcemaps.write()),
+    $.plumber.stop()
+  ];
+};
+
+var compileJs = function compileJs(name, folder){
+  return [
+    $.plumber(PLUMBER_OPTIONS),
+    $.if(!PROD, $.sourcemaps.init()),
+    $.if('.coffee', $.cached(name + '|coffeescript|' + folder)),
+    $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
+    $.if('.coffee', $.remember(name + '|coffeescript|' + folder)),
+    $.if('elements', $.jshint()),
+    $.if('elements', $.jshint.reporter($.jshintStylish)),
+    $.cached(name + '|babel|' + folder),
+    $.babel(BABEL_OPTIONS),
+    $.remember(name + '|babel|' + folder),
+    'concat',
+    $.if(PROD, $.cached(name + '|uglify|' + folder)),
+    $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
+    $.if(PROD, $.remember(name + '|uglify|' + folder)),
+    $.stripComments({safe: false, line: true}),
+    $.if(!PROD, $.sourcemaps.write()),
+    $.plumber.stop()
+  ];
+};
+
+
 gulp.task('compileAssets', ['copy'], () => {
   return merge(getFolders(path.join('app', 'elements')).concat('').map((folder) => {
     var src = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
     var dest = path.join.apply(this, (folder ? ['build', 'elements', folder] : ['build']));
 
     var useminOptions = {};
-
-    buildUseminLoops(['css', 'sass', 'scss'], 1).forEach((name) => {
-      useminOptions[name] = [
-        $.if(!PROD, $.sourcemaps.init()),
-        $.cached(name + '|compile|' + folder),
-        $.plumber(PLUMBER_OPTIONS),
-        //    VVV The "Dumb Face" operator
-        $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
-        $.autoprefixer(AUTOPREFIXER_OPTIONS),
-        $.plumber.stop(),
-        $.remember(name + '|compile|' + folder),
-        $.csslint(),
-        $.csslint.reporter($.csslintStylish),
-        'concat',
-        $.cached(name + '|minify|' + folder),
-        $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
-        $.remember(name + '|minify|' + folder),
-        $.if(!PROD, $.sourcemaps.write())
-      ];
-    });
-
-    buildUseminLoops(['js', 'coffee'], 2).forEach((name) => {
-      useminOptions[name] = [
-        $.if('elements', $.jshint()),
-        $.if('elements', $.jshint.reporter($.jshintStylish)),
-        $.if(!PROD, $.sourcemaps.init()),
-        $.plumber(PLUMBER_OPTIONS),
-        $.cached(name + '|coffeescript|' + folder),
-        $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
-        $.remember(name + '|coffeescript|' + folder),
-        $.cached(name + '|babel|' + folder),
-        $.babel(BABEL_OPTIONS),
-        $.remember(name + '|babel|' + folder),
-        $.plumber.stop(),
-        'concat',
-        $.cached(name + '|uglify|' + folder),
-        $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
-        $.remember(name + '|uglify|' + folder),
-        $.stripComments({safe: false, line: true}),
-        $.if(!PROD, $.sourcemaps.write())
-      ];
-    });
+    buildUseminLoops(['css', 'sass', 'scss'], 1).forEach((name) => useminOptions[name] = compileCss(name, folder));
+    buildUseminLoops(['js', 'coffee'], 2).forEach((name) => useminOptions[name] = compileJs(name, folder));
 
     return gulp.src(src)
+      .pipe($.plumber(PLUMBER_OPTIONS))
+      .pipe($.cached('htmlAutoprefixer|' + folder))
       .pipe($.htmlAutoprefixer(AUTOPREFIXER_OPTIONS))
+      .pipe($.remember('htmlAutoprefixer|' + folder))
       .pipe($.usemin(useminOptions))
-      .pipe(gulp.dest(dest));
+      .pipe($.size())
+      .pipe(gulp.dest(dest))
+      .pipe($.plumber.stop());
   }));
 });
 
 gulp.task('minifyIndex', ['copy', 'copyBowerComponents', 'compileAssets', 'vulcanize'], () => {
   return gulp.src(path.join('build', 'index.html'))
+    .pipe($.cached('minifyIndex'))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
-    .pipe($.if(PROD, $.size()))
+    .pipe($.size())
     .pipe(gulp.dest('build'));
 });
 
 gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
   return gulp.src(path.join('build', 'elements', 'elements.html'))
-    .pipe($.vulcanize(VULCANIZE_OPTIONS))
+    .pipe($.cached('vulcanize'))
+    .pipe($.if(PROD, $.vulcanize(VULCANIZE_OPTIONS)))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     //.pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
-    .pipe($.if(PROD, $.size()))
+    .pipe($.size())
     .pipe(gulp.dest(path.join('build', 'elements')));
 });
 
@@ -206,7 +214,7 @@ gulp.task('copy', () => {
 
 gulp.task('copyBowerComponents', () => {
   return gulp.src(path.join('bower_components', '**', '*'))
-    .pipe($.cached('copyBower'))
+    .pipe($.cached('copyBowerComponents'))
     .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build', 'bower_components')));
 });
@@ -214,7 +222,6 @@ gulp.task('copyBowerComponents', () => {
 gulp.task('serve', ['build'], () => {
   $.browserSync({
     notify: false,
-    https: false,
     server: {
       baseDir: 'build',
       routes: {
@@ -230,7 +237,6 @@ gulp.task('serve', ['build'], () => {
 gulp.task('serve:dist', ['build:dist'], () => {
   $.browserSync({
     notify: false,
-    https: false,
     server: {
       baseDir: 'build'
     }
@@ -240,37 +246,18 @@ gulp.task('serve:dist', ['build:dist'], () => {
 });
 
 
-
-//gulp.task('test:local', ['build', 'copy', 'copyBowerComponents'], ()=>{
-//  test({plugins: {local: false, sauce: {}}},   cleanDone(done));
-//});
-
-
-gulp.task('deploy', ['build:dist'], ()=>{
-  return gulp.src(path.join('build', '**', '*'))
-    .pipe($.ghPages());
-});
-
+gulp.task('production', ()=> PROD = true);
 gulp.task('clean', del.bind(null, ['build']));
-gulp.task('production', () => {
-  PROD = true;
-});
-gulp.task('build', ['compileAssets', 'copy']);
-gulp.task('build:dist', [
-  'production',
-  'compileAssets',
-  'copy',
-  'copyBowerComponents',
-  'vulcanize',
-  'minifyIndex'
-]);
-
-gulp.task('debugThing', ()=>{
-  console.log(getFolders(path.join('app', 'elements')));
-});
+gulp.task('uninstall', ['clean'], del.bind(null, ['node_modules', 'bower_components']));
+gulp.task('build', ['compileAssets']);
+gulp.task('build:dist', ['production','build','copyBowerComponents','vulcanize','minifyIndex']);
+gulp.task('deploy', ['build:dist'], ()=> gulp.src(path.join('build', '**', '*')).pipe($.ghPages()));
 
 
+// Below this are just helper functions...
 
+
+// Recursively gets all folders in the directory given and returns them in an array
 var getFolders = function getFolders(dir, rootDir = dir) {
   let folderArray = [];
   fs.readdirSync(dir).forEach((file) => {
@@ -279,10 +266,11 @@ var getFolders = function getFolders(dir, rootDir = dir) {
       [].push.apply(folderArray, getFolders(dirName, rootDir).concat(dirName));
     }
   });
-  return folderArray.map((filePath)=>filePath.replace(rootDir + '\\', ''));
+  return folderArray.map((filePath)=> filePath.replace(rootDir + '\\', ''));
 };
 
-function buildUseminLoops(types, number){
+// Builds the usemin arrays fn(['js', 'coffee'], 2) becomes ['js', 'coffee', 'inlinejs', 'inlinecoffee', 'js2', 'coffee2']
+var buildUseminLoops = function buildUseminLoops(types, number){
   return $._.flattenDeep($._.map(new Array(number), (value, index)=>{
     return $._.map(types, (type)=> {
       return $._.map(['', 'inline'], (inline)=> {
@@ -294,4 +282,4 @@ function buildUseminLoops(types, number){
       });
     });
   })).filter((item)=> item);
-}
+};

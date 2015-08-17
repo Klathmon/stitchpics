@@ -1,4 +1,12 @@
 npm install -g bower gulp rimraf babel
 
-npm install &
-bower install &
+npm update -g
+
+rimraf bower_components node_modules build
+
+npm install
+bower install
+
+rimraf npm-debug.log
+
+gulp build:dist

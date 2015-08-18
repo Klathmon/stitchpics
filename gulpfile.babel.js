@@ -162,8 +162,8 @@ var compileJs = function compileJs(name, folder){
 
 gulp.task('compileAssets', ['copy'], () => {
   return merge(getFolders(path.join('app', 'elements')).concat('').map((folder) => {
-    var src = path.join.apply(this, (folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
-    var dest = path.join.apply(this, (folder ? ['build', 'elements', folder] : ['build']));
+    var src = path.join(...(folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
+    var dest = path.join(...(folder ? ['build', 'elements', folder] : ['build']));
 
     var useminOptions = {};
     buildUseminLoops(['css', 'sass', 'scss'], 1).forEach((name) => useminOptions[name] = compileCss(name, folder));

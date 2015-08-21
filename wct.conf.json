@@ -4,7 +4,7 @@
   "testTimeout": 100000,
   "plugins": {
     "local": {
-      "browsers": ["chrome", "firefox"]
+      "browsers": ["chrome", "firefox", "ie"]
     }
   }
 }

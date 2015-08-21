@@ -12,5 +12,4 @@ suite('Element Tests', ()=> {
     expect(element.numColors).to.equal(12);
   });
 
-
 });

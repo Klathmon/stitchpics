@@ -6,7 +6,7 @@ suite('Element Tests', ()=> {
   setup(()=> element = fixture('basic'));
 
   test('Crossstitch completes', (done)=> {
-    element.addEventListener('crossStitchDone', ()=> done());
+    autoUnhookListener(element, 'crossStitchDone', ()=> done());
 
     loadImage("grad5.png", (imageData)=> element.imagedata = imageData);
   });
@@ -14,7 +14,7 @@ suite('Element Tests', ()=> {
   test('Correct palette generated', (done)=> {
     let expectedPalette = [[127,127,127],[239,228,176],[181,230,29],[200,191,231]];
 
-    element.addEventListener('crossStitchDone', ()=>{
+    autoUnhookListener(element, 'crossStitchDone', ()=>{
       expect(element.palette).to.deep.have.members(expectedPalette);
       done();
     });
@@ -24,7 +24,7 @@ suite('Element Tests', ()=> {
   test('DMC colors used when required', (done)=> {
     element.usedmccolors=true;
     let expectedPalette = [[121,121,121],[255,231,182],[185,200,102],[190,193,205]];
-    element.addEventListener('crossStitchDone', ()=>{
+    autoUnhookListener(element, 'crossStitchDone', ()=>{
       expect(element.palette).to.deep.have.members(expectedPalette);
       done();
     });
@@ -32,7 +32,7 @@ suite('Element Tests', ()=> {
   });
 
   test('Correct number of colors created', (done)=> {
-    element.addEventListener('crossStitchDone', ()=>{
+    autoUnhookListener(element, 'crossStitchDone', ()=>{
       expect(element.palette).to.have.length(12);
       done();
     });
@@ -43,7 +43,6 @@ suite('Element Tests', ()=> {
 });
 
 function loadImage(src, callback){
-  console.log(src);
   let img = new Image();
   img.onload = function(){
     let canvas = document.createElement('canvas');
@@ -55,4 +54,11 @@ function loadImage(src, callback){
     callback(imageData);
   };
   img.src = src;
+}
+
+function autoUnhookListener(element, eventName, callback){
+  element.addEventListener(eventName, (event)=>{
+    event.target.removeEventListener(event.type, arguments.callee);
+    return callback(event);
+  });
 }

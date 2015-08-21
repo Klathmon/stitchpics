@@ -25,7 +25,7 @@
     },
 
     _catchErrors(error) {
-      console.error(error.stack);
+      //console.error(error.stack);
     }
   };
 

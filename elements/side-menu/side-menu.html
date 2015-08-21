@@ -1,5 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../globalScripts/globalScripts.html">
+<link rel="import" href="../my-ad/my-ad.html">
+
 <dom-module id="side-menu">
   <style>\:host{font-family:Roboto,Noto,sans-serif;height:100%;display:block;overflow:hidden}paper-toolbar{color:#727272;background-color:#fff;border-bottom:1px solid rgba(0,0,0,.22)}#sideBarContainerContainer{display:block;height:calc(100% - 64px)}#sideBarContainer{height:100%;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;overflow:hidden}#sideBarContainer .adContainer{-webkit-flex:1;-ms-flex:1;flex:1}#sideBarContainer paper-menu iron-icon{margin-right:33px;opacity:.54}#sideBarContainer paper-menu a{text-decoration:none;color:#111;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;text-rendering:optimizeLegibility;font-size:14px;font-weight:400;line-height:24px;min-height:48px;padding:0 16px}#sideBarContainer .socialButtons paper-button.button{display:block;width:90%;margin:7px auto}#sideBarContainer .socialButtons .facebook{color:#4B65BE}#sideBarContainer .socialButtons .facebook[raised]{background:#4B65BE;color:#fff}#sideBarContainer .socialButtons .google{color:#DC4335}#sideBarContainer .socialButtons .google[raised]{background:#DC4335;color:#fff}#sideBarContainer .socialButtons .twitter{color:#24A9F2}#sideBarContainer .socialButtons .twitter[raised]{background:#24A9F2;color:#fff}</style>
   <template>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>Elements Test Runner</title>
+    <meta charset="UTF-8">
+
+    <script>
+      WCT = {
+        numConcurrentSuites: 10 //Run as many at once as I can, my PC can take it...
+      };
+    </script>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+  </head>
+
+  <body>
+
+    <script>
+      WCT.loadSuites([
+        'elements/my-paper-material/tests/test.html',
+        'elements/paper-file-upload/tests/test.html',
+        'elements/palette-viewer/tests/test.html',
+        'elements/main-page/tests/test.html',
+        'elements/side-menu/tests/test.html',
+        'elements/faq-page/tests/test.html',
+      ]);
+    </script>
+
+
+  </body>
+
+</html>

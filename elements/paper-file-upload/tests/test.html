@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Element Test</title>
+
+
+    <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../../bower_components/polymer/polymer.html">
+    <script src="../../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../../../bower_components/test-fixture/test-fixture.html">
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../paper-file-upload.html">
+
+</head>
+<body>
+  <test-fixture id="basic">
+    <template>
+      <paper-file-upload></paper-file-upload>
+    </template>
+  </test-fixture>
+
+  <script>suite("Smoke Tests",function(){"use strict";var e=void 0;setup(function(){return e=fixture("basic")}),test("Element Name Correct",function(){expect(e.tagName).to.equal(e.is.toUpperCase())}),test("Element Has Layout",function(){expect(e.offsetHeight).to.be.above(10)})});</script>
+</body>
+</html>

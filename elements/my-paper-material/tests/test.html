@@ -1,0 +1,27 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Element Test</title>
+
+
+    <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../../bower_components/polymer/polymer.html">
+    <script src="../../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../../../bower_components/test-fixture/test-fixture.html">
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../my-paper-material.html">
+
+</head>
+<body>
+
+  <test-fixture id="basic">
+    <template>
+      <my-paper-material elevation="4"><h1>This is test stuff!</h1></my-paper-material>
+    </template>
+  </test-fixture>
+
+  <script>suite("Smoke Tests",function(){"use strict";var e=void 0;setup(function(){return e=fixture("basic")}),test("Element Name Correct",function(){expect(e.tagName).to.equal(e.is.toUpperCase())}),test("Element Has Layout",function(){expect(e.offsetHeight).to.be.above(10)})}),suite("Element Tests",function(){"use strict";var e=void 0;setup(function(){return e=fixture("basic")}),test("Elevation is set",function(){expect(e.elevation).to.equal("4")}),test("Elevation matches inner element",function(){var t=e.querySelector("paper-material");expect(e.elevation).to.equal(t.elevation)}),test("Content matches expected",function(){var t=e.querySelector("h1");expect(t.innerHTML).to.equal("This is test stuff!")})});</script>
+</body>
+</html>

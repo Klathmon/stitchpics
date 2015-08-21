@@ -5,8 +5,13 @@ suite('Element Tests', ()=> {
 
   setup(()=> element = fixture('basic'));
 
-  test('Element renders markdown', ()=> {
-    expect(element.querySelectorAll('h2').length).to.be.above(3);
+  test('Element renders markdown', (done)=> {
+    //Set a delay because marked-element doesn't give me an event/callback when it's
+    //done rendering...
+    setTimeout(()=>{
+      expect(element.querySelectorAll('h2').length).to.be.above(3);
+      done();
+    }, 100);
   });
 
   test('Element contains my-ad', ()=> {

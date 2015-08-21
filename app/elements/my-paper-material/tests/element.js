@@ -1,3 +1,4 @@
+/*jshint expr: true*/
 suite('Element Tests', ()=> {
   'use strict';
   let element;

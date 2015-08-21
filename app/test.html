@@ -16,6 +16,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>Elements Test Runner</title>
     <meta charset="UTF-8">
 
+    <script>
+      WCT = {
+        numConcurrentSuites: 10 //Run as many at once as I can, my PC can take it...
+      };
+    </script>
+
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
   </head>
@@ -26,6 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       WCT.loadSuites([
         'elements/my-paper-material/tests/test.html',
         'elements/faq-page/tests/test.html',
+        'elements/side-menu/tests/test.html',
       ]);
     </script>
 

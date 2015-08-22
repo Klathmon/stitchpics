@@ -1,0 +1,33 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Element Test</title>
+
+
+    <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../../bower_components/polymer/polymer.html">
+    <script src="../../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../../../bower_components/test-fixture/test-fixture.html">
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../cross-stitch.html">
+
+</head>
+<body>
+  <style>
+    .element{
+      display: block;
+      width: 100px !important;
+    }
+  </style>
+  <test-fixture id="basic">
+    <template>
+      <cross-stitch class="element" gridwidth="20" numcolors="4">
+      </cross-stitch>
+    </template>
+  </test-fixture>
+
+  <script>function loadImage(t,e){var n=new Image;n.onload=function(){var t=document.createElement("canvas"),n=t.getContext("2d");t.width=this.width,t.height=this.height,n.drawImage(this,0,0);var o=n.getImageData(0,0,t.width,t.height);e(o)},n.src=t}function autoUnhookListener(t,e,n){var o=arguments;t.addEventListener(e,function(t){return t.target.removeEventListener(t.type,o.callee),n(t)})}suite("Smoke Tests",function(){"use strict";var t=void 0;setup(function(){return t=fixture("basic")}),test("Element Name Correct",function(){expect(t.tagName).to.equal(t.is.toUpperCase())}),test("Element Has Layout",function(){expect(t.offsetHeight).to.be.above(10)})}),suite("Element Tests",function(){"use strict";var t=void 0;setup(function(){return t=fixture("basic")}),test("Crossstitch completes",function(e){autoUnhookListener(t,"crossStitchDone",function(){return e()}),loadImage("grad5.png",function(e){return t.imagedata=e})}),test("Correct palette generated",function(e){var n=[[127,127,127],[239,228,176],[181,230,29],[200,191,231]];autoUnhookListener(t,"crossStitchDone",function(){expect(t.palette).to.deep.have.members(n),e()}),loadImage("testPattern.png",function(e){return t.imagedata=e})}),test("DMC colors used when required",function(e){t.usedmccolors=!0;var n=[[121,121,121],[255,231,182],[185,200,102],[190,193,205]];autoUnhookListener(t,"crossStitchDone",function(){expect(t.palette).to.deep.have.members(n),e()}),loadImage("testPattern.png",function(e){return t.imagedata=e})}),test("Correct number of colors created",function(e){autoUnhookListener(t,"crossStitchDone",function(){expect(t.palette).to.have.length(12),e()}),t.numcolors=12,loadImage("grad5.png",function(e){return t.imagedata=e})})});</script>
+</body>
+</html>

@@ -8,7 +8,10 @@
 
     <script>
       WCT = {
-        numConcurrentSuites: 10 //Run as many at once as I can, my PC can take it...
+        numConcurrentSuites: 5, //Run as many at once as I can, my PC can take it...
+        mochaOptions: {
+          timeout: 100 * 1000
+        },
       };
     </script>
 
@@ -23,6 +26,7 @@
         'elements/my-paper-material/tests/test.html',
         'elements/paper-file-upload/tests/test.html',
         'elements/palette-viewer/tests/test.html',
+        'elements/cross-stitch/tests/test.html',
         'elements/main-page/tests/test.html',
         'elements/side-menu/tests/test.html',
         'elements/faq-page/tests/test.html',

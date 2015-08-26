@@ -121,13 +121,13 @@ const MINIFY_HTML_OPTIONS = {
 var compileCss = function compileCss(name, folder){
   return [
     $.plumber(PLUMBER_OPTIONS),
-    $.cached(name + '|css|' + folder),
     $.if(!PROD, $.sourcemaps.init()),
-    $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+    $.cached(name + '|css|' + folder),
+    $.if('.sass', $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
     $.autoprefixer(AUTOPREFIXER_OPTIONS),
-    $.remember(name + '|css|' + folder),
     $.csslint(),
     $.csslint.reporter($.csslintStylish),
+    $.remember(name + '|css|' + folder),
     'concat',
     $.if(PROD, $.cached(name + '|minifycss|' + folder)),
     $.if(PROD, $.minifyCss(MIN_CSS_OPTIONS)),
@@ -144,8 +144,10 @@ var compileJs = function compileJs(name, folder){
     $.if('.coffee', $.cached(name + '|coffeescript|' + folder)),
     $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
     $.if('.coffee', $.remember(name + '|coffeescript|' + folder)),
+    $.if('elements', $.cached(name + '|jshint|' + folder)),
     $.if('elements', $.jshint()),
     $.if('elements', $.jshint.reporter($.jshintStylish)),
+    $.if('elements', $.remember(name + '|jshint|' + folder)),
     $.cached(name + '|babel|' + folder),
     $.babel(BABEL_OPTIONS),
     $.remember(name + '|babel|' + folder),
@@ -175,6 +177,7 @@ gulp.task('compileAssets', ['copy'], () => {
       .pipe($.htmlAutoprefixer(AUTOPREFIXER_OPTIONS))
       .pipe($.remember('htmlAutoprefixer|' + folder))
       .pipe($.usemin(useminOptions))
+      .pipe($.cached('writeHtml|' + folder))
       .pipe($.size())
       .pipe(gulp.dest(dest))
       .pipe($.plumber.stop());

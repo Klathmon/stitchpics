@@ -48,7 +48,10 @@ const AUTOPREFIXER_OPTIONS = {
 };
 
 const PLUMBER_OPTIONS = {
-  errorHandler: $.notify.onError("Error: <%= error.message %>")
+  errorHandler: (error)=>{
+    cache.caches = {};
+    $.notify.onError("Error: <%= error.message %>")
+  }
 };
 
 const BABEL_OPTIONS = {
@@ -123,7 +126,7 @@ var compileCss = function compileCss(name, folder){
     $.plumber(PLUMBER_OPTIONS),
     $.if(!PROD, $.sourcemaps.init()),
     $.cached(name + '|css|' + folder),
-    $.if($._.contains(name, 'sass'), $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+    $.if('*.sass', $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
     $.autoprefixer(AUTOPREFIXER_OPTIONS),
     $.csslint(),
     $.csslint.reporter($.csslintStylish),
@@ -141,9 +144,9 @@ var compileJs = function compileJs(name, folder){
   return [
     $.plumber(PLUMBER_OPTIONS),
     $.if(!PROD, $.sourcemaps.init()),
-    $.if('.coffee', $.cached(name + '|coffeescript|' + folder)),
-    $.if('.coffee', $.coffee(COFFEE_OPTIONS)),
-    $.if('.coffee', $.remember(name + '|coffeescript|' + folder)),
+    $.if('*.coffee', $.cached(name + '|coffeescript|' + folder)),
+    $.if('*.coffee', $.coffee(COFFEE_OPTIONS)),
+    $.if('*.coffee', $.remember(name + '|coffeescript|' + folder)),
     $.if('elements', $.cached(name + '|jshint|' + folder)),
     $.if('elements', $.jshint()),
     $.if('elements', $.jshint.reporter($.jshintStylish)),

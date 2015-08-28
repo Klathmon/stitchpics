@@ -173,12 +173,14 @@ var compileJs = function compileJs(name, folder){
 
 gulp.task('compileAssets', ['copy'], () => {
   return merge(getFolders(path.join('app', 'elements')).concat('').map((folder) => {
-    var src = path.join(...(folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
-    var dest = path.join(...(folder ? ['build', 'elements', folder] : ['build']));
+    let src = path.join(...(folder ? ['app', 'elements', folder, '*.html'] : ['app', 'index.html']));
+    let dest = path.join(...(folder ? ['build', 'elements', folder] : ['build']));
 
-    var useminOptions = {};
-    buildUseminLoops(['css', 'sass', 'scss'], 1).forEach((name) => useminOptions[name] = compileCss(name, folder));
-    buildUseminLoops(['js', 'coffee'], 2).forEach((name) => useminOptions[name] = compileJs(name, folder));
+    let useminOptions = {};
+    let starttime = Date.now();
+    buildUseminLoops(['css'], 1).forEach((name) => useminOptions[name] = compileCss(name, folder));
+    buildUseminLoops(['js'], 2).forEach((name) => useminOptions[name] = compileJs(name, folder));
+    console.log(Date.now() - starttime);
 
     return gulp.src(src)
       .pipe($.plumber(PLUMBER_OPTIONS))

@@ -48,10 +48,11 @@
     },
 
     ready() {
-      this.$.finalOutput.imageSmoothingEnabled =
-      this.$.finalOutput.msImageSmoothingEnabled =
-      this.$.finalOutput.mozImageSmoothingEnabled =
-      this.$.finalOutput.webkitImageSmoothingEnabled = false;
+      let finalOutput = this.$.finalOutput;
+      finalOutput.imageSmoothingEnabled =
+      finalOutput.msImageSmoothingEnabled =
+      finalOutput.mozImageSmoothingEnabled =
+      finalOutput.webkitImageSmoothingEnabled = false;
 
       var numberOfCores = navigator.hardwareConcurrency || 4;
 

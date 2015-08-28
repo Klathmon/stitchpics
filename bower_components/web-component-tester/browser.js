@@ -36,28 +36,42 @@
       callback();
     };
 
-    function importsReady() {
-      window.removeEventListener('WebComponentsReady', importsReady);
-      debug('WebComponentsReady');
-
+    function componentsReady() {
+      // handle Polymer 0.5 readiness
       if (window.Polymer && Polymer.whenReady) {
-        Polymer.whenReady(function() {
-          debug('polymer-ready');
-          done();
-        });
+        Polymer.whenReady(done);
       } else {
         done();
       }
     }
 
     // All our supported framework configurations depend on imports.
-    if (!window.HTMLImports) {
-      done();
-    } else if (HTMLImports.ready) {
-      importsReady();
+    if (window.WebComponents) {
+      if (WebComponents.whenReady) {
+        WebComponents.whenReady(function() {
+          debug('WebComponents Ready');
+          componentsReady();
+        });
+      } else {
+        whenWebComponentsReady(componentsReady);
+      }
+    } else if (window.HTMLImports) {
+      HTMLImports.whenReady(function() {
+        debug('HTMLImports Ready');
+        componentsReady();
+      });
     } else {
-      window.addEventListener('WebComponentsReady', importsReady);
+      done();
     }
+  }
+
+  function whenWebComponentsReady(cb) {
+    var after = function after() {
+      window.removeEventListener('WebComponentsReady', after);
+      debug('WebComponentsReady');
+      cb();
+    };
+    window.addEventListener('WebComponentsReady', after);
   }
 
   /**

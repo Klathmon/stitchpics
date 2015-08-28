@@ -25,6 +25,7 @@ var $ = glp({
 $.webComponentTester.gulp.init(gulp);
 
 var PROD = false;
+var folderCache = new Map();
 
 const SASS_OPTIONS = {
   outputStyle: 'expanded',
@@ -181,13 +182,13 @@ gulp.task('compileAssets', ['copy'], () => {
     buildUseminLoops(['js'], 2).forEach((name) => useminOptions[name] = compileJs(name, folder));
 
     return gulp.src(src)
+      .pipe($.duration('compile ' + (folder ? folder : 'index.html')))
       .pipe($.plumber(PLUMBER_OPTIONS))
       .pipe($.cached('htmlAutoprefixer|' + folder))
       .pipe($.htmlAutoprefixer(AUTOPREFIXER_OPTIONS))
       .pipe($.remember('htmlAutoprefixer|' + folder))
       .pipe($.usemin(useminOptions))
       .pipe($.cached('writeHtml|' + folder))
-      .pipe($.size())
       .pipe(gulp.dest(dest))
       .pipe($.plumber.stop());
   }));
@@ -198,7 +199,6 @@ gulp.task('minifyIndex', ['copy', 'copyBowerComponents', 'compileAssets', 'vulca
     .pipe($.cached('minifyIndex'))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     .pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
-    .pipe($.size())
     .pipe(gulp.dest('build'));
 });
 
@@ -278,7 +278,26 @@ var getFolders = function getFolders(dir, rootDir = dir) {
       [].push.apply(folderArray, getFolders(dirName, rootDir).concat(dirName));
     }
   });
-  return folderArray.map((filePath)=> filePath.replace(rootDir + '\\', ''));
+
+  let fixedRootPathFolderArray = folderArray.map((filePath)=> filePath.replace(rootDir + '\\', ''));
+
+  if(rootDir === dir){
+    // if we are here we are in the first getFolders call...
+    return fixedRootPathFolderArray.filter((partialDirectoryPath)=>{
+      let directoryPath = path.join(dir, partialDirectoryPath);
+      return fs.readdirSync(directoryPath).reduce((compileFolder, fileName) => {
+        let individualFile = path.join(directoryPath, fileName);
+        let fileMTimeMs = fs.statSync(individualFile).mtime.getTime();
+        if(!folderCache.has(individualFile) || folderCache.get(individualFile) !== fileMTimeMs){
+          folderCache.set(individualFile, fileMTimeMs);
+          return true;
+        }
+        return compileFolder;
+      }, false);
+    });
+  }
+
+  return fixedRootPathFolderArray;
 };
 
 // Builds the usemin arrays fn(['js', 'coffee'], 2) becomes ['js', 'coffee', 'inlinejs', 'inlinecoffee', 'js2', 'coffee2']

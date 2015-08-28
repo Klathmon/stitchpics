@@ -49,8 +49,8 @@ const AUTOPREFIXER_OPTIONS = {
 
 const PLUMBER_OPTIONS = {
   errorHandler: (error)=>{
-    cache.caches = {};
-    $.notify.onError("Error: <%= error.message %>")
+    cache.caches = {};  // jshint ignore:line
+    $.notify.onError("Error: <%= error.message %>");
   }
 };
 
@@ -78,6 +78,12 @@ const UGLIFY_OPTIONS = {
   // Enable these when support for them drops in gulp-uglify
   //'mangle-props': true,
   //'mangle-regex': '/^_/'
+};
+
+const CSSLINT_OPTIONS = {
+  ids: false,
+  'box-sizing': false,
+  'fallback-colors': false
 };
 
 const MIN_CSS_OPTIONS = {
@@ -128,7 +134,7 @@ var compileCss = function compileCss(name, folder){
     $.cached(name + '|css|' + folder),
     $.if('*.sass', $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
     $.autoprefixer(AUTOPREFIXER_OPTIONS),
-    $.csslint(),
+    $.csslint(CSSLINT_OPTIONS),
     $.csslint.reporter($.csslintStylish),
     $.remember(name + '|css|' + folder),
     'concat',

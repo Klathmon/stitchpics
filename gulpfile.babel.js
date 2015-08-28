@@ -204,8 +204,8 @@ gulp.task('minifyIndex', ['copy', 'copyBowerComponents', 'compileAssets', 'vulca
 
 gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
   return gulp.src(path.join('build', 'elements', 'elements.html'))
-    .pipe($.cached('vulcanize'))
     .pipe($.if(PROD, $.vulcanize(VULCANIZE_OPTIONS)))
+    .pipe($.cached('vulcanize'))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
     //.pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
     .pipe($.size())

@@ -177,10 +177,8 @@ gulp.task('compileAssets', ['copy'], () => {
     let dest = path.join(...(folder ? ['build', 'elements', folder] : ['build']));
 
     let useminOptions = {};
-    let starttime = Date.now();
     buildUseminLoops(['css'], 1).forEach((name) => useminOptions[name] = compileCss(name, folder));
     buildUseminLoops(['js'], 2).forEach((name) => useminOptions[name] = compileJs(name, folder));
-    console.log(Date.now() - starttime);
 
     return gulp.src(src)
       .pipe($.plumber(PLUMBER_OPTIONS))

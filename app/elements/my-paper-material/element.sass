@@ -1,3 +1,10 @@
+@import sizing
+
+=smartWidth($padding)
+  padding: $padding
+  margin: $padding auto
+  width: calc(98.66% - ($padding * 2))
+
 :host
   font-family: 'Roboto', 'Noto', sans-serif
   display: block
@@ -5,8 +12,13 @@ paper-material
   box-sizing: border-box
   display: block
   border-radius: 2px
+  background-color: var(--my-paper-material-background-color)
   height: 100%
-  padding: 16px
-  width: calc(98.66% - 32px)
-  margin: 16px auto
   background: white
+  padding: 16px
+  margin: 16px auto
+  width: calc(98.66% - (16px * 2))
+  +small-phone
+    padding: 8px
+    margin: 8px auto
+    width: calc(98.66% - (8px * 2))

@@ -1,36 +1,56 @@
 @import colors
-$desktop-width: 1200px
+@import sizing
 
-=phone
-  @media (max-width: #{$desktop-width - 1px})
-    @content
-
-=desktop
-  @media (min-width: #{$desktop-width})
-    @content
-
-
-:host
-  font-family: 'Roboto', 'Noto', sans-serif
-  display: block
-  --paper-slider-active-color: $slider-color
-  --paper-slider-knob-color: $slider-color
-
-paper-slider
-  width: 100%
-
-.indent
-  margin-left: 25px
-  margin-right: 25px
-
-.bottomRow
+=flexboxContainer
   display: flex
   flex-direction: row
   align-items: center
   justify-content: space-between
   flex-wrap: wrap
 
+=flexboxContainerChildren($minWidth)
+  display: block
+  min-width: $minWidth
+  flex: 1
+  margin-top: 10px
+
+
+:host
+  font-family: 'Roboto', 'Noto', sans-serif
+  display: block
+  --paper-slider-active-color: $tertiary-color
+  --paper-slider-knob-color: $tertiary-color
+  --paper-slider-pin-color: $tertiary-color
+
+  --paper-checkbox-checked-ink-color: $tertiary-color
+  --paper-checkbox-checked-color: $tertiary-color
+  --paper-checkbox-unchecked-background-color: white
+
+paper-slider
+  width: 100%
+
+paper-button
+  background-color: $secondary-color
+  color: white
+
+.indent
+  margin-left: 25px
+  margin-right: 25px
+  +small-phone
+    margin-left: 0
+    margin-right: 0
+
+.bottomRow
+  +flexboxContainer
+
+  paper-checkbox, paper-file-upload
+    +flexboxContainerChildren(190px)
+
 #mainPageContainer
+
+  my-paper-material
+    --my-paper-material-background-color: #FAFAFA
+
   &:after
     content: ""
     display: table
@@ -54,8 +74,6 @@ paper-slider
   border-bottom: #CCC 1px solid
 
 #saveBox .flexContainer
-  @extend .bottomRow
+  +flexboxContainer
   paper-button
-    display: block
-    min-width: 160px
-    flex: 1
+    +flexboxContainerChildren(160px)

@@ -1,0 +1,14 @@
+$desktop-width: 1200px
+$small-phone-width: 330px
+
+=small-phone
+  @media (max-width: #{$small-phone-width})
+    @content
+
+=phone
+  @media (max-width: #{$desktop-width - 1px})
+    @content
+
+=desktop
+  @media (min-width: #{$desktop-width})
+    @content

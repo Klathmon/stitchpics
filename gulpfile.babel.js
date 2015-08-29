@@ -49,10 +49,7 @@ const AUTOPREFIXER_OPTIONS = {
 };
 
 const PLUMBER_OPTIONS = {
-  errorHandler: (error)=>{
-    cache.caches = {};  // jshint ignore:line
-    $.notify.onError("Error: <%= error.message %>");
-  }
+  errorHandler: $.notify.onError("Error: <%= error.message %>")
 };
 
 const BABEL_OPTIONS = {

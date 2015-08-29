@@ -4,9 +4,9 @@
 <link rel="import" href="../globalScripts/globalScripts.html">
 
 <dom-module id="my-paper-material">
-  <style>\:host{font-family:Roboto,Noto,sans-serif;display:block}paper-material{box-sizing:border-box;display:block;border-radius:2px;height:100%;padding:1pc;width:calc(98.66% - 2pc);margin:1pc auto;background:#fff}</style>
+  <style>:host{font-family:Roboto,Noto,sans-serif;display:block}paper-material{box-sizing:border-box;display:block;border-radius:2px;height:100%;background:#fff;padding:1pc;margin:1pc auto;width:calc(98.66% - (1pc * 2))}@media (max-width:330px){paper-material{padding:8px;margin:8px auto;width:calc(98.66% - (8px * 2))}}</style>
   <template>
-    <paper-material elevation="{{elevation}}">
+    <paper-material class="paperContainer" elevation="{{elevation}}">
       <content></content>
     </paper-material>
   </template>

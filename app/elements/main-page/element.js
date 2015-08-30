@@ -6,6 +6,47 @@
   /*jshint +W064 */
     is: 'main-page',
 
+    properties: {
+      clothCount: {
+        type: Number,
+        value: 14
+      },
+      size: {
+        type: Number,
+        value: 6
+      },
+      numColors: {
+        type: Number,
+        value: 12
+      },
+      useDmcColors: {
+        type: Boolean,
+        value: false
+      },
+      hideTheGrid: {
+        type: Boolean,
+        value: false
+      },
+      imageHash: {
+        type: String,
+        observer: 'loadImage'
+      },
+      imageData: {
+        type: Array
+      },
+      gridWidth: {
+        type: Number,
+        computed: 'calcGridWidth(clothCount, size)'
+      },
+    },
+
+    loadImage(){
+      if(typeof this.imageHash !== 'undefined' && this.imageHash.length > 3){
+        this._getImageDataFromHash(this.imageHash, (imageData)=>{
+          this.imageData = imageData;
+        });
+      }
+    },
 
     calcGridWidth(clothCount, size){
       return clothCount * size;
@@ -62,24 +103,21 @@
       newTab.print();
     },
 
-    properties: {
-      clothCount: {
-        type: Number,
-        value: 14
-      },
-      size: {
-        type: Number,
-        value: 6
-      },
-      numColors: {
-        type: Number,
-        value: 12
-      },
-      gridWidth: {
-        type: Number,
-        computed: 'calcGridWidth(clothCount, size)'
-      },
+    _getImageDataFromHash(hash, callback){
+      let url = '//i.imgur.com/' + hash + '.jpg';
+      let img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.onload = function(){
+        var canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
 
+        var context = canvas.getContext("2d");
+        context.drawImage(this, 0, 0);
+        callback(context.getImageData(0, 0, canvas.width, canvas.height));
+      };
+
+      img.src = url;
     }
   });
 })();

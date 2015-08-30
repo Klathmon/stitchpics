@@ -15,8 +15,7 @@
         value: '12a81bf09a70960'
       },
       imagedata: {
-        type: Array,
-        observer: 'propertyChanged'
+        type: Array
       },
     },
 

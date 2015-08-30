@@ -8,7 +8,7 @@
     properties: {
       uploadEndpoint: {
         type: String,
-        value: 'https://api.imgur.com/3/image'
+        value: 'https://api.imgur.com/3/image.json'
       },
       clientId: {
         type: String,
@@ -32,14 +32,16 @@
         mode: 'cors',
         headers: {
           "Authorization": 'Client-ID ' + this.clientId,
-          "Accept": 'application/json'
+          "Accept": 'application/json',
+          "Content-type": 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
-          image: this.getBase64FromImageData(this.imagedata),
+          image: this.getBase64FromImageData(this.imagedata).replace(/.*,/, ''),
           type: 'base64'
         })
-      }).then((response)=>{
-        console.log(response);
+      }).then((r)=> r.json())
+      .then((data)=>{
+        console.log(data);
       }).catch((err)=>{
         console.log(err);
       });

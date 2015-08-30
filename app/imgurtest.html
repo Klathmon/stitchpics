@@ -16,13 +16,12 @@
         var $msg = $('.hidden');
         var $img = $('img');
 
-        $post.click(function() {
-          localStorage.doUpload = true;
+          //localStorage.doUpload = true;
           localStorage.imageBase64 = $img.attr('src').replace(/.*,/, '');
-        });
 
-        var token = extractToken(document.location.hash);
-        if (token && JSON.parse(localStorage.doUpload)) {
+          console.log($img.attr('src').replace(/.*,/, ''));
+
+        if (JSON.parse(localStorage.doUpload)) {
           localStorage.doUpload = false;
           $post.hide();
           $msg.show();
@@ -31,7 +30,7 @@
             url: 'https://api.imgur.com/3/image',
             method: 'POST',
             headers: {
-              Authorization: 'Bearer ' + token,
+              Authorization: 'Client-ID ' + '1e9d0bad8e66dcb',
               Accept: 'application/json'
             },
             data: {
@@ -56,7 +55,7 @@
   <body>
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot">
     <div>
-      <a class="post" href="https://api.imgur.com/oauth2/authorize?response_type=token&client_id=1e9d0bad8e66dcb">
+      <a class="post" href="#">
         Post image to imgur
       </a>
     </div>

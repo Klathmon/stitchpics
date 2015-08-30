@@ -20,12 +20,6 @@
       },
     },
 
-    propertyChanged(){
-      if(typeof this.imagedata !== 'undefined'){
-        this.uploadImage();
-      }
-    },
-
     uploadImage(){
       fetch(this.uploadEndpoint, {
         method: 'post',

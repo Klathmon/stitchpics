@@ -35,6 +35,8 @@
       }).then((r)=> r.json())
       .then((data)=>{
         console.log(data);
+        this.$.shareInput.value = window.location.origin + '/' + data.data.id;
+        this.$.saveDialog.open();
       }).catch((err)=>{
         console.log(err);
       });

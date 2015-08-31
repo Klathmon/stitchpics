@@ -135,7 +135,7 @@ var compileCss = function compileCss(name, folder){
     $.plumber(PLUMBER_OPTIONS),
     $.if(!PROD, $.sourcemaps.init()),
     $.cached(name + '|css|' + folder),
-    $.if('*.sass', $.sass(SASS_OPTIONS).on('error', $.sass.logError)),
+    $.if('*.sass', $.sass.sync(SASS_OPTIONS).on('error', $.sass.logError)),
     $.autoprefixer(AUTOPREFIXER_OPTIONS),
     $.csslint(CSSLINT_OPTIONS),
     $.csslint.reporter($.csslintStylish),

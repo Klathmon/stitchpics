@@ -25,6 +25,7 @@ var $ = glp({
 $.webComponentTester.gulp.init(gulp);
 
 var PROD = false;
+var DEPLOY = false;
 var folderCache = new Map();
 
 const SASS_OPTIONS = {
@@ -76,6 +77,10 @@ const UGLIFY_OPTIONS = {
   // Enable these when support for them drops in gulp-uglify
   //'mangle-props': true,
   //'mangle-regex': '/^_/'
+};
+
+const CLOSURE_OPTIONS = {
+  compilation_level: 'SIMPLE_OPTIMIZATIONS'
 };
 
 const CSSLINT_OPTIONS = {
@@ -160,6 +165,7 @@ var compileJs = function compileJs(name, folder){
     $.remember(name + '|babel|' + folder),
     'concat',
     $.if(PROD, $.cached(name + '|uglify|' + folder)),
+    $.if(DEPLOY, $.closureCompilerService(CLOSURE_OPTIONS)),
     $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
     $.if(PROD, $.remember(name + '|uglify|' + folder)),
     $.stripComments({safe: false, line: true}),
@@ -217,14 +223,14 @@ gulp.task('copy', () => {
       base: 'app'
     })
     .pipe($.cached('copy'))
-    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build')));
 });
 
 gulp.task('copyBowerComponents', () => {
   return gulp.src(path.join('bower_components', '**', '*'))
     .pipe($.cached('copyBowerComponents'))
-    .pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
+    //.pipe($.if(PROD, $.imagemin(IMAGEMIN_OPTIONS)))
     .pipe(gulp.dest(path.join('build', 'bower_components')));
 });
 
@@ -256,11 +262,12 @@ gulp.task('serve:dist', ['build:dist'], () => {
 
 
 gulp.task('production', ()=> PROD = true);
+gulp.task('deploy_flag', ()=> DEPLOY = true);
 gulp.task('clean', del.bind(null, ['build']));
 gulp.task('uninstall', ['clean'], del.bind(null, ['node_modules', 'bower_components']));
 gulp.task('build', ['compileAssets']);
 gulp.task('build:dist', ['production','build','copyBowerComponents','vulcanize','minifyIndex']);
-gulp.task('deploy', ['build:dist'], ()=> gulp.src(path.join('build', '**', '*')).pipe($.ghPages()));
+gulp.task('deploy', ['deploy_flag', 'build:dist'], ()=> gulp.src(path.join('build', '**', '*')).pipe($.ghPages()));
 
 
 // Below this are just helper functions...

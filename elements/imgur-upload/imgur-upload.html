@@ -1,0 +1,87 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/neon-animation/neon-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<dom-module id="imgur-upload">
+  <style>:host {
+  font-family: 'Roboto', 'Noto', sans-serif;
+  display: block;
+}
+</style>
+  <template>
+    <paper-button raised="" on-tap="uploadImage">Get Link</paper-button>
+
+    <paper-dialog id="saveDialog" modal="" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <h2>Save Link</h2>
+      <div>
+        <paper-input id="shareInput" label="Use this link to share your pattern"></paper-input>
+      </div>
+      <div class="buttons">
+          <paper-button dialog-confirm="" raised="">Done</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+</dom-module>
+
+<script>(function () {
+  'use strict';
+  /*jshint -W064 */
+  Polymer({
+    /*jshint +W064 */
+    is: 'imgur-upload',
+
+    properties: {
+      uploadEndpoint: {
+        type: String,
+        value: 'https://api.imgur.com/3/image.json'
+      },
+      clientId: {
+        type: String,
+        value: '12a81bf09a70960'
+      },
+      imagedata: {
+        type: Array
+      }
+    },
+
+    uploadImage: function uploadImage() {
+      var _this = this;
+
+      fetch(this.uploadEndpoint, {
+        method: 'post',
+        mode: 'cors',
+        headers: {
+          "Authorization": 'Client-ID ' + this.clientId,
+          "Accept": 'application/json',
+          "Content-type": 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify({
+          image: this.getBase64FromImageData(this.imagedata).replace(/.*,/, ''),
+          type: 'base64'
+        })
+      }).then(function (r) {
+        return r.json();
+      }).then(function (data) {
+        console.log(data);
+        _this.$.shareInput.value = window.location.origin + '/' + data.data.id;
+        _this.$.saveDialog.open();
+      })['catch'](function (err) {
+        console.log(err);
+      });
+    },
+
+    getBase64FromImageData: function getBase64FromImageData(imageData) {
+      var canvas = document.createElement('canvas');
+      canvas.height = imageData.height;
+      canvas.width = imageData.width;
+      var context = canvas.getContext('2d');
+      context.putImageData(imageData, 0, 0);
+      return canvas.toDataURL();
+    }
+  });
+})();</script>

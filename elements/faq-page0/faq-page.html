@@ -1,0 +1,101 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../my-paper-material/my-paper-material.html">
+<link rel="import" href="../globalScripts/globalScripts.html">
+<link rel="import" href="../my-ad/my-ad.html">
+
+<dom-module id="faq-page">
+  <style>:host {
+  font-family: 'Roboto', 'Noto', sans-serif;
+  display: block;
+}
+</style>
+  <template>
+    <my-paper-material elevation="4">
+      <marked-element>
+        <script type="text/markdown">
+          ## It's not working on my phone/computer?
+
+          > Currently it's not working on iOS (Sadly I don't have an iOS device to develop on).
+          > I'm working on getting one so I can figure out the issues and get it working.
+
+          ---
+
+          ## What is the "cross stitch size" measurement?
+
+          > This is the width of the image in inches. Because each picture you upload can be a
+          > different shape, it will automatically calculate the height based on the width. So if
+          > you upload a 3x5 image and set the "cross stitch size" to 3, the cross stitch will be
+          > 3x5. If you upload that same 3x5 and set the "cross stitch size" to 6, the cross stitch
+          > will be 6x10
+
+          ---
+
+          ## Should I follow the pattern exactly?
+
+          > The website does its best to try and create a great cross stitch from any image, however
+          > its not always perfect. Feel free to use your best judgement and alter your pattern
+          > after it has been generated.
+
+          ---
+
+          ## Why doesn't my pattern match the sizes I selected?
+
+          > StitchPics does its best to match the pattern size you requested, however sometimes the
+          > site needs to adjust the pattern options in order to fit your image perfectly.
+
+          ---
+
+          ## How can I get my image to look better?
+
+          > There are a few ways to get your pattern to look better.
+
+          > * Increasing the number of colors can add more "life" to your images.
+          > * Increasing the cross stitch size can help smaller details show up in the image and can help increase the overall quality.
+          > * Using a higher count Aida cloth can help get the most detail from an image.
+
+          ---
+
+          ## Why are the colors all wrong?
+
+          > Try setting the number of colors a little higher. The site tries to pick the best
+          > colors for each image, but can look off when the number of colors is very low. You can
+          > always choose a larger number of colors and combine similar ones, or you can just pick
+          > a thread that is closer to what you orignally wanted instead of that color.
+
+          ---
+
+          ## Can I add symbols to the pattern?
+
+          > As of right now you can't, however I'm hard at work adding this features! Check back
+          > and hopefully it will be added at one point!
+
+          ---
+
+          ## How can I contact you?
+
+          > You can email me at gregbenner1@gmail.com
+
+          > Feel free to send questions or any tips/ideas on how I can improve this!
+
+          ---
+
+
+        </script>
+      </marked-element>
+
+      <my-ad client="ca-pub-8694540020289271" slot="6576595545">
+      </my-ad>
+    </my-paper-material>
+  </template>
+</dom-module>
+
+<script>(function () {
+  'use strict';
+  /*jshint -W064 */
+  Polymer({
+    /*jshint +W064 */
+    is: 'faq-page'
+  });
+})();</script>

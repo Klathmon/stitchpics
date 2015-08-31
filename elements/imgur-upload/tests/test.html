@@ -1,0 +1,61 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Element Test</title>
+
+
+    <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../../bower_components/polymer/polymer.html">
+    <script src="../../../bower_components/web-component-tester/browser.js"></script>
+    <script src="../../../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../../../bower_components/test-fixture/test-fixture.html">
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../faq-page.html">
+
+</head>
+<body>
+
+  <test-fixture id="basic">
+    <template>
+      <faq-page></faq-page>
+    </template>
+  </test-fixture>
+
+  <script>/*jshint expr: true*/
+suite('Smoke Tests', function () {
+  'use strict';
+  var element = undefined;
+
+  setup(function () {
+    return element = fixture('basic');
+  });
+
+  test('Element Name Correct', function () {
+    expect(element.tagName).to.equal(element.is.toUpperCase());
+  });
+});
+/*jshint expr: true*/
+suite('Element Tests', function () {
+  'use strict';
+  var element = undefined;
+
+  setup(function () {
+    return element = fixture('basic');
+  });
+
+  test('Element renders markdown', function (done) {
+   
+   
+    setTimeout(function () {
+      expect(element.querySelectorAll('h2').length).to.be.above(3);
+      done();
+    }, 100);
+  });
+
+  test('Element contains my-ad', function () {
+    expect(element.querySelector('my-ad')).not.to.be['null'];
+  });
+});</script>
+</body>
+</html>

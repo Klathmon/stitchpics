@@ -2,6 +2,7 @@
 @import sizing
 
 =flexboxContainer
+  overflow: hidden
   display: flex
   flex-direction: row
   align-items: center
@@ -10,8 +11,8 @@
 
 =flexboxContainerChildren($minWidth)
   display: block
-  min-width: $minWidth
   flex: 1
+  flex-basis: $minWidth
   margin-top: 10px
 
 

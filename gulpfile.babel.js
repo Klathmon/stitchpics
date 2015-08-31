@@ -165,7 +165,7 @@ var compileJs = function compileJs(name, folder){
     $.remember(name + '|babel|' + folder),
     'concat',
     $.if(PROD, $.cached(name + '|uglify|' + folder)),
-    $.if(DEPLOY, $.closureCompilerService(CLOSURE_OPTIONS)),
+    //$.if(DEPLOY, $.closureCompilerService(CLOSURE_OPTIONS)),
     $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
     $.if(PROD, $.remember(name + '|uglify|' + folder)),
     $.stripComments({safe: false, line: true}),

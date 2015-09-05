@@ -23,13 +23,13 @@
           this.storedNodes[route] = element.parentElement.removeChild(element);
           page(href, (context)=>{
             this.routerContext = context;
-            //this.$.analytics.pageView(this.routerContext.canonicalPath, this.routerContext.title);
             Polymer.dom(this).innerHTML = '';
             Polymer.dom(this).appendChild(this.storedNodes[route]);
           });
         }
       });
       Polymer.dom(this).innerHTML = '';
+      page('/', '/app');
       Polymer.dom.flush();
 
       // add #! before urls

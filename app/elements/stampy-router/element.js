@@ -12,8 +12,13 @@
       },
       routerContext: {
         type: Object,
+        notify: true,
         value: {}
       }
+    },
+
+    test(){
+      console.log(this.routerContext);
     },
 
     ready(){
@@ -22,12 +27,13 @@
       [...Polymer.dom(this).childNodes].forEach((element)=>{
         if(typeof element.tagName !== 'undefined' && element.tagName.toLowerCase() === 'section'){
           var {route, href} = element.dataset;
-          this.storedNodes[route] = element.cloneNode(true); //element.parentElement.removeChild(element);
+          this.storedNodes[route] = element.parentElement.removeChild(element);
           page(href, (context)=>{
-            this.routerContext = context;
             Polymer.dom(this).innerHTML = '';
             Polymer.dom.flush();
             Polymer.dom(this).appendChild(this.storedNodes[route]);
+            //TODO: Fire window level event here and attach to it if this data is needed elsewhere
+            window.routerContext = context;
           });
         }
       });

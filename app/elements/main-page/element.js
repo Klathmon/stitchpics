@@ -40,6 +40,10 @@
       },
     },
 
+    ready(){
+      //TODO: attach event listener for page change here to get url info
+    },
+
     loadImage(){
       if(typeof this.imageHash !== 'undefined' && this.imageHash.length > 3){
         this._getImageDataFromHash(this.imageHash, (imageData)=>{

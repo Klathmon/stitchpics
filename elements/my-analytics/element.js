@@ -9,11 +9,26 @@
       trackingcode: {
         type: String
       },
+      routerContext: {
+        type: Object,
+        value: {}
+      }
     },
+
+    observers: [
+      'pageChanged(routerContext.canonicalPath, routerContext.title)'
+    ],
 
     ready(){
       this.isogram(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
       ga('create', this.trackingcode, 'auto');
+    },
+
+    pageChanged(path, title){
+      ga('set', {
+        page: path,
+        title
+      });
       ga('send', 'pageview');
     },
 

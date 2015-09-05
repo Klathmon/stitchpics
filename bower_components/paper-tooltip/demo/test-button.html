@@ -14,18 +14,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../paper-tooltip.html">
 
 <dom-module id="test-button">
-  <style>
-    :host {
-      display: inline-block;
-    }
-
-    paper-icon-button {
-      padding: 0;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      paper-icon-button {
+        padding: 0;
+      }
+    </style>
+
     <paper-icon-button id="m" icon="menu" alt="menu"></paper-icon-button>
-    <paper-tooltip for="m" margin-top="8">hot dogs</paper-tooltip>
+    <paper-tooltip for="m" offset="8">hot dogs</paper-tooltip>
   </template>
 
   <script>

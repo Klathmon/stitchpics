@@ -38,7 +38,7 @@
       });
       Polymer.dom(this).innerHTML = '';
       Polymer.dom.flush();
-      
+
       // add #! before urls
       page({hashbang: true});
     },

@@ -79,18 +79,15 @@
 
         <!-- Main Content -->
         <div class="content">
+          <stampy-router>
+            <section data-route="app" data-href="/">
+              <main-page></main-page>
+            </section>
 
-            <template is="dom-if" if="{{mainRoute}}">
-              <section data-route="app">
-                <main-page></main-page>
-              </section>
-            </template>
-
-            <template is="dom-if" if="{{faqRoute}}">
-              <section data-route="faq">
-                <faq-page></faq-page>
-              </section>
-            </template>
+            <section data-route="faq" data-href="/faq">
+              <faq-page></faq-page>
+            </section>
+          </stampy-router>
         </div>
       </paper-scroll-header-panel>
     </paper-drawer-panel>

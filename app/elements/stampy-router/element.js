@@ -6,20 +6,11 @@
     is: 'stampy-router',
 
     properties: {
-      router: {
-        type: Array,
-        value: [
-          {
-            'href': '/',
-            'name': 'app'
-          },
-          {
-            'href': '/faq',
-            'name': 'faq'
-          },
-        ]
-      },
       storedNodes: {
+        type: Object,
+        value: {}
+      },
+      routerContext: {
         type: Object,
         value: {}
       }
@@ -30,7 +21,9 @@
         if(typeof element.tagName !== 'undefined' && element.tagName.toLowerCase() === 'section'){
           var {route, href} = element.dataset;
           this.storedNodes[route] = element.parentElement.removeChild(element);
-          page(href, ()=>{
+          page(href, (context)=>{
+            this.routerContext = context;
+            //this.$.analytics.pageView(this.routerContext.canonicalPath, this.routerContext.title);
             Polymer.dom(this).innerHTML = '';
             Polymer.dom(this).appendChild(this.storedNodes[route]);
           });

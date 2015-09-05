@@ -1,16 +1,18 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<script src="../../bower_components/page/page.js"></script>
+<link rel="import" href="../my-analytics/my-analytics.html">
 
-<dom-module id="side-menu">
+<dom-module id="stampy-router">
   <!-- build:inlinecss -->
   <link rel="stylesheet" href="element.sass">
   <!-- endbuild -->
   <template>
     <content></content>
+    <my-analytics trackingcode="UA-65662485-1" router-context="{{routerContext}}"></my-analytics>
   </template>
 </dom-module>
 
 <!-- build:inlinejs -->
+<script src="../../../bower_components/page/page.js"></script>
 <script src="element.js"></script>
 <!-- endbuild -->

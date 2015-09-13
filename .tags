@@ -1,0 +1,621 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+fit	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    fit(imageData, xPixels){$/;"	function	line:5
+oldBadSplit	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    oldBadSplit(imageData, numberOfParts, fitObj){$/;"	function	line:17
+imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var imageHeight = imageData.height;$/;"	variable	line:19
+chunkHeightExact	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var chunkHeightExact = Math.floor(imageHeight \/ numberOfParts);$/;"	variable	line:21
+numberOfPixelsHigh	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var numberOfPixelsHigh = Math.ceil(chunkHeightExact \/ fitObj.pixelHeight);$/;"	variable	line:22
+chunkHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var chunkHeight = numberOfPixelsHigh * fitObj.pixelHeight;$/;"	variable	line:23
+canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:25
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:26
+oldBadStitch	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    oldBadStitch(chunks, canvas){$/;"	function	line:42
+imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var imageHeight = chunks.reduce(function(runningTotal, chunk){$/;"	variable	line:44
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:51
+badOldScale	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    badOldScale(imageData, imageWidth){$/;"	function	line:61
+canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:65
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:66
+newCanvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var newCanvas = document.createElement('canvas');$/;"	variable	line:70
+asdfbuildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    asdfbuildPalette(imageData, numColors){$/;"	function	line:81
+reducedImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var reducedImageData;$/;"	variable	line:88
+startTime	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var startTime = performance.now();$/;"	variable	line:95
+asdfasdfasdf	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    asdfasdfasdf(imageData, palette, numColors){$/;"	function	line:104
+obj	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^  var obj;$/;"	variable	line:116
+_convertToRealImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^     _convertToRealImageData(pImageData) {$/;"	function	line:5
+_readImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _readImageData(canvas) {$/;"	function	line:14
+_writeImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _writeImageData(canvas, imageData) {$/;"	function	line:19
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:22
+_catchErrors	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _catchErrors(error) {$/;"	function	line:27
+pixelate	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {$/;"	function	line:6
+_getMode	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels}) {$/;"	function	line:23
+mode	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^      var mode = null;$/;"	variable	line:30
+largestCount	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^      var largestCount = 1;$/;"	variable	line:31
+_setSuperPixelColor	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid}) {$/;"	function	line:70
+_setPixelEndianSafe	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _setPixelEndianSafe(isLittleEndian, red, green, blue, alpha) {$/;"	function	line:101
+_getPixelEndianSafe	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _getPixelEndianSafe(isLittleEndian, pixel) {$/;"	function	line:109
+_isLittleEndian	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _isLittleEndian() {$/;"	function	line:117
+buildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    buildPalette({imageData, numColors, useDmcColors}) {$/;"	function	line:11
+quantize	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    quantize({imageData, palette, useDmcColors}) {$/;"	function	line:36
+scale	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    scale({imageData, newWidth}) {$/;"	function	line:12
+chunkHeightExact	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var chunkHeightExact = Math.floor(height \/ numberOfParts);$/;"	variable	line:45
+numberOfPixelsHigh	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var numberOfPixelsHigh = Math.ceil(chunkHeightExact \/ pixelHeight);$/;"	variable	line:46
+chunkHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var chunkHeight = numberOfPixelsHigh * pixelHeight;$/;"	variable	line:47
+canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:49
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:50
+stitch	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    stitch({chunks, canvas}){$/;"	function	line:75
+imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var imageHeight = chunks.reduce((runningTotal, chunk)=>{$/;"	variable	line:77
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:84
+behavior.properties	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    properties: {$/;"	property	line:5
+createWorkers	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    createWorkers(url, numWorkers){$/;"	function	line:12
+dispatchWorker	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    dispatchWorker(func, data, transferrable){$/;"	function	line:22
+receiveWork	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    receiveWork(event){$/;"	function	line:53
+merged	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^      var merged = _.merge( self.workerBehavior, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior, self.dmcColorBehavior);$/;"	variable	line:55
+link	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:3
+dom	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<dom-module id="cross-stitch">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:7
+template	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^  <template>$/;"	function	line:9
+canvas	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^    <canvas id="finalOutput"><\/canvas>$/;"	function	line:10
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="behaviors\/loadScriptsWorker.js"><\/script>$/;"	function	line:15
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="..\/..\/..\/bower_components\/RgbQuant.js\/src\/rgbquant.js"><\/script>$/;"	function	line:16
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="behaviors\/misc.js"><\/script>$/;"	function	line:17
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="behaviors\/sizing.js"><\/script>$/;"	function	line:18
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="behaviors\/quantize.js"><\/script>$/;"	function	line:19
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="behaviors\/pixelate.js"><\/script>$/;"	function	line:20
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="behaviors\/worker.js"><\/script>$/;"	function	line:21
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="..\/..\/..\/bower_components\/FileSaver.js\/FileSaver.js"><\/script>$/;"	function	line:25
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="..\/..\/..\/bower_components\/canvas-toBlob.js\/canvas-toBlob.js"><\/script>$/;"	function	line:26
+script	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<script src="element.js"><\/script>$/;"	function	line:27
+ready	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    ready() {$/;"	function	line:50
+propertyChanged	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    propertyChanged(){$/;"	function	line:65
+newFile	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    newFile() {$/;"	function	line:71
+saveAsImage	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    saveAsImage(){$/;"	function	line:82
+getImageAsURI	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    getImageAsURI(){$/;"	function	line:90
+_scaleImage	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _scaleImage(){$/;"	function	line:94
+_dispatchBuildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _dispatchBuildPalette(imageData) {$/;"	function	line:101
+_processImage	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _processImage({imageData, palette}){$/;"	function	line:111
+_setupSuperPixelData	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _setupSuperPixelData(imageData, palette){$/;"	function	line:137
+_resizeOutputCanvas	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _resizeOutputCanvas(imageData){$/;"	function	line:147
+_dispatchQuantize	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _dispatchQuantize(chunk){$/;"	function	line:152
+_dispatchPixelate	A:\Projects\StitchPics\app\elements\cross-stitch\element.js	/^    _dispatchPixelate({imageData}){$/;"	function	line:160
+#finalOutput	A:\Projects\StitchPics\app\elements\cross-stitch\element.sass	/^#finalOutput$/;"	function	line:7
+loadImage	A:\Projects\StitchPics\app\elements\cross-stitch\tests\element.js	/^function loadImage(src, callback){$/;"	function	line:45
+onload	A:\Projects\StitchPics\app\elements\cross-stitch\tests\element.js	/^  img.onload = function(){$/;"	function	line:47
+img.onload	A:\Projects\StitchPics\app\elements\cross-stitch\tests\element.js	/^  img.onload = function(){$/;"	function	line:47
+loadImage	A:\Projects\StitchPics\app\elements\cross-stitch\tests\element.js	/^function loadImage(src, callback){$/;"	function	line:45
+autoUnhookListener	A:\Projects\StitchPics\app\elements\cross-stitch\tests\element.js	/^function autoUnhookListener(element, eventName, callback){$/;"	function	line:59
+autoUnhookListener	A:\Projects\StitchPics\app\elements\cross-stitch\tests\element.js	/^function autoUnhookListener(element, eventName, callback){$/;"	function	line:59
+html	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <link rel="import" href="..\/cross-stitch.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^<body>$/;"	function	line:17
+style	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <style>$/;"	function	line:18
+test	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:24
+template	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^    <template>$/;"	function	line:25
+script	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:35
+script	A:\Projects\StitchPics\app\elements\cross-stitch\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:36
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="globalScripts\/globalScripts.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-scroll-header-panel\/paper-scroll-header-panel.html">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-drawer-panel\/paper-drawer-panel.html">$/;"	function	line:6
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-icon-button\/paper-icon-button.html">$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-styles\/paper-styles-classes.html">$/;"	function	line:8
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-material\/paper-material.html">$/;"	function	line:9
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-checkbox\/paper-checkbox.html">$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-toolbar\/paper-toolbar.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-button\/paper-button.html">$/;"	function	line:12
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-slider\/paper-slider.html">$/;"	function	line:13
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-input\/paper-input.html">$/;"	function	line:14
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-tabs\/paper-tabs.html">$/;"	function	line:15
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-item\/paper-item.html">$/;"	function	line:16
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/paper-menu\/paper-menu.html">$/;"	function	line:17
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="..\/bower_components\/marked-element\/marked-element.html">$/;"	function	line:23
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="my-paper-material\/my-paper-material.html">$/;"	function	line:26
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="paper-file-upload\/paper-file-upload.html">$/;"	function	line:27
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="palette-viewer\/palette-viewer.html">$/;"	function	line:28
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="stampy-router\/stampy-router.html">$/;"	function	line:29
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="cross-stitch\/cross-stitch.html">$/;"	function	line:30
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="my-analytics\/my-analytics.html">$/;"	function	line:31
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="side-menu\/side-menu.html">$/;"	function	line:32
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="main-page\/main-page.html">$/;"	function	line:33
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="faq-page\/faq-page.html">$/;"	function	line:34
+link	A:\Projects\StitchPics\app\elements\elements.html	/^<link rel="import" href="my-ad\/my-ad.html">$/;"	function	line:35
+link	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<link rel="import" href="..\/..\/bower_components\/marked-element\/marked-element.html">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<link rel="import" href="..\/my-paper-material\/my-paper-material.html">$/;"	function	line:4
+link	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<link rel="import" href="..\/my-ad\/my-ad.html">$/;"	function	line:6
+dom	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<dom-module id="faq-page">$/;"	function	line:8
+link	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:10
+template	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^  <template>$/;"	function	line:12
+my	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^    <my-paper-material elevation="4">$/;"	function	line:13
+marked	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^      <marked-element>$/;"	function	line:14
+script	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^        <script type="text\/markdown">$/;"	function	line:15
+script	A:\Projects\StitchPics\app\elements\faq-page\faq-page.html	/^<script src="element.js"><\/script>$/;"	function	line:88
+html	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <link rel="import" href="..\/faq-page.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:19
+template	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <template>$/;"	function	line:20
+faq	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^      <faq-page><\/faq-page>$/;"	function	line:21
+script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:26
+script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:27
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/node_modules\/babel-core\/browser-polyfill.js"><\/script>$/;"	function	line:2
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/scripts\/performanceNow.coffee"><\/script>$/;"	function	line:3
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/bower_components\/nameThatColor\/index.js"><\/script>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/bower_components\/lodash\/lodash.js"><\/script>$/;"	function	line:5
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/scripts\/dmc-colors.js"><\/script>$/;"	function	line:6
+uploadImage	A:\Projects\StitchPics\app\elements\imgur-upload\element.js	/^    uploadImage(){$/;"	function	line:22
+getBase64FromImageData	A:\Projects\StitchPics\app\elements\imgur-upload\element.js	/^    getBase64FromImageData(imageData){$/;"	function	line:45
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/neon-animation\/neon-animation.html">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/neon-animation\/animations\/scale-up-animation.html">$/;"	function	line:4
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/neon-animation\/animations\/fade-out-animation.html">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/paper-button\/paper-button.html">$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/paper-dialog\/paper-dialog.html">$/;"	function	line:8
+dom	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<dom-module id="imgur-upload">$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:12
+template	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^  <template>$/;"	function	line:14
+paper	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^    <paper-button raised on-tap="uploadImage">Get Link<\/paper-button>$/;"	function	line:15
+h	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^      <h2>Save Link<\/h2>$/;"	function	line:22
+div	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^      <div>$/;"	function	line:23
+paper	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^        <paper-input id="shareInput" label="Use this link to share your pattern"><\/paper-input>$/;"	function	line:24
+div	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^      <div class="buttons">$/;"	function	line:26
+paper	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^          <paper-button dialog-confirm raised>Done<\/paper-button>$/;"	function	line:27
+script	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<script src="element.js"><\/script>$/;"	function	line:34
+html	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <link rel="import" href="..\/faq-page.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:19
+template	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    <template>$/;"	function	line:20
+faq	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^      <faq-page><\/faq-page>$/;"	function	line:21
+script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:26
+script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:27
+ready	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    ready(){$/;"	function	line:43
+loadImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    loadImage(){$/;"	function	line:47
+calcGridWidth	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    calcGridWidth(clothCount, size){$/;"	function	line:55
+saveImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    saveImage(){$/;"	function	line:59
+getImageAsDataURI	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    getImageAsDataURI(element){$/;"	function	line:63
+openNewTab	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    openNewTab(){$/;"	function	line:71
+printImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    printImage(){$/;"	function	line:84
+_getImageDataFromHash	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    _getImageDataFromHash(hash, callback){$/;"	function	line:110
+onload	A:\Projects\StitchPics\app\elements\main-page\element.js	/^      img.onload = function(){$/;"	function	line:114
+.indent	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^.indent$/;"	function	line:37
+.bottomRow	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^.bottomRow$/;"	function	line:44
+#mainPageContainer	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^#mainPageContainer$/;"	function	line:50
+#setupBox	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^    #setupBox$/;"	function	line:64
+#crossStitchBox	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^    #crossStitchBox$/;"	function	line:67
+#saveBox	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^    #saveBox$/;"	function	line:70
+#introBox	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^#introBox$/;"	function	line:74
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/..\/bower_components\/paper-checkbox\/paper-checkbox.html">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/..\/bower_components\/paper-slider\/paper-slider.html">$/;"	function	line:4
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/..\/bower_components\/paper-button\/paper-button.html">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/my-paper-material\/my-paper-material.html">$/;"	function	line:6
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/paper-file-upload\/paper-file-upload.html">$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/palette-viewer\/palette-viewer.html">$/;"	function	line:8
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/cross-stitch\/cross-stitch.html">$/;"	function	line:9
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/imgur-upload\/imgur-upload.html">$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/side-menu\/side-menu.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<link rel="import" href="..\/my-ad\/my-ad.html">$/;"	function	line:12
+dom	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<dom-module id="main-page">$/;"	function	line:14
+link	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:16
+template	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^  <template>$/;"	function	line:18
+my	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^    <my-paper-material elevation="5">$/;"	function	line:19
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^      <div id="mainPageContainer">$/;"	function	line:20
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^        <div id="introBox">$/;"	function	line:21
+p	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <p>$/;"	function	line:22
+p	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <p>$/;"	function	line:27
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^        <div id="setupBox">$/;"	function	line:34
+h	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <h3>Setup<\/h3>$/;"	function	line:35
+my	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <my-paper-material elevation="1" class="indent">$/;"	function	line:36
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <div>Aida cloth count<\/div>$/;"	function	line:37
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <paper-slider min="8" max="28" value="{{clothCount}}" snaps pin editable><\/paper-slider>$/;"	function	line:38
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <div>Cross Stitch Size (in inches)<\/div>$/;"	function	line:39
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <paper-slider min="2" max="16" value="{{size}}" snaps pin editable><\/paper-slider>$/;"	function	line:40
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <div>Number of colors<\/div>$/;"	function	line:41
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <paper-slider min="4" max="32" value="{{numColors}}" snaps pin editable><\/paper-slider>$/;"	function	line:42
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <div class="bottomRow">$/;"	function	line:43
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-checkbox checked="{{useDmcColors}}">Only use DMC colors<\/paper-checkbox>$/;"	function	line:44
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-checkbox checked="{{hideTheGrid}}">Hide the grid<\/paper-checkbox>$/;"	function	line:45
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-file-upload id="imageUpload" imagedata="{{imageData}}"><\/paper-file-upload>$/;"	function	line:46
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^        <div id="crossStitchBox">$/;"	function	line:51
+h	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <h3>Cross Stitch<\/h3>$/;"	function	line:52
+my	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <my-paper-material elevation="1" class="indent">$/;"	function	line:53
+h	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <h3>Color Key<\/h3>$/;"	function	line:64
+my	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <my-paper-material elevation="1" class="indent">$/;"	function	line:65
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^        <div id="saveBox">$/;"	function	line:74
+h	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <h3>Save<\/h3>$/;"	function	line:75
+my	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^          <my-paper-material elevation="1" class="indent">$/;"	function	line:76
+div	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^            <div class="flexContainer">$/;"	function	line:77
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-button id="saveButton" raised on-tap="saveImage">Save As Image<\/paper-button>$/;"	function	line:78
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab<\/paper-button>$/;"	function	line:79
+paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-button id="printButton" raised on-tap="printImage">Print<\/paper-button>$/;"	function	line:80
+script	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<script src="element.js"><\/script>$/;"	function	line:97
+html	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <link rel="import" href="..\/main-page.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:18
+template	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^    <template>$/;"	function	line:19
+main	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^      <main-page><\/main-page>$/;"	function	line:20
+script	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:25
+script	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:26
+ready	A:\Projects\StitchPics\app\elements\my-ad\element.js	/^    ready(){$/;"	function	line:21
+link	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+dom	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^<dom-module id="my-ad">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:5
+template	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^  <template>$/;"	function	line:7
+script	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^    <script async src="\/\/pagead2.googlesyndication.com\/pagead\/js\/adsbygoogle.js"><\/script>$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^<script src="element.js"><\/script>$/;"	function	line:13
+ready	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    ready(){$/;"	function	line:22
+pageChanged	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    pageChanged(path, title){$/;"	function	line:27
+isogram	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    isogram(i, s, o, g, r, a, m){$/;"	function	line:35
+link	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+dom	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<dom-module id="my-analytics">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:5
+template	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^  <template>$/;"	function	line:7
+script	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<script src="element.js"><\/script>$/;"	function	line:12
+link	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^<link rel="import" href="..\/..\/bower_components\/paper-material\/paper-material.html">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:4
+dom	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^<dom-module id="my-paper-material">$/;"	function	line:6
+link	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:8
+template	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^  <template>$/;"	function	line:10
+paper	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^    <paper-material class="paperContainer" elevation="{{elevation}}">$/;"	function	line:11
+content	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^      <content><\/content>$/;"	function	line:12
+script	A:\Projects\StitchPics\app\elements\my-paper-material\my-paper-material.html	/^<script src="element.js"><\/script>$/;"	function	line:18
+html	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^  <link rel="import" href="..\/my-paper-material.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:19
+template	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^    <template>$/;"	function	line:20
+my	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^      <my-paper-material elevation="4"><h1>This is test stuff!<\/h1><\/my-paper-material>$/;"	function	line:21
+script	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:26
+script	A:\Projects\StitchPics\app\elements\my-paper-material\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:27
+getColorKey	A:\Projects\StitchPics\app\elements\palette-viewer\element.js	/^    getColorKey(){$/;"	function	line:24
+_showPalette	A:\Projects\StitchPics\app\elements\palette-viewer\element.js	/^    _showPalette(){$/;"	function	line:36
+#paletteTable	A:\Projects\StitchPics\app\elements\palette-viewer\element.sass	/^#paletteTable$/;"	function	line:7
+td	A:\Projects\StitchPics\app\elements\palette-viewer\element.sass	/^  td$/;"	function	line:12
+th	A:\Projects\StitchPics\app\elements\palette-viewer\element.sass	/^  th$/;"	function	line:19
+link	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:3
+dom	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^<dom-module id="palette-viewer">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:7
+template	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^  <template>$/;"	function	line:9
+dom	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^    <dom id="tableContainer">$/;"	function	line:10
+table	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^      <table id="paletteTable">$/;"	function	line:11
+tr	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^        <tr>$/;"	function	line:12
+th	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^          <th>Color<\/th>$/;"	function	line:13
+th	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^          <th>Color Name<\/th>$/;"	function	line:14
+th	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^          <th>DMC Color Number<\/th>$/;"	function	line:15
+th	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^          <th>Hex Code<\/th>$/;"	function	line:16
+template	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^        <template is="dom-repeat" items="{{colors}}">$/;"	function	line:18
+tr	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^          <tr>$/;"	function	line:19
+td	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^            <td class="swatch" style$="{{item.swatchStyle}}"><\/td>$/;"	function	line:20
+td	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^            <td class="colorName">{{item.colorName}}<\/td>$/;"	function	line:21
+td	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^            <td class="dmcColor">{{item.dmcColor}}<\/td>$/;"	function	line:22
+td	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^            <td class="hex">{{item.hex}}<\/td>$/;"	function	line:23
+script	A:\Projects\StitchPics\app\elements\palette-viewer\palette-viewer.html	/^<script src="element.js"><\/script>$/;"	function	line:32
+html	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^  <link rel="import" href="..\/palette-viewer.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:18
+template	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^    <template>$/;"	function	line:19
+palette	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^      <palette-viewer><\/palette-viewer>$/;"	function	line:20
+script	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:25
+script	A:\Projects\StitchPics\app\elements\palette-viewer\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:26
+translateClick	A:\Projects\StitchPics\app\elements\paper-file-upload\element.js	/^    translateClick(){$/;"	function	line:19
+fileUpload	A:\Projects\StitchPics\app\elements\paper-file-upload\element.js	/^    fileUpload(event){$/;"	function	line:23
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">\\$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^<link rel="import" href="..\/..\/bower_components\/paper-button\/paper-button.html">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^<link rel="import" href="..\/..\/bower_components\/iron-icons\/iron-icons.html">$/;"	function	line:4
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:5
+dom	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^<dom-module id="paper-file-upload">$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:9
+template	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^  <template>$/;"	function	line:11
+paper	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^      <paper-button raised on-tap="translateClick">$/;"	function	line:12
+iron	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^        <iron-icon id="buttonIcon" class="hidden" icon="check"><\/iron-icon>$/;"	function	line:13
+span	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^        <span>{{buttonText}}<\/span>$/;"	function	line:14
+input	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^      <input type="file" id="imageLoader" on-change="fileUpload"\/>$/;"	function	line:16
+script	A:\Projects\StitchPics\app\elements\paper-file-upload\paper-file-upload.html	/^<script src="element.js"><\/script>$/;"	function	line:21
+html	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^  <link rel="import" href="..\/paper-file-upload.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:18
+template	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^    <template>$/;"	function	line:19
+paper	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^      <paper-file-upload><\/paper-file-upload>$/;"	function	line:20
+script	A:\Projects\StitchPics\app\elements\paper-file-upload\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:25
+routeChanged	A:\Projects\StitchPics\app\elements\side-menu\element.js	/^    routeChanged(){$/;"	function	line:53
+loadHref	A:\Projects\StitchPics\app\elements\side-menu\element.js	/^    loadHref(event){$/;"	function	line:59
+#sideBarContainerContainer	A:\Projects\StitchPics\app\elements\side-menu\element.sass	/^#sideBarContainerContainer$/;"	function	line:12
+#sideBarContainer	A:\Projects\StitchPics\app\elements\side-menu\element.sass	/^#sideBarContainer$/;"	function	line:16
+.adContainer	A:\Projects\StitchPics\app\elements\side-menu\element.sass	/^  .adContainer$/;"	function	line:22
+a	A:\Projects\StitchPics\app\elements\side-menu\element.sass	/^    a$/;"	function	line:30
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/..\/bower_components\/paper-toolbar\/paper-toolbar.html">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/..\/bower_components\/paper-button\/paper-button.html">$/;"	function	line:4
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/..\/bower_components\/paper-menu\/paper-menu.html">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/..\/bower_components\/iron-icons\/iron-icons.html">$/;"	function	line:6
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<link rel="import" href="..\/my-ad\/my-ad.html">$/;"	function	line:8
+dom	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<dom-module id="side-menu">$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:12
+template	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^  <template>$/;"	function	line:14
+paper	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^    <paper-toolbar id="drawerToolbar">$/;"	function	line:15
+span	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^      <span class="paper-font-title">Menu<\/span>$/;"	function	line:16
+div	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^    <div id="sideBarContainerContainer">$/;"	function	line:20
+div	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^      <div id="sideBarContainer">$/;"	function	line:21
+template	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^          <template is="dom-repeat" items="{{routes}}">$/;"	function	line:26
+a	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^            <a data-route$="{{item.route}}" href$="{{item.href}}">$/;"	function	line:27
+iron	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^              <iron-icon icon="{{item.icon}}"><\/iron-icon>$/;"	function	line:28
+span	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^              <span>{{item.text}}<\/span>$/;"	function	line:29
+div	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^        <div class="adContainer">$/;"	function	line:34
+div	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^        <div class="socialButtons sideBarItem">$/;"	function	line:42
+h	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^          <h3>Share:<\/h3>$/;"	function	line:43
+template	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^          <template is="dom-repeat" items="{{socialButtons}}">$/;"	function	line:44
+paper	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^            <paper-button class$="{{item.class}}" on-tap="loadHref" data-href$="{{item.href}}" raised>{{item.text}}<\/paper-button>$/;"	function	line:45
+script	A:\Projects\StitchPics\app\elements\side-menu\side-menu.html	/^<script src="element.js"><\/script>$/;"	function	line:54
+.socialButtons	A:\Projects\StitchPics\app\elements\side-menu\socialButtons.sass	/^.socialButtons$/;"	function	line:2
+.button	A:\Projects\StitchPics\app\elements\side-menu\socialButtons.sass	/^  .button$/;"	function	line:3
+.facebook	A:\Projects\StitchPics\app\elements\side-menu\socialButtons.sass	/^  .facebook$/;"	function	line:8
+.google	A:\Projects\StitchPics\app\elements\side-menu\socialButtons.sass	/^  .google$/;"	function	line:14
+.twitter	A:\Projects\StitchPics\app\elements\side-menu\socialButtons.sass	/^  .twitter$/;"	function	line:20
+html	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^<html>$/;"	function	line:1
+head	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^<head>$/;"	function	line:2
+meta	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
+title	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <title>Element Test<\/title>$/;"	function	line:4
+script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:7
+link	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <script src="..\/..\/..\/bower_components\/test-fixture\/test-fixture-mocha.js"><\/script>$/;"	function	line:10
+link	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <link rel="import" href="..\/..\/..\/bower_components\/test-fixture\/test-fixture.html">$/;"	function	line:11
+link	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <link rel="import" href="..\/side-menu.html">$/;"	function	line:14
+body	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^<body>$/;"	function	line:17
+test	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <test-fixture id="basic">$/;"	function	line:18
+template	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <template>$/;"	function	line:19
+side	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^      <side-menu><\/side-menu>$/;"	function	line:20
+script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:25
+script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:26
+test	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    test(){$/;"	function	line:20
+ready	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    ready(){$/;"	function	line:24
+link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
+link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<link rel="import" href="..\/my-analytics\/my-analytics.html">$/;"	function	line:3
+dom	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<dom-module id="stampy-router">$/;"	function	line:5
+link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:7
+template	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <template>$/;"	function	line:9
+content	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <content><\/content>$/;"	function	line:10
+my	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <my-analytics trackingcode="UA-65662485-1" router-context="{{routerContext}}"><\/my-analytics>$/;"	function	line:11
+script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="..\/..\/..\/bower_components\/page\/page.js"><\/script>$/;"	function	line:16
+script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="element.js"><\/script>$/;"	function	line:17
+html	A:\Projects\StitchPics\app\index.html	/^<html lang="">$/;"	function	line:2
+head	A:\Projects\StitchPics\app\index.html	/^<head>$/;"	function	line:4
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta charset="utf-8">$/;"	function	line:5
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="description" content="">$/;"	function	line:6
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="viewport" content="width=device-width, initial-scale=1">$/;"	function	line:7
+title	A:\Projects\StitchPics\app\index.html	/^  <title>StitchPics<\/title>$/;"	function	line:8
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="theme-color" content="#835CDB">$/;"	function	line:12
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="msapplication-TileColor" content="#835CDB">$/;"	function	line:18
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="mobile-web-app-capable" content="yes">$/;"	function	line:21
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="application-name" content="StitchPics">$/;"	function	line:22
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="apple-mobile-web-app-capable" content="yes">$/;"	function	line:26
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="apple-mobile-web-app-status-bar-style" content="black">$/;"	function	line:27
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="apple-mobile-web-app-title" content="StitchPics">$/;"	function	line:28
+link	A:\Projects\StitchPics\app\index.html	/^  <link rel="apple-touch-icon" href="images\/touch\/apple-touch-icon.png">$/;"	function	line:29
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="msapplication-TileImage" content="images\/touch\/ms-touch-icon-144x144-precomposed.png">$/;"	function	line:32
+meta	A:\Projects\StitchPics\app\index.html	/^  <meta name="description" content="Stitchpics is your best way to turn any picture into a crossstitch pattern. No more tracing or drawing pictures by hand, in less than an minute you can have a picture ready for cross stitching.">$/;"	function	line:34
+link	A:\Projects\StitchPics\app\index.html	/^  <link rel="stylesheet" href="styles\/app.sass">$/;"	function	line:40
+script	A:\Projects\StitchPics\app\index.html	/^  <script src="..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:44
+link	A:\Projects\StitchPics\app\index.html	/^ <link rel="import" href="elements\/elements.html">$/;"	function	line:47
+body	A:\Projects\StitchPics\app\index.html	/^<body unresolved class="fullbleed layout vertical">$/;"	function	line:51
+template	A:\Projects\StitchPics\app\index.html	/^  <template is="dom-bind" id="app">$/;"	function	line:52
+paper	A:\Projects\StitchPics\app\index.html	/^    <paper-drawer-panel id="paperDrawerPanel">$/;"	function	line:53
+paper	A:\Projects\StitchPics\app\index.html	/^      <paper-scroll-header-panel drawer fixed>$/;"	function	line:55
+side	A:\Projects\StitchPics\app\index.html	/^        <side-menu on-menu-select="onMenuSelect"><\/side-menu>$/;"	function	line:57
+paper	A:\Projects\StitchPics\app\index.html	/^      <paper-scroll-header-panel main condenses keep-condensed-header>$/;"	function	line:61
+paper	A:\Projects\StitchPics\app\index.html	/^        <paper-toolbar id="mainToolbar" class="tall">$/;"	function	line:64
+paper	A:\Projects\StitchPics\app\index.html	/^          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle><\/paper-icon-button>$/;"	function	line:65
+span	A:\Projects\StitchPics\app\index.html	/^          <span class="flex"><\/span>$/;"	function	line:66
+div	A:\Projects\StitchPics\app\index.html	/^          <div class="middle middle-container center horizontal layout">$/;"	function	line:69
+div	A:\Projects\StitchPics\app\index.html	/^            <div class="app-name">StitchPics<\/div>$/;"	function	line:70
+div	A:\Projects\StitchPics\app\index.html	/^          <div class="bottom bottom-container center horizontal layout">$/;"	function	line:74
+div	A:\Projects\StitchPics\app\index.html	/^            <div class="bottom-title paper-font-subhead">Turn any picture into a cross stitch pattern<\/div>$/;"	function	line:75
+div	A:\Projects\StitchPics\app\index.html	/^        <div class="content">$/;"	function	line:81
+stampy	A:\Projects\StitchPics\app\index.html	/^          <stampy-router>$/;"	function	line:82
+section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="app" data-href="\/app\/:imageHash?\/:clothCount?\/:size?\/:colors?">$/;"	function	line:83
+main	A:\Projects\StitchPics\app\index.html	/^              <main-page><\/main-page>$/;"	function	line:84
+section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="faq" data-href="\/faq">$/;"	function	line:87
+faq	A:\Projects\StitchPics\app\index.html	/^              <faq-page><\/faq-page>$/;"	function	line:88
+script	A:\Projects\StitchPics\app\index.html	/^  <script src="scripts\/app.js"><\/script>$/;"	function	line:97
+app	A:\Projects\StitchPics\app\scripts\app.js	/^  var app = document.querySelector('#app');$/;"	variable	line:7
+displayInstalledToast	A:\Projects\StitchPics\app\scripts\app.js	/^  app.displayInstalledToast = function() {$/;"	function	line:9
+app.displayInstalledToast	A:\Projects\StitchPics\app\scripts\app.js	/^  app.displayInstalledToast = function() {$/;"	function	line:9
+addEventListener	A:\Projects\StitchPics\app\scripts\app.js	/^  addEventListener('paper-header-transform', function(e) {$/;"	function	line:28
+behavior.properties	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    properties: {$/;"	property	line:5
+_getColorsAsRGB	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^     _getColorsAsRGB() {$/;"	function	line:373
+_getDmcColorMap	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _getDmcColorMap(){$/;"	function	line:383
+_convertHexToRGB	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _convertHexToRGB(hex){$/;"	function	line:387
+_convertRGBToHex	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _convertRGBToHex([r, g, b]){$/;"	function	line:396
+self.performance.now	A:\Projects\StitchPics\app\scripts\performanceNow.coffee	/^    self.performance.now = ->$/;"	function	line:9
+body	A:\Projects\StitchPics\app\styles\app.sass	/^body$/;"	function	line:2
+#mainToolbar	A:\Projects\StitchPics\app\styles\app.sass	/^#mainToolbar$/;"	function	line:8
+.bottom	A:\Projects\StitchPics\app\styles\app.sass	/^  .bottom$/;"	function	line:20
+html	A:\Projects\StitchPics\app\test.html	/^<html>$/;"	function	line:2
+head	A:\Projects\StitchPics\app\test.html	/^  <head>$/;"	function	line:4
+meta	A:\Projects\StitchPics\app\test.html	/^    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:5
+title	A:\Projects\StitchPics\app\test.html	/^    <title>Elements Test Runner<\/title>$/;"	function	line:6
+meta	A:\Projects\StitchPics\app\test.html	/^    <meta charset="UTF-8">$/;"	function	line:7
+script	A:\Projects\StitchPics\app\test.html	/^    <script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\test.html	/^    <script src="..\/bower_components\/webcomponentsjs\/webcomponents-lite.js"><\/script>$/;"	function	line:18
+script	A:\Projects\StitchPics\app\test.html	/^    <script src="..\/bower_components\/web-component-tester\/browser.js"><\/script>$/;"	function	line:19
+body	A:\Projects\StitchPics\app\test.html	/^  <body>$/;"	function	line:22
+script	A:\Projects\StitchPics\app\test.html	/^    <script>$/;"	function	line:24
+name	A:\Projects\StitchPics\bower.json	/^  "name": "StitchPics",$/;"	function	line:2
+private	A:\Projects\StitchPics\bower.json	/^  "private": true,$/;"	function	line:3
+dependencies	A:\Projects\StitchPics\bower.json	/^  "dependencies": {$/;"	function	line:4
+FileSaver.js	A:\Projects\StitchPics\bower.json	/^    "FileSaver.js": "eligrey\/FileSaver.js",$/;"	function	line:5
+canvas-toBlob.js	A:\Projects\StitchPics\bower.json	/^    "canvas-toBlob.js": "eligrey\/canvas-toBlob.js",$/;"	function	line:6
+iron-elements	A:\Projects\StitchPics\bower.json	/^    "iron-elements": "PolymerElements\/iron-elements#1.0.3",$/;"	function	line:7
+paper-elements	A:\Projects\StitchPics\bower.json	/^    "paper-elements": "PolymerElements\/paper-elements#1.0.4",$/;"	function	line:8
+platinum-elements	A:\Projects\StitchPics\bower.json	/^    "platinum-elements": "PolymerElements\/platinum-elements#1.1.0",$/;"	function	line:9
+neon-elements	A:\Projects\StitchPics\bower.json	/^    "neon-elements": "PolymerElements\/neon-elements#1.0.0",$/;"	function	line:10
+page	A:\Projects\StitchPics\bower.json	/^    "page": "visionmedia\/page.js#~1.6.3",$/;"	function	line:11
+RgbQuant.js	A:\Projects\StitchPics\bower.json	/^    "RgbQuant.js": "leeoniya\/RgbQuant.js",$/;"	function	line:12
+lodash	A:\Projects\StitchPics\bower.json	/^    "lodash": "~3.10.0",$/;"	function	line:13
+paper-menu-button	A:\Projects\StitchPics\bower.json	/^    "paper-menu-button": "PolymerElements\/paper-menu-button#~1.0.0",$/;"	function	line:14
+marked-element	A:\Projects\StitchPics\bower.json	/^    "marked-element": "PolymerElements\/marked-element#~1.0.2",$/;"	function	line:15
+nameThatColor	A:\Projects\StitchPics\bower.json	/^    "nameThatColor": "http:\/\/chir.ag\/projects\/ntc\/ntc.js"$/;"	function	line:16
+devDependencies	A:\Projects\StitchPics\bower.json	/^  "devDependencies": {$/;"	function	line:18
+web-component-tester	A:\Projects\StitchPics\bower.json	/^    "web-component-tester": "*",$/;"	function	line:19
+test-fixture	A:\Projects\StitchPics\bower.json	/^    "test-fixture": "PolymerElements\/test-fixture#^1.0.0"$/;"	function	line:20
+$	A:\Projects\StitchPics\gulpfile.babel.js	/^var $ = glp({$/;"	variable	line:16
+PROD	A:\Projects\StitchPics\gulpfile.babel.js	/^var PROD = false;$/;"	variable	line:27
+DEPLOY	A:\Projects\StitchPics\gulpfile.babel.js	/^var DEPLOY = false;$/;"	variable	line:28
+const.outputStyle	A:\Projects\StitchPics\gulpfile.babel.js	/^  outputStyle: 'expanded',$/;"	property	line:32
+const.includePaths	A:\Projects\StitchPics\gulpfile.babel.js	/^  includePaths: [$.nodeBourbon.includePaths, path.join('app', 'styles')]$/;"	property	line:33
+const.cascade	A:\Projects\StitchPics\gulpfile.babel.js	/^  cascade: true,$/;"	property	line:37
+const.remove	A:\Projects\StitchPics\gulpfile.babel.js	/^  remove: true,$/;"	property	line:38
+const.browsers	A:\Projects\StitchPics\gulpfile.babel.js	/^  browsers: [$/;"	property	line:39
+const.errorHandler	A:\Projects\StitchPics\gulpfile.babel.js	/^  errorHandler: $.notify.onError("Error: <%= error.message %>")$/;"	property	line:53
+const.compact	A:\Projects\StitchPics\gulpfile.babel.js	/^  compact: false,$/;"	property	line:57
+const.blacklist	A:\Projects\StitchPics\gulpfile.babel.js	/^  blacklist: [$/;"	property	line:58
+const.bare	A:\Projects\StitchPics\gulpfile.babel.js	/^  bare: true$/;"	property	line:69
+const.screw-ie8	A:\Projects\StitchPics\gulpfile.babel.js	/^  'screw-ie8': true,$/;"	property	line:73
+const.compress	A:\Projects\StitchPics\gulpfile.babel.js	/^  compress: {$/;"	property	line:74
+const.compilation_level	A:\Projects\StitchPics\gulpfile.babel.js	/^  compilation_level: 'SIMPLE_OPTIMIZATIONS'$/;"	property	line:83
+const.ids	A:\Projects\StitchPics\gulpfile.babel.js	/^  ids: false,$/;"	property	line:87
+const.box-sizing	A:\Projects\StitchPics\gulpfile.babel.js	/^  'box-sizing': false,$/;"	property	line:88
+const.fallback-colors	A:\Projects\StitchPics\gulpfile.babel.js	/^  'fallback-colors': false$/;"	property	line:89
+const.keepSpecialComments	A:\Projects\StitchPics\gulpfile.babel.js	/^  keepSpecialComments: 0$/;"	property	line:93
+const.optimizationLevel	A:\Projects\StitchPics\gulpfile.babel.js	/^  optimizationLevel: 7,$/;"	property	line:97
+const.progressive	A:\Projects\StitchPics\gulpfile.babel.js	/^  progressive: true,$/;"	property	line:98
+const.multipass	A:\Projects\StitchPics\gulpfile.babel.js	/^  multipass: true,$/;"	property	line:99
+const.use	A:\Projects\StitchPics\gulpfile.babel.js	/^  use: [$/;"	property	line:100
+const.dest	A:\Projects\StitchPics\gulpfile.babel.js	/^  dest: 'build',$/;"	property	line:111
+const.inlineCss	A:\Projects\StitchPics\gulpfile.babel.js	/^  inlineCss: true,$/;"	property	line:112
+const.inlineScripts	A:\Projects\StitchPics\gulpfile.babel.js	/^  inlineScripts: true,$/;"	property	line:113
+const.stripExcludes	A:\Projects\StitchPics\gulpfile.babel.js	/^  stripExcludes: false,$/;"	property	line:114
+const.excludes	A:\Projects\StitchPics\gulpfile.babel.js	/^  excludes: [$/;"	property	line:115
+const.css	A:\Projects\StitchPics\gulpfile.babel.js	/^  css: false, \/\/ Shit's broken yo$/;"	property	line:122
+const.jsSelector	A:\Projects\StitchPics\gulpfile.babel.js	/^  jsSelector: 'script[type!="text\/markdown"]'$/;"	property	line:123
+const.quotes	A:\Projects\StitchPics\gulpfile.babel.js	/^  quotes: true,$/;"	property	line:127
+const.cdata	A:\Projects\StitchPics\gulpfile.babel.js	/^  cdata: true,$/;"	property	line:128
+const.empty	A:\Projects\StitchPics\gulpfile.babel.js	/^  empty: true,$/;"	property	line:129
+const.spare	A:\Projects\StitchPics\gulpfile.babel.js	/^  spare: true$/;"	property	line:130
+compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:133
+compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:133
+compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:152
+compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:152
+getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:277
+getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:277
+buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:308
+buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:308
+private	A:\Projects\StitchPics\package.json	/^  "private": true,$/;"	function	line:2
+license	A:\Projects\StitchPics\package.json	/^  "license": "UNLICENSED",$/;"	function	line:3
+devDependencies	A:\Projects\StitchPics\package.json	/^  "devDependencies": {$/;"	function	line:4
+babel	A:\Projects\StitchPics\package.json	/^    "babel": "^5.6.14",$/;"	function	line:5
+babel-core	A:\Projects\StitchPics\package.json	/^    "babel-core": "^5.8.3",$/;"	function	line:6
+browser-sync	A:\Projects\StitchPics\package.json	/^    "browser-sync": "^2.7.13",$/;"	function	line:7
+csslint-stylish	A:\Projects\StitchPics\package.json	/^    "csslint-stylish": "0.0.1",$/;"	function	line:8
+del	A:\Projects\StitchPics\package.json	/^    "del": "^1.2.0",$/;"	function	line:9
+gulp	A:\Projects\StitchPics\package.json	/^    "gulp": "^3.9.0",$/;"	function	line:10
+gulp-autoprefixer	A:\Projects\StitchPics\package.json	/^    "gulp-autoprefixer": "^2.3.1",$/;"	function	line:11
+gulp-babel	A:\Projects\StitchPics\package.json	/^    "gulp-babel": "^5.1.0",$/;"	function	line:12
+gulp-cached	A:\Projects\StitchPics\package.json	/^    "gulp-cached": "^1.1.0",$/;"	function	line:13
+gulp-closure-compiler-service	A:\Projects\StitchPics\package.json	/^    "gulp-closure-compiler-service": "^0.5.0",$/;"	function	line:14
+gulp-coffee	A:\Projects\StitchPics\package.json	/^    "gulp-coffee": "^2.3.1",$/;"	function	line:15
+gulp-csslint	A:\Projects\StitchPics\package.json	/^    "gulp-csslint": "^0.1.5",$/;"	function	line:16
+gulp-duration	A:\Projects\StitchPics\package.json	/^    "gulp-duration": "0.0.0",$/;"	function	line:17
+gulp-gh-pages	A:\Projects\StitchPics\package.json	/^    "gulp-gh-pages": "^0.5.2",$/;"	function	line:18
+gulp-html-autoprefixer	A:\Projects\StitchPics\package.json	/^    "gulp-html-autoprefixer": "0.0.1",$/;"	function	line:19
+gulp-if	A:\Projects\StitchPics\package.json	/^    "gulp-if": "^1.2.5",$/;"	function	line:20
+gulp-imagemin	A:\Projects\StitchPics\package.json	/^    "gulp-imagemin": "^2.3.0",$/;"	function	line:21
+gulp-jshint	A:\Projects\StitchPics\package.json	/^    "gulp-jshint": "^1.11.2",$/;"	function	line:22
+gulp-load-plugins	A:\Projects\StitchPics\package.json	/^    "gulp-load-plugins": "^1.0.0-rc.1",$/;"	function	line:23
+gulp-minify-css	A:\Projects\StitchPics\package.json	/^    "gulp-minify-css": "^1.2.0",$/;"	function	line:24
+gulp-minify-html	A:\Projects\StitchPics\package.json	/^    "gulp-minify-html": "^1.0.3",$/;"	function	line:25
+gulp-minify-inline	A:\Projects\StitchPics\package.json	/^    "gulp-minify-inline": "^0.1.0",$/;"	function	line:26
+gulp-notify	A:\Projects\StitchPics\package.json	/^    "gulp-notify": "^2.2.0",$/;"	function	line:27
+gulp-plumber	A:\Projects\StitchPics\package.json	/^    "gulp-plumber": "^1.0.1",$/;"	function	line:28
+gulp-remember	A:\Projects\StitchPics\package.json	/^    "gulp-remember": "^0.3.0",$/;"	function	line:29
+gulp-sass	A:\Projects\StitchPics\package.json	/^    "gulp-sass": "^2.0.3",$/;"	function	line:30
+gulp-size	A:\Projects\StitchPics\package.json	/^    "gulp-size": "^1.2.2",$/;"	function	line:31
+gulp-sourcemaps	A:\Projects\StitchPics\package.json	/^    "gulp-sourcemaps": "^1.5.2",$/;"	function	line:32
+gulp-strip-comments	A:\Projects\StitchPics\package.json	/^    "gulp-strip-comments": "^1.0.1",$/;"	function	line:33
+gulp-uglify	A:\Projects\StitchPics\package.json	/^    "gulp-uglify": "git+https:\/\/github.com\/Klathmon\/gulp-uglify.git",$/;"	function	line:34
+gulp-usemin	A:\Projects\StitchPics\package.json	/^    "gulp-usemin": "git+https:\/\/github.com\/zont\/gulp-usemin.git#f52d6094d02644a9c42acd4da954754089756423",$/;"	function	line:35
+gulp-vulcanize	A:\Projects\StitchPics\package.json	/^    "gulp-vulcanize": "^6.0.1",$/;"	function	line:36
+imagemin-mozjpeg	A:\Projects\StitchPics\package.json	/^    "imagemin-mozjpeg": "^5.1.0",$/;"	function	line:37
+imagemin-pngcrush	A:\Projects\StitchPics\package.json	/^    "imagemin-pngcrush": "^4.1.0",$/;"	function	line:38
+jshint-stylish	A:\Projects\StitchPics\package.json	/^    "jshint-stylish": "^2.0.1",$/;"	function	line:39
+lodash	A:\Projects\StitchPics\package.json	/^    "lodash": "^3.10.0",$/;"	function	line:40
+merge-stream	A:\Projects\StitchPics\package.json	/^    "merge-stream": "^1.0.0",$/;"	function	line:41
+vulcanize	A:\Projects\StitchPics\package.json	/^    "vulcanize": ">= 1.4.2",$/;"	function	line:42
+web-component-tester	A:\Projects\StitchPics\package.json	/^    "web-component-tester": "^3.3.10"$/;"	function	line:43
+engines	A:\Projects\StitchPics\package.json	/^  "engines": {$/;"	function	line:45
+node	A:\Projects\StitchPics\package.json	/^    "node": ">=0.10.0"$/;"	function	line:46
+dependencies	A:\Projects\StitchPics\package.json	/^  "dependencies": {$/;"	function	line:48
+image-q	A:\Projects\StitchPics\package.json	/^    "image-q": "^0.1.4",$/;"	function	line:49
+node-bourbon	A:\Projects\StitchPics\package.json	/^    "node-bourbon": "^4.2.3"$/;"	function	line:50
+root	A:\Projects\StitchPics\wct.conf.json	/^  "root": "build",$/;"	function	line:2
+suites	A:\Projects\StitchPics\wct.conf.json	/^  "suites": ["test.html"],$/;"	function	line:3
+testTimeout	A:\Projects\StitchPics\wct.conf.json	/^  "testTimeout": 100000,$/;"	function	line:4
+plugins	A:\Projects\StitchPics\wct.conf.json	/^  "plugins": {$/;"	function	line:5
+local	A:\Projects\StitchPics\wct.conf.json	/^    "local": {$/;"	function	line:6
+browsers	A:\Projects\StitchPics\wct.conf.json	/^      "browsers": ["chrome", "firefox", "ie"]$/;"	function	line:7

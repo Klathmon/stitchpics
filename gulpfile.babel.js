@@ -86,7 +86,8 @@ const CLOSURE_OPTIONS = {
 const CSSLINT_OPTIONS = {
   ids: false,
   'box-sizing': false,
-  'fallback-colors': false
+  'fallback-colors': false,
+  'compatible-vendor-prefixes': false
 };
 
 const MIN_CSS_OPTIONS = {

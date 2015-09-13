@@ -4,26 +4,6 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-fit	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    fit(imageData, xPixels){$/;"	function	line:5
-oldBadSplit	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    oldBadSplit(imageData, numberOfParts, fitObj){$/;"	function	line:17
-imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var imageHeight = imageData.height;$/;"	variable	line:19
-chunkHeightExact	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var chunkHeightExact = Math.floor(imageHeight \/ numberOfParts);$/;"	variable	line:21
-numberOfPixelsHigh	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var numberOfPixelsHigh = Math.ceil(chunkHeightExact \/ fitObj.pixelHeight);$/;"	variable	line:22
-chunkHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var chunkHeight = numberOfPixelsHigh * fitObj.pixelHeight;$/;"	variable	line:23
-canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:25
-context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:26
-oldBadStitch	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    oldBadStitch(chunks, canvas){$/;"	function	line:42
-imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var imageHeight = chunks.reduce(function(runningTotal, chunk){$/;"	variable	line:44
-context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:51
-badOldScale	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    badOldScale(imageData, imageWidth){$/;"	function	line:61
-canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:65
-context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:66
-newCanvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var newCanvas = document.createElement('canvas');$/;"	variable	line:70
-asdfbuildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    asdfbuildPalette(imageData, numColors){$/;"	function	line:81
-reducedImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var reducedImageData;$/;"	variable	line:88
-startTime	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^      var startTime = performance.now();$/;"	variable	line:95
-asdfasdfasdf	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^    asdfasdfasdf(imageData, palette, numColors){$/;"	function	line:104
-obj	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\crossStitch.js	/^  var obj;$/;"	variable	line:116
 _convertToRealImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^     _convertToRealImageData(pImageData) {$/;"	function	line:5
 _readImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _readImageData(canvas) {$/;"	function	line:14
 _writeImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _writeImageData(canvas, imageData) {$/;"	function	line:19
@@ -280,9 +260,9 @@ link	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^  <link rel="stylesh
 template	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^  <template>$/;"	function	line:7
 script	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^    <script async src="\/\/pagead2.googlesyndication.com\/pagead\/js\/adsbygoogle.js"><\/script>$/;"	function	line:8
 script	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^<script src="element.js"><\/script>$/;"	function	line:13
-ready	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    ready(){$/;"	function	line:22
-pageChanged	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    pageChanged(path, title){$/;"	function	line:27
-isogram	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    isogram(i, s, o, g, r, a, m){$/;"	function	line:35
+ready	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    ready(){$/;"	function	line:14
+pageChanged	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    pageChanged(canonicalPath, title){$/;"	function	line:19
+isogram	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    isogram(i, s, o, g, r, a, m){$/;"	function	line:28
 link	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
 dom	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<dom-module id="my-analytics">$/;"	function	line:3
 link	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:5
@@ -433,15 +413,15 @@ template	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <te
 side	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^      <side-menu><\/side-menu>$/;"	function	line:20
 script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:25
 script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:26
-test	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    test(){$/;"	function	line:20
-ready	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    ready(){$/;"	function	line:24
+test	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    test(){$/;"	function	line:15
+ready	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    ready(){$/;"	function	line:19
 link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
 link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<link rel="import" href="..\/my-analytics\/my-analytics.html">$/;"	function	line:3
 dom	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<dom-module id="stampy-router">$/;"	function	line:5
 link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:7
 template	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <template>$/;"	function	line:9
 content	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <content><\/content>$/;"	function	line:10
-my	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <my-analytics trackingcode="UA-65662485-1" router-context="{{routerContext}}"><\/my-analytics>$/;"	function	line:11
+my	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <my-analytics id="myAnalytics" tracking-code="UA-65662485-1"><\/my-analytics>$/;"	function	line:11
 script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="..\/..\/..\/bower_components\/page\/page.js"><\/script>$/;"	function	line:16
 script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="element.js"><\/script>$/;"	function	line:17
 html	A:\Projects\StitchPics\app\index.html	/^<html lang="">$/;"	function	line:2
@@ -541,31 +521,32 @@ const.compress	A:\Projects\StitchPics\gulpfile.babel.js	/^  compress: {$/;"	prop
 const.compilation_level	A:\Projects\StitchPics\gulpfile.babel.js	/^  compilation_level: 'SIMPLE_OPTIMIZATIONS'$/;"	property	line:83
 const.ids	A:\Projects\StitchPics\gulpfile.babel.js	/^  ids: false,$/;"	property	line:87
 const.box-sizing	A:\Projects\StitchPics\gulpfile.babel.js	/^  'box-sizing': false,$/;"	property	line:88
-const.fallback-colors	A:\Projects\StitchPics\gulpfile.babel.js	/^  'fallback-colors': false$/;"	property	line:89
-const.keepSpecialComments	A:\Projects\StitchPics\gulpfile.babel.js	/^  keepSpecialComments: 0$/;"	property	line:93
-const.optimizationLevel	A:\Projects\StitchPics\gulpfile.babel.js	/^  optimizationLevel: 7,$/;"	property	line:97
-const.progressive	A:\Projects\StitchPics\gulpfile.babel.js	/^  progressive: true,$/;"	property	line:98
-const.multipass	A:\Projects\StitchPics\gulpfile.babel.js	/^  multipass: true,$/;"	property	line:99
-const.use	A:\Projects\StitchPics\gulpfile.babel.js	/^  use: [$/;"	property	line:100
-const.dest	A:\Projects\StitchPics\gulpfile.babel.js	/^  dest: 'build',$/;"	property	line:111
-const.inlineCss	A:\Projects\StitchPics\gulpfile.babel.js	/^  inlineCss: true,$/;"	property	line:112
-const.inlineScripts	A:\Projects\StitchPics\gulpfile.babel.js	/^  inlineScripts: true,$/;"	property	line:113
-const.stripExcludes	A:\Projects\StitchPics\gulpfile.babel.js	/^  stripExcludes: false,$/;"	property	line:114
-const.excludes	A:\Projects\StitchPics\gulpfile.babel.js	/^  excludes: [$/;"	property	line:115
-const.css	A:\Projects\StitchPics\gulpfile.babel.js	/^  css: false, \/\/ Shit's broken yo$/;"	property	line:122
-const.jsSelector	A:\Projects\StitchPics\gulpfile.babel.js	/^  jsSelector: 'script[type!="text\/markdown"]'$/;"	property	line:123
-const.quotes	A:\Projects\StitchPics\gulpfile.babel.js	/^  quotes: true,$/;"	property	line:127
-const.cdata	A:\Projects\StitchPics\gulpfile.babel.js	/^  cdata: true,$/;"	property	line:128
-const.empty	A:\Projects\StitchPics\gulpfile.babel.js	/^  empty: true,$/;"	property	line:129
-const.spare	A:\Projects\StitchPics\gulpfile.babel.js	/^  spare: true$/;"	property	line:130
-compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:133
-compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:133
-compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:152
-compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:152
-getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:277
-getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:277
-buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:308
-buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:308
+const.fallback-colors	A:\Projects\StitchPics\gulpfile.babel.js	/^  'fallback-colors': false,$/;"	property	line:89
+const.compatible-vendor-prefixes	A:\Projects\StitchPics\gulpfile.babel.js	/^  'compatible-vendor-prefixes': false$/;"	property	line:90
+const.keepSpecialComments	A:\Projects\StitchPics\gulpfile.babel.js	/^  keepSpecialComments: 0$/;"	property	line:94
+const.optimizationLevel	A:\Projects\StitchPics\gulpfile.babel.js	/^  optimizationLevel: 7,$/;"	property	line:98
+const.progressive	A:\Projects\StitchPics\gulpfile.babel.js	/^  progressive: true,$/;"	property	line:99
+const.multipass	A:\Projects\StitchPics\gulpfile.babel.js	/^  multipass: true,$/;"	property	line:100
+const.use	A:\Projects\StitchPics\gulpfile.babel.js	/^  use: [$/;"	property	line:101
+const.dest	A:\Projects\StitchPics\gulpfile.babel.js	/^  dest: 'build',$/;"	property	line:112
+const.inlineCss	A:\Projects\StitchPics\gulpfile.babel.js	/^  inlineCss: true,$/;"	property	line:113
+const.inlineScripts	A:\Projects\StitchPics\gulpfile.babel.js	/^  inlineScripts: true,$/;"	property	line:114
+const.stripExcludes	A:\Projects\StitchPics\gulpfile.babel.js	/^  stripExcludes: false,$/;"	property	line:115
+const.excludes	A:\Projects\StitchPics\gulpfile.babel.js	/^  excludes: [$/;"	property	line:116
+const.css	A:\Projects\StitchPics\gulpfile.babel.js	/^  css: false, \/\/ Shit's broken yo$/;"	property	line:123
+const.jsSelector	A:\Projects\StitchPics\gulpfile.babel.js	/^  jsSelector: 'script[type!="text\/markdown"]'$/;"	property	line:124
+const.quotes	A:\Projects\StitchPics\gulpfile.babel.js	/^  quotes: true,$/;"	property	line:128
+const.cdata	A:\Projects\StitchPics\gulpfile.babel.js	/^  cdata: true,$/;"	property	line:129
+const.empty	A:\Projects\StitchPics\gulpfile.babel.js	/^  empty: true,$/;"	property	line:130
+const.spare	A:\Projects\StitchPics\gulpfile.babel.js	/^  spare: true$/;"	property	line:131
+compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:134
+compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:134
+compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:153
+compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:153
+getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:278
+getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:278
+buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:309
+buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:309
 private	A:\Projects\StitchPics\package.json	/^  "private": true,$/;"	function	line:2
 license	A:\Projects\StitchPics\package.json	/^  "license": "UNLICENSED",$/;"	function	line:3
 devDependencies	A:\Projects\StitchPics\package.json	/^  "devDependencies": {$/;"	function	line:4

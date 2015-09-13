@@ -6,27 +6,25 @@
     is: 'my-analytics',
 
     properties: {
-      trackingcode: {
+      trackingCode: {
         type: String
-      },
-      routerContext: {
-        type: Object,
-        value: {}
       }
     },
 
-    observers: [
-      'pageChanged(routerContext.canonicalPath, routerContext.title)'
-    ],
-
-    ready(){
+    created(){
       this.isogram(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      ga('create', this.trackingcode, 'auto');
+      ga('create', this.trackingCode, 'auto');
+      window.addEventListener('stampy-navigation', this.navigationOccured.bind(this));
     },
 
-    pageChanged(path, title){
+    navigationOccured({detail}){
+      let {canonicalPath, title} = detail;
+      this.sendPageview(canonicalPath, title);
+    },
+
+    sendPageview(canonicalPath, title){
       ga('set', {
-        page: path,
+        page: canonicalPath,
         title
       });
       ga('send', 'pageview');

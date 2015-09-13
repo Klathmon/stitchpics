@@ -11,7 +11,7 @@
       }
     },
 
-    created(){
+    ready(){
       this.isogram(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
       ga('create', this.trackingCode, 'auto');
       window.addEventListener('stampy-navigation', this.navigationOccured.bind(this));
@@ -28,6 +28,7 @@
         title
       });
       ga('send', 'pageview');
+      console.log('Page view sent.');
     },
 
     isogram(i, s, o, g, r, a, m){

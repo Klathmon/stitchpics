@@ -12,22 +12,22 @@
     },
 
     ready(){
-      this.isogram(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-      ga('create', this.trackingCode, 'auto');
+      this.isogram(window, document, 'script', '//www.google-analytics.com/analytics.js', 'myGA');
+      myGA('create', this.trackingCode, 'auto');
       window.addEventListener('stampy-navigation', this.navigationOccured.bind(this));
     },
 
     navigationOccured({detail}){
       let {canonicalPath, title} = detail;
-      this.sendPageview(canonicalPath, title);
+      this.sendPageview('/#!' + canonicalPath, title);
     },
 
     sendPageview(canonicalPath, title){
-      ga('set', {
+      myGA('set', {
         page: canonicalPath,
         title
       });
-      ga('send', 'pageview');
+      myGA('send', 'pageview');
       console.log('Page view sent.');
     },
 

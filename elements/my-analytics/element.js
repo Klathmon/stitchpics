@@ -28,6 +28,7 @@
         title
       });
       ga('send', 'pageview');
+      console.log('Page view sent.');
     },
 
     isogram(i, s, o, g, r, a, m){

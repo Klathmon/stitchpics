@@ -5354,12 +5354,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 </dom-module>
 
-<script>!function(){"use strict";Polymer({is:"my-analytics",properties:{trackingCode:{type:String}},created:function(){this.isogram(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create",this.trackingCode,"auto"),window.addEventListener("stampy-navigation",this.navigationOccured.bind(this))},navigationOccured:function(e){var t=e.detail,n=t.canonicalPath,a=t.title;this.sendPageview(n,a)},sendPageview:function(e,t){ga("set",{page:e,title:t}),ga("send","pageview")},isogram:function(e,t,n,a,i,s,c){e.GoogleAnalyticsObject=i,e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date,s=t.createElement(n),c=t.getElementsByTagName(n)[0],s.async=1,s.src=a,c.parentNode.insertBefore(s,c)}})}();</script>
+<script>!function(){"use strict";Polymer({is:"my-analytics",properties:{trackingCode:{type:String}},created:function(){this.isogram(window,document,"script","//www.google-analytics.com/analytics.js","ga"),ga("create",this.trackingCode,"auto"),window.addEventListener("stampy-navigation",this.navigationOccured.bind(this))},navigationOccured:function(e){var t=e.detail,n=t.canonicalPath,a=t.title;this.sendPageview(n,a)},sendPageview:function(e,t){ga("set",{page:e,title:t}),ga("send","pageview"),console.log("Page view sent.")},isogram:function(e,t,n,a,i,s,o){e.GoogleAnalyticsObject=i,e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date,s=t.createElement(n),o=t.getElementsByTagName(n)[0],s.async=1,s.src=a,o.parentNode.insertBefore(s,o)}})}();</script>
 <dom-module id="stampy-router" assetpath="stampy-router/">
   <style>:host{font-family:Roboto,Noto,sans-serif;display:block}</style>
   <template>
     <content></content>
-    <my-analytics id="myAnalytics" tracking-code="UA-65662485-1"></my-analytics>
   </template>
 </dom-module>
 

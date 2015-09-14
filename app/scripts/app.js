@@ -48,7 +48,6 @@
       Object.keys(params).forEach((key)=>{
         let value = params[key];
         if(typeof value !== 'undefined'){
-          console.log(key, value);
           app[key] = value;
         }
       });

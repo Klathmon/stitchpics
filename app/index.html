@@ -80,9 +80,13 @@
         <!-- Main Content -->
         <div class="content">
           <stampy-router>
-            <section data-route="app" data-href="/app/:imageHash?/:clothCount?/:size?/:colors?">
+            <section data-route="app" data-href="/app/:imageHash?/:clothCount?/:size?/:colors?/:packedOptions?">
               <main-page
-                image-hash="{{imageHash}}">
+                image-hash="{{imageHash}}"
+                cloth-count="{{clothCount}}"
+                size="{{size}}"
+                num-colors="{{numColors}}"
+                packed-options="{{packedOptions}}">
               </main-page>
             </section>
 

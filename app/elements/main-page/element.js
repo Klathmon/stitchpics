@@ -38,11 +38,10 @@
         type: Number,
         computed: 'calcGridWidth(clothCount, size)'
       },
-    },
-
-    ready(){
-      //TODO: attach event listener for page change here to get url info
-      setTimeout(()=> console.log(this.imageHash), 1000);
+      packedOptions: {
+        type: Number,
+        observer: 'unpackOptions'
+      },
     },
 
     loadImage(){
@@ -51,6 +50,32 @@
           this.imageData = imageData;
         });
       }
+    },
+
+    /**
+     * This is a bit of black magic...
+     * This will unpack an int (like 3) into it's binary parts (like [true, true]).
+     * Then it will return the reversed form of that array (so that the same options are always
+     * at the front even if more are added later)
+     */
+    unpackOptions(){
+      let options = (this.packedOptions >>> 0).toString(2).split('').map((value)=>!!(value*1)).reverse(); // jshint ignore:line
+      setTimeout(()=>this.packOptions(), 500);
+
+      this.useDmcColors = options[0];
+      this.hideTheGrid = options[1];
+    },
+
+    /**
+     * this is the sister function to unpackOptions, it will re-pack the options into an int
+     */
+    packOptions(){
+      let options = [
+        this.useDmcColors,
+        this.hideTheGrid
+      ];
+
+      return parseInt(options.map((value)=>value*1).reverse().join(''),2);
     },
 
     calcGridWidth(clothCount, size){

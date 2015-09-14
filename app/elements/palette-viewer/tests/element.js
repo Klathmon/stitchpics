@@ -40,7 +40,6 @@ suite('Element Tests', ()=> {
   test('DMC colors are set if they exist', (done)=> {
     setTimeout(()=>{
       let numberThatHaveDMCColors = element.colors.reduce((previousValue, color)=>{
-        console.log(color);
         if(typeof color.dmcColor === 'undefined'){
           return previousValue;
         }else{

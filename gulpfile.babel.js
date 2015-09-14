@@ -288,18 +288,38 @@ var getFolders = function getFolders(dir, rootDir = dir) {
 
   if(rootDir === dir){
     // if we are here we are in the first getFolders call...
-    return fixedRootPathFolderArray.filter((partialDirectoryPath)=>{
+
+    var forceRecompile = new Set();
+
+    // get all folders and don't return them if they haven't changed
+    let foldersToCompile = fixedRootPathFolderArray.filter((partialDirectoryPath)=>{
       let directoryPath = path.join(dir, partialDirectoryPath);
-      return fs.readdirSync(directoryPath).reduce((compileFolder, fileName) => {
+      let totalMTime = fs.readdirSync(directoryPath).reduce((runningMTime, fileName) => {
         let individualFile = path.join(directoryPath, fileName);
-        let fileMTimeMs = fs.statSync(individualFile).mtime.getTime();
-        if(!folderCache.has(individualFile) || folderCache.get(individualFile) !== fileMTimeMs){
-          folderCache.set(individualFile, fileMTimeMs);
-          return true;
-        }
-        return compileFolder;
-      }, false);
+        return (runningMTime * 1) + (fs.statSync(individualFile).mtime.getTime() * 1);
+      }, 0);
+
+      if(
+        forceRecompile.has(partialDirectoryPath) ||
+        !folderCache.has(directoryPath) ||
+        folderCache.get(directoryPath) !== totalMTime
+      ){
+        folderCache.set(directoryPath, totalMTime);
+
+        //Now set the forceRecompile set to have all parents as well
+        partialDirectoryPath.split(path.sep).forEach((value, index, arr)=>{
+          let pathToForce = '';
+          $._.times(index, (x)=>{
+            pathToForce = path.join(pathToForce, arr[x]);
+          });
+          forceRecompile.add(pathToForce);
+        });
+        return true;
+      }
+      return false;
     });
+    forceRecompile = new Set();
+    return foldersToCompile;
   }
 
   return fixedRootPathFolderArray;

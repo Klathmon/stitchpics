@@ -9,8 +9,4 @@ suite('Smoke Tests', ()=> {
     expect(element.tagName).to.equal(element.is.toUpperCase());
   });
 
-  test('Element Has Layout', ()=> {
-    expect(element.offsetHeight).to.be.above(10);
-  });
-
 });

@@ -12,4 +12,24 @@ suite('Element Tests', ()=> {
     expect(element.numColors).to.equal(12);
   });
 
+  test('Auto-load from hash', (done)=> {
+    autoUnhookListener(element, 'crossStitchDone', (event)=>{
+      expect(event.detail.data).to.have.length.above(1000);
+      done();
+    });
+
+    element.clothCount = 15;
+    element.size = 5;
+    element.numColors = 4;
+    element.imageHash = 'fNQu7Vl';
+  });
+
 });
+
+
+function autoUnhookListener(element, eventName, callback){
+  element.addEventListener(eventName, (event)=>{
+    event.target.removeEventListener(event.type, arguments.callee);
+    return callback(event);
+  });
+}

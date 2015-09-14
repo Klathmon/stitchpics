@@ -43,7 +43,7 @@
             workerObj.worker.addEventListener('message', workerDone, false);
 
             // Then send the message
-            workerObj.worker.postMessage({func, data}, transferrable); // Don't use transferrable stuff now, it's a bit of a pain in the ass
+            workerObj.worker.postMessage([func, data], transferrable);
           }
         };
         wait(func, data, transferrable);
@@ -51,22 +51,21 @@
     },
 
     receiveWork(event){
-      var {func, data} = event.data;
+      var [func, data] = event.data;
+      console.log(data);
       var merged = _.merge( self.workerBehavior, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior, self.dmcColorBehavior);
 
-      merged[func]
-        .call(merged, data)
+      console.log(merged[func].bind(merged)(data));
+      merged[func].bind(merged)(data)
         .then(({data: returnData, transferrable: returnTransferrable} = {transferrable: []})=>{
+          console.log('Got Here!');
           self.postMessage(returnData, returnTransferrable);
         }).catch(merged._catchErrors);
     },
 
     encodeResolve(data, transferrable){
       if(isInsideWorker()){
-        return {
-          data,
-          transferrable
-        };
+        return {data, transferrable};
       }else{
         return data;
       }

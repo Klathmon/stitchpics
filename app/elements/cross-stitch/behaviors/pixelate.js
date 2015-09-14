@@ -4,20 +4,18 @@
 
 
     pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {
-      return new Promise((resolve, reject)=>{
-        this.isLittleEndian = this._isLittleEndian();
+      this.isLittleEndian = this._isLittleEndian();
 
-        for (var pixelX = 0; pixelX < xPixels; pixelX++) {
-          for (var pixelY = 0; pixelY < yPixels; pixelY++) {
-            // First get the mode color of the super pixel
-            var color = this._getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels});
+      for (var pixelX = 0; pixelX < xPixels; pixelX++) {
+        for (var pixelY = 0; pixelY < yPixels; pixelY++) {
+          // First get the mode color of the super pixel
+          var color = this._getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels});
 
-            // Now set the superPixel to that color entirely
-            this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid});
-          }
+          // Now set the superPixel to that color entirely
+          this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid});
         }
-        resolve(this.encodeResolve({imageData}, [imageData.data.buffer]));
-      });
+      }
+      return Promise.resolve(this.encodeResolve({imageData}, [imageData.data.buffer]));
     },
 
     _getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels}) {

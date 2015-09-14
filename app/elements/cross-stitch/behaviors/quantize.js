@@ -9,22 +9,21 @@
      * @return {Promise}            resolve({imageData, palette}, [transferrable])
      */
     buildPalette({imageData, numColors, useDmcColors}) {
-      return new Promise((resolve, reject)=>{
-        const opts = {
-          colors: numColors,
-          colorDist: 'euclidean',
-          method: 1,
-          initColors: (useDmcColors ? this._getDmcColorMap().size : 2048),
-          useCache: false,
-          palette: (useDmcColors ? this._getColorsAsRGB() : undefined),
-          reIndex: true
-        }
-        let rgbq = new RgbQuant(opts);
-        rgbq.sample(imageData);
-        let palette = rgbq.palette(true);
+      const opts = {
+        colors: numColors,
+        colorDist: 'euclidean',
+        method: 1,
+        initColors: (useDmcColors ? this._getDmcColorMap().size : 2048),
+        useCache: false,
+        palette: (useDmcColors ? this._getColorsAsRGB() : undefined),
+        reIndex: true
+      };
 
-        resolve(this.encodeResolve({imageData, palette}, [imageData.data.buffer]));
-      });
+      let rgbq = new RgbQuant(opts);
+      rgbq.sample(imageData.data, imageData.width);
+      let palette = rgbq.palette(true);
+
+      return Promise.resolve(this.encodeResolve({imageData, palette}, [imageData.data.buffer]));
     },
 
     /**

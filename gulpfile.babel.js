@@ -275,6 +275,7 @@ gulp.task('deploy', ['deploy_flag', 'build:dist'], ()=> gulp.src(path.join('buil
 
 
 // Recursively gets all folders in the directory given and returns them in an array
+// Won't return any folders that haven't changed since the last time this was run
 var getFolders = function getFolders(dir, rootDir = dir) {
   let folderArray = [];
   fs.readdirSync(dir).forEach((file) => {
@@ -288,41 +289,44 @@ var getFolders = function getFolders(dir, rootDir = dir) {
 
   if(rootDir === dir){
     // if we are here we are in the first getFolders call...
-
-    var forceRecompile = new Set();
-
-    // get all folders and don't return them if they haven't changed
-    let foldersToCompile = fixedRootPathFolderArray.filter((partialDirectoryPath)=>{
-      let directoryPath = path.join(dir, partialDirectoryPath);
-      let totalMTime = fs.readdirSync(directoryPath).reduce((runningMTime, fileName) => {
-        let individualFile = path.join(directoryPath, fileName);
-        return (runningMTime * 1) + (fs.statSync(individualFile).mtime.getTime() * 1);
-      }, 0);
-
-      if(
-        forceRecompile.has(partialDirectoryPath) ||
-        !folderCache.has(directoryPath) ||
-        folderCache.get(directoryPath) !== totalMTime
-      ){
-        folderCache.set(directoryPath, totalMTime);
-
-        //Now set the forceRecompile set to have all parents as well
-        partialDirectoryPath.split(path.sep).forEach((value, index, arr)=>{
-          let pathToForce = '';
-          $._.times(index, (x)=>{
-            pathToForce = path.join(pathToForce, arr[x]);
-          });
-          forceRecompile.add(pathToForce);
-        });
-        return true;
-      }
-      return false;
-    });
-    forceRecompile = new Set();
-    return foldersToCompile;
+    return onlyCompileChanged(fixedRootPathFolderArray, dir);
+  }else{
+    return fixedRootPathFolderArray;
   }
+};
 
-  return fixedRootPathFolderArray;
+var onlyCompileChanged = function onlyCompileChanged(folderArray, dir){
+  var forceRecompile = new Set();
+
+  // get all folders and don't return them if they haven't changed
+  let foldersToCompile = folderArray.filter((partialDirectoryPath)=>{
+    let directoryPath = path.join(dir, partialDirectoryPath);
+    let totalMTime = fs.readdirSync(directoryPath).reduce((runningMTime, fileName) => {
+      let individualFile = path.join(directoryPath, fileName);
+      return (runningMTime * 1) + (fs.statSync(individualFile).mtime.getTime() * 1);
+    }, 0);
+
+    if(
+      forceRecompile.has(partialDirectoryPath) ||
+      !folderCache.has(directoryPath) ||
+      folderCache.get(directoryPath) !== totalMTime
+    ){
+      //set the cache to the new mtime for this folder
+      folderCache.set(directoryPath, totalMTime);
+
+      //Now set the forceRecompile set to have all parents as well
+      partialDirectoryPath.split(path.sep).forEach((value, index, arr)=>{
+        let pathToForce = '';
+        $._.times(index, (x)=>{
+          pathToForce = path.join(pathToForce, arr[x]);
+        });
+        forceRecompile.add(pathToForce);
+      });
+      return true;
+    }
+    return false;
+  });
+  return foldersToCompile;
 };
 
 // Builds the usemin arrays fn(['js', 'coffee'], 2) becomes ['js', 'coffee', 'inlinejs', 'inlinecoffee', 'js2', 'coffee2']

@@ -42,6 +42,7 @@
 
     ready(){
       //TODO: attach event listener for page change here to get url info
+      setTimeout(()=> console.log(this.imageHash), 1000);
     },
 
     loadImage(){

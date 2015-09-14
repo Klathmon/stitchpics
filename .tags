@@ -177,14 +177,14 @@ faq	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^      <fa
 script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:26
 script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:27
 ready	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    ready(){$/;"	function	line:43
-loadImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    loadImage(){$/;"	function	line:47
-calcGridWidth	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    calcGridWidth(clothCount, size){$/;"	function	line:55
-saveImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    saveImage(){$/;"	function	line:59
-getImageAsDataURI	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    getImageAsDataURI(element){$/;"	function	line:63
-openNewTab	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    openNewTab(){$/;"	function	line:71
-printImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    printImage(){$/;"	function	line:84
-_getImageDataFromHash	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    _getImageDataFromHash(hash, callback){$/;"	function	line:110
-onload	A:\Projects\StitchPics\app\elements\main-page\element.js	/^      img.onload = function(){$/;"	function	line:114
+loadImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    loadImage(){$/;"	function	line:48
+calcGridWidth	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    calcGridWidth(clothCount, size){$/;"	function	line:56
+saveImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    saveImage(){$/;"	function	line:60
+getImageAsDataURI	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    getImageAsDataURI(element){$/;"	function	line:64
+openNewTab	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    openNewTab(){$/;"	function	line:72
+printImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    printImage(){$/;"	function	line:85
+_getImageDataFromHash	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    _getImageDataFromHash(hash, callback){$/;"	function	line:111
+onload	A:\Projects\StitchPics\app\elements\main-page\element.js	/^      img.onload = function(){$/;"	function	line:115
 .indent	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^.indent$/;"	function	line:37
 .bottomRow	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^.bottomRow$/;"	function	line:44
 #mainPageContainer	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^#mainPageContainer$/;"	function	line:50
@@ -261,8 +261,9 @@ template	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^  <template>$/;"
 script	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^    <script async src="\/\/pagead2.googlesyndication.com\/pagead\/js\/adsbygoogle.js"><\/script>$/;"	function	line:8
 script	A:\Projects\StitchPics\app\elements\my-ad\my-ad.html	/^<script src="element.js"><\/script>$/;"	function	line:13
 ready	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    ready(){$/;"	function	line:14
-pageChanged	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    pageChanged(canonicalPath, title){$/;"	function	line:19
-isogram	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    isogram(i, s, o, g, r, a, m){$/;"	function	line:28
+navigationOccured	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    navigationOccured({detail}){$/;"	function	line:20
+sendPageview	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    sendPageview(canonicalPath, title){$/;"	function	line:25
+isogram	A:\Projects\StitchPics\app\elements\my-analytics\element.js	/^    isogram(i, s, o, g, r, a, m){$/;"	function	line:34
 link	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
 dom	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^<dom-module id="my-analytics">$/;"	function	line:3
 link	A:\Projects\StitchPics\app\elements\my-analytics\my-analytics.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:5
@@ -413,17 +414,14 @@ template	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^    <te
 side	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^      <side-menu><\/side-menu>$/;"	function	line:20
 script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:25
 script	A:\Projects\StitchPics\app\elements\side-menu\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:26
-test	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    test(){$/;"	function	line:15
-ready	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    ready(){$/;"	function	line:19
+ready	A:\Projects\StitchPics\app\elements\stampy-router\element.js	/^    ready(){$/;"	function	line:15
 link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
-link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<link rel="import" href="..\/my-analytics\/my-analytics.html">$/;"	function	line:3
-dom	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<dom-module id="stampy-router">$/;"	function	line:5
-link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:7
-template	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <template>$/;"	function	line:9
-content	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <content><\/content>$/;"	function	line:10
-my	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <my-analytics id="myAnalytics" tracking-code="UA-65662485-1"><\/my-analytics>$/;"	function	line:11
-script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="..\/..\/..\/bower_components\/page\/page.js"><\/script>$/;"	function	line:16
-script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="element.js"><\/script>$/;"	function	line:17
+dom	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<dom-module id="stampy-router">$/;"	function	line:3
+link	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <link rel="stylesheet" href="element.sass">$/;"	function	line:5
+template	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^  <template>$/;"	function	line:7
+content	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^    <content><\/content>$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="..\/..\/..\/bower_components\/page\/page.js"><\/script>$/;"	function	line:13
+script	A:\Projects\StitchPics\app\elements\stampy-router\stampy-router.html	/^<script src="element.js"><\/script>$/;"	function	line:14
 html	A:\Projects\StitchPics\app\index.html	/^<html lang="">$/;"	function	line:2
 head	A:\Projects\StitchPics\app\index.html	/^<head>$/;"	function	line:4
 meta	A:\Projects\StitchPics\app\index.html	/^  <meta charset="utf-8">$/;"	function	line:5
@@ -459,14 +457,15 @@ div	A:\Projects\StitchPics\app\index.html	/^            <div class="bottom-title
 div	A:\Projects\StitchPics\app\index.html	/^        <div class="content">$/;"	function	line:81
 stampy	A:\Projects\StitchPics\app\index.html	/^          <stampy-router>$/;"	function	line:82
 section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="app" data-href="\/app\/:imageHash?\/:clothCount?\/:size?\/:colors?">$/;"	function	line:83
-main	A:\Projects\StitchPics\app\index.html	/^              <main-page><\/main-page>$/;"	function	line:84
-section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="faq" data-href="\/faq">$/;"	function	line:87
-faq	A:\Projects\StitchPics\app\index.html	/^              <faq-page><\/faq-page>$/;"	function	line:88
-script	A:\Projects\StitchPics\app\index.html	/^  <script src="scripts\/app.js"><\/script>$/;"	function	line:97
-app	A:\Projects\StitchPics\app\scripts\app.js	/^  var app = document.querySelector('#app');$/;"	variable	line:7
-displayInstalledToast	A:\Projects\StitchPics\app\scripts\app.js	/^  app.displayInstalledToast = function() {$/;"	function	line:9
-app.displayInstalledToast	A:\Projects\StitchPics\app\scripts\app.js	/^  app.displayInstalledToast = function() {$/;"	function	line:9
-addEventListener	A:\Projects\StitchPics\app\scripts\app.js	/^  addEventListener('paper-header-transform', function(e) {$/;"	function	line:28
+section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="faq" data-href="\/faq">$/;"	function	line:89
+faq	A:\Projects\StitchPics\app\index.html	/^              <faq-page><\/faq-page>$/;"	function	line:90
+script	A:\Projects\StitchPics\app\index.html	/^  <script src="scripts\/app.js"><\/script>$/;"	function	line:99
+my	A:\Projects\StitchPics\app\index.html	/^  <my-analytics tracking-code="UA-65662485-1"><\/my-analytics>$/;"	function	line:102
+transformHeader	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(event){$/;"	function	line:17
+let	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(event){$/;"	function	line:17
+transformHeader	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(event){$/;"	function	line:17
+closeDrawerIfOpen	A:\Projects\StitchPics\app\scripts\app.js	/^  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){$/;"	function	line:38
+closeDrawerIfOpen	A:\Projects\StitchPics\app\scripts\app.js	/^  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){$/;"	function	line:38
 behavior.properties	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    properties: {$/;"	property	line:5
 _getColorsAsRGB	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^     _getColorsAsRGB() {$/;"	function	line:373
 _getDmcColorMap	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _getDmcColorMap(){$/;"	function	line:383

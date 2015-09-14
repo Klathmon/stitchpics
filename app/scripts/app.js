@@ -1,56 +1,58 @@
 (function(document) {
   'use strict';
 
-  // Grab a reference to our auto-binding template
-  // and give it some initial binding values
-  // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
 
-  app.displayInstalledToast = function() {
-    document.querySelector('#caching-complete').show();
-  };
-
-  // Listen for template bound event to know when bindings
-  // have resolved and content has been stamped to the page
-  app.addEventListener('dom-change', function() {
+  app.addEventListener('dom-change', ()=> {
     console.log('Our app is ready to rock!');
   });
 
-  // See https://github.com/Polymer/polymer/issues/1381
-  window.addEventListener('WebComponentsReady', function() {
-    // imports are loaded and elements have been registered
+  window.addEventListener('paper-header-transform', (event)=>transformHeader(event.detail));
+
+  window.addEventListener('stampy-navigation', (event)=>{
+    let context = event.detail;
+    closeDrawerIfOpen(document.querySelector('#paperDrawerPanel'));
+    assignUrlParams(context.params);
   });
 
-  // Main area's paper-scroll-header-panel custom condensing transformation of
-  // the appName in the middle-container and the bottom title in the bottom-container.
-  // The appName is moved to top and shrunk on condensing. The bottom sub title
-  // is shrunk to nothing on condensing.
-  addEventListener('paper-header-transform', function(e) {
-    var appName = document.querySelector('.app-name');
-    var middleContainer = document.querySelector('.middle-container');
-    var bottomContainer = document.querySelector('.bottom-container');
-    var detail = e.detail;
-    var heightDiff = detail.height - detail.condensedHeight;
-    var yRatio = Math.min(1, detail.y / heightDiff);
-    var maxMiddleScale = 0.50;  // appName max size when condensed. The smaller the number the smaller the condensed size.
-    var scaleMiddle = Math.max(maxMiddleScale, (heightDiff - detail.y) / (heightDiff / (1-maxMiddleScale))  + maxMiddleScale);
-    var scaleBottom = 1 - yRatio;
 
-    // Move/translate middleContainer
+  let transformHeader = function transformHeader(detail){
+    // Main area's paper-scroll-header-panel custom condensing transformation of
+    // the appName in the middle-container and the bottom title in the bottom-container.
+    // The appName is moved to top and shrunk on condensing. The bottom sub title
+    // is shrunk to nothing on condensing.
+    let appName = document.querySelector('.app-name');
+    let middleContainer = document.querySelector('.middle-container');
+    let bottomContainer = document.querySelector('.bottom-container');
+    let heightDiff = detail.height - detail.condensedHeight;
+    let yRatio = Math.min(1, detail.y / heightDiff);
+    let maxMiddleScale = 0.50;  // appName max size when condensed. The smaller the number the smaller the condensed size.
+    let scaleMiddle = Math.max(maxMiddleScale, (heightDiff - detail.y) / (heightDiff / (1-maxMiddleScale))  + maxMiddleScale);
+    let scaleBottom = 1 - yRatio;
+
+    //Translate stuff!
     Polymer.Base.transform('translate3d(0,' + yRatio * 100 + '%,0)', middleContainer);
-
-    // Scale bottomContainer and bottom sub title to nothing and back
     Polymer.Base.transform('scale(' + scaleBottom + ') translateZ(0)', bottomContainer);
-
-    // Scale middleContainer appName
     Polymer.Base.transform('scale(' + scaleMiddle + ') translateZ(0)', appName);
-  });
+  };
 
-  addEventListener('routeChanged', ()=>{
-    var drawerPanel = document.querySelector('#paperDrawerPanel');
-    if (drawerPanel.narrow) {
-      drawerPanel.closeDrawer();
+  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){
+    if (drawer.narrow) {
+      drawer.closeDrawer();
     }
-  });
+  };
+
+  let assignUrlParams = function assignUrlParams(params){
+    //Assign the keys to this
+    if(typeof params !== 'undefined'){
+      Object.keys(params).forEach((key)=>{
+        let value = params[key];
+        if(typeof value !== 'undefined'){
+          console.log(key, value);
+          app[key] = value;
+        }
+      });
+    }
+  }
 
 })(document);

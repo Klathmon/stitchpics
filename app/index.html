@@ -81,7 +81,9 @@
         <div class="content">
           <stampy-router>
             <section data-route="app" data-href="/app/:imageHash?/:clothCount?/:size?/:colors?">
-              <main-page></main-page>
+              <main-page
+                image-hash="{{imageHash}}">
+              </main-page>
             </section>
 
             <section data-route="faq" data-href="/faq">

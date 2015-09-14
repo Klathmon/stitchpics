@@ -125,7 +125,7 @@
           .then(this._dispatchPixelate.bind(this))
           .then(({imageData})=> {
             context.putImageData(this._convertToRealImageData(imageData), 0,  chunkStartY);
-            console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
+            //console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
             if(++this.numberOfChunksDone === this.workers.length){
               this.fire('crossStitchDone', this._readImageData(this.$.finalOutput));
             }

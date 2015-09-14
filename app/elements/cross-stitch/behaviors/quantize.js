@@ -23,7 +23,7 @@
         rgbq.sample(imageData);
         let palette = rgbq.palette(true);
 
-        resolve({imageData, palette}, [imageData.data.buffer]);
+        resolve(this.encodeResolve({imageData, palette}, [imageData.data.buffer]));
       });
     },
 
@@ -52,7 +52,7 @@
           height: imageData.height
         };
 
-        resolve({imageData: returnImageData}, [imageData.data.buffer]);
+        resolve(this.encodeResolve({imageData: returnImageData}, [imageData.data.buffer]));
       });
     }
 

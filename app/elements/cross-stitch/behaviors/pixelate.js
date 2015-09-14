@@ -16,7 +16,7 @@
             this._setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid});
           }
         }
-        resolve({imageData}, [imageData.data.buffer]);
+        resolve(this.encodeResolve({imageData}, [imageData.data.buffer]));
       });
     },
 

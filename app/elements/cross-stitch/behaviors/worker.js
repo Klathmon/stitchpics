@@ -56,16 +56,28 @@
 
       merged[func]
         .call(merged, data)
-        .then((returnData, returnTransferrable)=>{
+        .then(({data: returnData, transferrable: returnTransferrable} = {transferrable: []})=>{
           self.postMessage(returnData, returnTransferrable);
         }).catch(merged._catchErrors);
-    }
+    },
+
+    encodeResolve(data, transferrable){
+      if(isInsideWorker()){
+        return {
+          data,
+          transferrable
+        };
+      }else{
+        return data;
+      }
+    },
+
   };
 
   self.workerBehavior = behavior;
 
   // If we are inside a worker currently, then attach the listener
-  if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope){
+  if (isInsideWorker()){
     self.addEventListener('message', self.workerBehavior.receiveWork, false);
   }
 })();

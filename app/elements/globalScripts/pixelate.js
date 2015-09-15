@@ -63,10 +63,10 @@ class Pixelate {
             this._uInt32Array[index] = this._gridPixelColorPacked;
           }else if (alpha < 200){
             // This pixel is mostly alpha, so just convert it to complete alpha
-            uInt32Array[index] = 0x00000000;
+            this._uInt32Array[index] = 0x00000000;
           }else{
             // This is a normal pixel, so pack the given color and set the pixel to that
-            uInt32Array[index] = this._packPixel(red, green, blue, 255);
+            this._uInt32Array[index] = this._packPixel(red, green, blue, 255);
           }
         }
 
@@ -89,7 +89,7 @@ class Pixelate {
           let pixelModeNumber = 1;
 
           // Get the actual pixel value
-          let pixel = uIn32Array[((yPos * this._imageWidth) + xPos) | 0];
+          let pixel = this._uInt32Array[((yPos * this._imageWidth) + xPos) | 0];
 
           // If this is the first pixel, then it's the mode to start with!
           if(pixelX === 0 && pixelY === 0){

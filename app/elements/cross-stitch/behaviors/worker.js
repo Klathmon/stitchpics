@@ -52,13 +52,10 @@
 
     receiveWork(event){
       var [func, data] = event.data;
-      console.log(data);
       var merged = _.merge( self.workerBehavior, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior, self.dmcColorBehavior);
 
-      console.log(merged[func].bind(merged)(data));
       merged[func].bind(merged)(data)
         .then(({data: returnData, transferrable: returnTransferrable} = {transferrable: []})=>{
-          console.log('Got Here!');
           self.postMessage(returnData, returnTransferrable);
         }).catch(merged._catchErrors);
     },

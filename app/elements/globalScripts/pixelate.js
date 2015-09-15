@@ -1,7 +1,18 @@
 class Pixelate {
 
-  constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
-    // Check endianess
+  /**
+   * Creates the pixelate object
+   * @param  {ImageData} imageData   an ImageData object. Can be "real" or "fabricated" (meaning it
+   *                                 simply matches the interface of ImageData)
+   * @param  {int} spWidth           Super Pixel Width
+   * @param  {int} spHeight          Super Pixel Height
+   * @param  {int} numSpx            Number of Super Pixels on the X axis
+   * @param  {int} numSpy            Number of Super Pixels on the T axis
+   * @param  {bool} hideTheGrid      true hides the "grid" overlay, false (or unset) shows it.
+   * @return {Object}                the Pixelate object
+   */
+  constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){
+    // Since this class does a bunch of bit-manipulation, we need to heck endianess first
     this._isLittleEndian = this._checkIsLittleEndian();
 
     // Dump params to this
@@ -25,6 +36,7 @@ class Pixelate {
 
   /**
    * Runs the pixelate algorithm to actually convert the image into the pattern
+   *
    * @return {Promise} resolve(pixelatedImageData)
    */
   pixelate(){
@@ -36,45 +48,20 @@ class Pixelate {
         }
       }
 
-      //TODO: resolve this right...
       resolve(this._imageData);
     });
   }
 
 
 
-  _setSuperPixelColor(spx, spy, color){
-    let [red, green, blue, alpha] = color;
-
-    for(let pixelX = 0; pixelX < this._spWidth; pixelX++){
-      for(let pixelY = 0; pixelY < this._spHeight; pixelY++){
-        let [xPos, yPos] = this._getPixelPos(spx, spy, pixelX, pixelY);
-
-        // Ignore anything outside of the image bounds
-        if(xPos < this._imageWidth && yPos < this._imageHeight){
-          let index = ((yPos * this._imageWidth) + xPos) | 0;
-
-          if(
-            !this._hideTheGrid &&
-            (pixelX === this._spWidth - 1 || pixelY === this._spHeight - 1)
-          ){
-            // This pixel is on the bottom or right side of the super pixel,
-            // so draw the grid (if its enabled)
-            this._uInt32Array[index] = this._gridPixelColorPacked;
-          }else if (alpha < 200){
-            // This pixel is mostly alpha, so just convert it to complete alpha
-            this._uInt32Array[index] = 0x00000000;
-          }else{
-            // This is a normal pixel, so pack the given color and set the pixel to that
-            this._uInt32Array[index] = this._packPixel(red, green, blue, 255);
-          }
-        }
-
-      }
-    }
-
-  }
-
+  /**
+   * Gets the super pixels' "overall" color.
+   * Currently this works by just taking the mode of the entire super-pixel and returning that
+   *
+   * @param  {int} spx    Super Pixel X Pos
+   * @param  {int} spy    Super Pixel Y Pos
+   * @return {Array}      [red, green, blue, alpha] pixel color
+   */
   _getSuperPixelColor(spx, spy){
     let map = new Map();
     let mode = null;
@@ -114,6 +101,42 @@ class Pixelate {
       return [0, 0, 0, 0];
     }else{
       return this._unpackPixel(mode);
+    }
+  }
+
+  /**
+   * Sets the given super pixel to the given color
+   *
+   * @param  {int} spx    Super Pixel X Pos
+   * @param  {int} spy    Super Pixel Y Pos
+   */
+  _setSuperPixelColor(spx, spy, color){
+    let [red, green, blue, alpha] = color;
+
+    for(let pixelX = 0; pixelX < this._spWidth; pixelX++){
+      for(let pixelY = 0; pixelY < this._spHeight; pixelY++){
+        let [xPos, yPos] = this._getPixelPos(spx, spy, pixelX, pixelY);
+
+        // Ignore anything outside of the image bounds
+        if(xPos < this._imageWidth && yPos < this._imageHeight){
+          let index = ((yPos * this._imageWidth) + xPos) | 0;
+
+          if(
+            !this._hideTheGrid &&
+            (pixelX === this._spWidth - 1 || pixelY === this._spHeight - 1)
+          ){
+            // This pixel is on the bottom or right side of the super pixel,
+            // so draw the grid (if its enabled)
+            this._uInt32Array[index] = this._gridPixelColorPacked;
+          }else if (alpha < 200){
+            // This pixel is mostly alpha, so just convert it to complete alpha
+            this._uInt32Array[index] = 0x00000000;
+          }else{
+            // This is a normal pixel, so pack the given color and set the pixel to that
+            this._uInt32Array[index] = this._packPixel(red, green, blue, 255);
+          }
+        }
+      }
     }
   }
 

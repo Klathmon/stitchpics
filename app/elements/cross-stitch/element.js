@@ -68,7 +68,7 @@
       }
     },
 
-    dontusenewFile() {
+    newFile() {
 
       this.startTime = performance.now();
 
@@ -77,23 +77,6 @@
       .then(this._dispatchBuildPalette.bind(this))
       .then(this._processImage.bind(this))
       .catch(this._catchErrors);
-    },
-
-    newFile(){
-      this.startTime = performance.now();
-
-      // First, scale the image correctly
-      this._scaleImage.bind(this)()
-      .then((imageData) => {
-        let tempImageData = this._convertToFakeImageData(imageData);
-        return this.dispatchWorker('buildPalette', {
-          imageData: tempImageData,
-          numColors: this.numcolors,
-          useDmcColors: this.usedmccolors}, [tempImageData.data.buffer])
-        .then(({imageData, palette})=>{
-          console.log('FINALLY DONE!', imageData, palette);
-        }).catch(this._catchErrors);
-      });
     },
 
     saveAsImage(){

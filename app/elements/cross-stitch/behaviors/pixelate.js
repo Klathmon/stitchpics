@@ -4,6 +4,12 @@
 
 
     pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {
+      let pixelator = new Pixelate(imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid);
+      return pixelator.pixelate();
+    },
+
+
+    oldpixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {
       this.isLittleEndian = this._isLittleEndian();
 
       for (var pixelX = 0; pixelX < xPixels; pixelX++) {

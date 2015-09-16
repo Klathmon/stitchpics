@@ -1,7 +1,7 @@
 class Pixelator {
 
   /**
-   * Creates the Pixelator object
+   * Creates the object
    * @param  {ImageData} imageData   an ImageData object. Can be "real" or "fabricated" (meaning it
    *                                 simply matches the interface of ImageData)
    * @param  {int} spWidth           Super Pixel Width
@@ -9,7 +9,6 @@ class Pixelator {
    * @param  {int} numSpx            Number of Super Pixels on the X axis
    * @param  {int} numSpy            Number of Super Pixels on the T axis
    * @param  {bool} hideTheGrid      true hides the "grid" overlay, false (or unset) shows it.
-   * @return {Object}                the Pixelator object
    */
   constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){
     // Since this class does a bunch of bit-manipulation, we need to heck endianess first

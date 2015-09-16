@@ -2,13 +2,31 @@
   'use strict';
   var behavior = {
 
+    buildPalette({imageData, numColors, useDmcColors}){
+      return new Promise((resolve, reject)=>{
+        let quantizor = new Quantizor(imageData, useDmcColors);
+        quantizor.buildPalette(numColors).then((palette)=>{
+          resolve(this.encodeResolve({imageData, palette}, [imageData.data.buffer]));
+        });
+      });
+    },
+
+    quantize({imageData, palette, useDmcColors}) {
+     return new Promise((resolve, reject)=>{
+       let quantizor = new Quantizor(imageData, useDmcColors);
+       quantizor.quantize(palette).then((returnImageData)=>{
+         resolve(this.encodeResolve({imageData: returnImageData}, [imageData.data.buffer]));
+       });
+     });
+    },
+
     /**
      * Builds the palette from the imageData
      * @param  {object}   imageData the image data to scale
      * @param  {int}      numColors the number of output colors wanted
      * @return {Promise}            resolve({imageData, palette}, [transferrable])
      */
-    buildPalette({imageData, numColors, useDmcColors}) {
+    oldbuildPalette({imageData, numColors, useDmcColors}) {
       const opts = {
         colors: numColors,
         colorDist: 'euclidean',
@@ -32,7 +50,7 @@
      * @param  {array}   palette   the palette array returned from buildPalette()
      * @return {Promise}           resolve({imageData, index}, [transferrable])
      */
-    quantize({imageData, palette, useDmcColors}) {
+    oldquantize({imageData, palette, useDmcColors}) {
       return new Promise((resolve, reject)=>{
 
         const opts = {

@@ -3,17 +3,22 @@ class Quantizor {
   constructor(imageData, useDmcColors = false){
     this._useDmcColors = useDmcColors;
     this._imageData = imageData;
+    this._dmcColorsObj = new DmcColors();
   }
 
   buildPalette(numColors){
     return new Promise((resolve, reject)=>{
       let opts = {
-        colors: numColors,
         colorDist: 'euclidean',
         method: 1,
-        initColors: (this._useDmcColors ? this._getDmcColorMap().size : 2048),
         useCache: false,
-        palette: (this._useDmcColors ? this._getColorsAsRGB() : undefined),
+        initColors: (this._useDmcColors ?
+          this._dmcColorsObj.getDmcColorMap().size :
+          2048),
+        colors: numColors,
+        palette: (this._useDmcColors ?
+          this._dmcColorsObj.getColorsAsRGB() :
+          undefined),
         reIndex: true
       };
 
@@ -30,8 +35,10 @@ class Quantizor {
       let opts = {
         colorDist: 'euclidean',
         method: 1,
-        initColors: (this._useDmcColors ? this._getDmcColorMap().size : 2048),
         useCache: false,
+        initColors: (this._useDmcColors ?
+          this._dmcColorsObj.getDmcColorMap().size :
+          2048),
         palette
       };
 

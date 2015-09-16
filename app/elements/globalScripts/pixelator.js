@@ -1,7 +1,7 @@
-class Pixelate {
+class Pixelator {
 
   /**
-   * Creates the pixelate object
+   * Creates the Pixelator object
    * @param  {ImageData} imageData   an ImageData object. Can be "real" or "fabricated" (meaning it
    *                                 simply matches the interface of ImageData)
    * @param  {int} spWidth           Super Pixel Width
@@ -9,7 +9,7 @@ class Pixelate {
    * @param  {int} numSpx            Number of Super Pixels on the X axis
    * @param  {int} numSpy            Number of Super Pixels on the T axis
    * @param  {bool} hideTheGrid      true hides the "grid" overlay, false (or unset) shows it.
-   * @return {Object}                the Pixelate object
+   * @return {Object}                the Pixelator object
    */
   constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){
     // Since this class does a bunch of bit-manipulation, we need to heck endianess first
@@ -35,11 +35,11 @@ class Pixelate {
   }
 
   /**
-   * Runs the pixelate algorithm to actually convert the image into the pattern
+   * Runs the Pixelator algorithm to actually convert the image into a pattern
    *
    * @return {Promise} resolve(pixelatedImageData)
    */
-  pixelate(){
+  run(){
     return new Promise((resolve, reject)=>{
       for(let spx = 0; spx < this._numSpx; spx++){
         for(let spy = 0; spy < this._numSpy; spy++){

@@ -5,8 +5,8 @@
 
     pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {
       return new Promise((resolve, reject)=>{
-        let pixelator = new Pixelate(imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid);
-        pixelator.pixelate().then((imageData)=>{
+        let pixelator = new Pixelator(imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid);
+        pixelator.run().then((imageData)=>{
           resolve(this.encodeResolve({imageData}, [imageData.data.buffer]));
         });
       });

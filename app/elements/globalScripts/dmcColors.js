@@ -1,9 +1,17 @@
 class DmcColors {
 
+  /**
+   * Creates the object
+   */
   constructor(){
     this._dmcColorMap = this._getDmcColorMap();
   }
 
+  /**
+   * Gets an array of the DMC colors as RGB
+   *
+   * @return {Array} Each element is an RGB tuple [r,g,b] of 0-255 each value
+   */
   getColorsAsRGB() {
     let rgbTuple = [];
     this._dmcColorMap.forEach((dmcColor, hexColor)=>{
@@ -13,12 +21,24 @@ class DmcColors {
     return rgbTuple;
   }
 
+  /**
+   * Gets the Dmc Color Map
+   *
+   * @return {Map} The color map, key is Hex color, value is DMC number
+   */
   getDmcColorMap(){
     return this._dmcColorMap;
   }
 
+  /**
+   * Converts a given hex color into an RGB array
+   *
+   * @param  {string} hex a 6 character string of the hex value of the color
+   *                      no "#" in front
+   * @return {array}      [r,g,b] array of 0-255 each
+   */
   _convertHexToRGB(hex){
-    const bigint = parseInt(hex, 16);
+    const bigint = parseInt(hex.toLowerCase(), 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
     const b = bigint & 255;
@@ -26,6 +46,13 @@ class DmcColors {
     return [r, g, b];
   }
 
+  /**
+   * Converts the given RGB value into a hex string
+   *
+   * @param  {Array} [r,g,b] an array of 0-255 RGB values
+   * @return {string}        a 6 character string of the hex value of the color
+   *                         all lower case, no "#" in the front
+   */
   _convertRGBToHex([r, g, b]){
     //This is black magic, just turn back now!
     return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -33,6 +60,7 @@ class DmcColors {
 
   /**
    * Moved this to a function at the bottom to avoid mucking up the constructor with it
+   *
    * @return {Map} Map of DMC Colors (hex is the key, dmc number is the value)
    */
   _getDmcColorMap(){

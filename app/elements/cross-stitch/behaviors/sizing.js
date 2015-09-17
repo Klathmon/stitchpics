@@ -9,7 +9,7 @@
      * @param  {int}    newWidth  the width of the resulting imageData
      * @return {Promise}          resolve(imageData)
      */
-    scale({imageData, newWidth}) {
+    oldscale({imageData, newWidth}) {
       return new Promise((resolve, reject) => {
         // First figure out the number to scale by
         var scale = newWidth / imageData.width;
@@ -29,6 +29,18 @@
         // Return the new sized image
         resolve(context.getImageData(0, 0, canvas.width, canvas.height));
       });
+    },
+
+    scale({imageData, newWidth}){
+      let sizor = new Sizor();
+      var ratio = newWidth / imageData.width;
+
+      let canvas = document.createElement('canvas');
+      canvas.width = newWidth;
+      canvas.height = Math.floor(imageData.height * ratio);
+      let newImageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+
+      return sizor.scale(imageData, newImageData);
     },
 
     /**

@@ -61,8 +61,8 @@ const BABEL_OPTIONS = {
   ],
   optional: [
     'es7.functionBind'
-  ]
-  //loose: 'all'
+  ],
+  loose: 'all'
 };
 
 const COFFEE_OPTIONS = {

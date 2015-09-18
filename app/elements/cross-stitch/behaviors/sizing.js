@@ -33,14 +33,14 @@
 
     scale({imageData, newWidth}){
       let sizor = new Sizor();
-      var ratio = newWidth / imageData.width;
+      //var ratio = newWidth / imageData.width;
 
-      let canvas = document.createElement('canvas');
-      canvas.width = newWidth;
-      canvas.height = Math.floor(imageData.height * ratio);
-      let newImageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+      //let canvas = document.createElement('canvas');
+      //canvas.width = newWidth;
+      //canvas.height = Math.floor(imageData.height * ratio);
+      //let newImageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
 
-      return sizor.scale(imageData, newImageData);
+      return sizor.scale(imageData, newWidth);
     },
 
     /**

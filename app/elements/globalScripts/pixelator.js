@@ -11,8 +11,7 @@ class Pixelator {
    * @param  {bool} hideTheGrid      true hides the "grid" overlay, false (or unset) shows it.
    */
   constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){
-    // Since this class does a bunch of bit-manipulation, we need to heck endianess first
-    this._isLittleEndian = this._checkIsLittleEndian();
+    this._bitPacker = new BitPacker();
 
     // Dump params to this
     this._spWidth = spWidth;
@@ -30,7 +29,7 @@ class Pixelator {
     this._uInt32Array = new Uint32Array(this._imageData.data.buffer);
 
     // Cache the packed grid pixel color for speed
-    this._gridPixelColorPacked = this._packPixel(50, 50, 50, 255);
+    this._gridPixelColorPacked = this._bitPacker.packPixel(50, 50, 50, 255);
   }
 
   /**
@@ -99,7 +98,7 @@ class Pixelator {
     if(mode === null){
       return [0, 0, 0, 0];
     }else{
-      return this._unpackPixel(mode);
+      return this._bitPacker.unpackPixel(mode);
     }
   }
 
@@ -132,7 +131,7 @@ class Pixelator {
             this._uInt32Array[index] = 0x00000000;
           }else{
             // This is a normal pixel, so pack the given color and set the pixel to that
-            this._uInt32Array[index] = this._packPixel(red, green, blue, 255);
+            this._uInt32Array[index] = this._bitPacker.packPixel(red, green, blue, 255);
           }
         }
       }
@@ -153,69 +152,5 @@ class Pixelator {
     let yPos = (spy * this._spHeight) + pixelY;
 
     return [xPos, yPos];
-  }
-
-  /**
-   * Packs an RGBA value to a 32bit int.
-   * This function is either-endian safe
-   *
-   * Note: Bounds are not checked for any of the values!
-   *
-   * @param  {int}  red     0-255
-   * @param  {int}  green   0-255
-   * @param  {int}  blue    0-255
-   * @param  {int}  alpha   0-255
-   * @return {int}          uint32 packed pixel color
-   */
-  _packPixel(red, green, blue, alpha) {
-    if (this._isLittleEndian) {
-      return (alpha << 24) | (blue << 16) | (green << 8) | red;
-    } else {
-      return (red << 24) | (green << 16) | (blue << 8) | alpha;
-    }
-  }
-
-  /**
-   * Packs an RGBA value to a 32bit int.
-   * This function is either-endian safe
-   *
-   * Note: Bounds are not checked for any of the values!
-   *
-   * @param  {int}   packedPixel uint32 packed pixel color value
-   * @return {array}             [red,green,blue,alpha] array of 0-255 each
-   */
-  _unpackPixel(packedPixel){
-    if (this._isLittleEndian) {
-      return [
-        (packedPixel & 0x000000ff),
-        (packedPixel & 0x0000ff00) >>> 8,
-        (packedPixel & 0x00ff0000) >>> 16,
-        (packedPixel & 0xff000000) >>> 24
-      ];
-    } else {
-      return [
-        (packedPixel & 0xff000000) >>> 24,
-        (packedPixel & 0x00ff0000) >>> 16,
-        (packedPixel & 0x0000ff00) >>> 8,
-        (packedPixel & 0x000000ff)
-      ];
-    }
-  }
-
-  /**
-   * Checks if the system is little or big endian
-   * @return {Boolean} True if little endian, false if big endian
-   */
-  _checkIsLittleEndian() {
-    let buffer = new ArrayBuffer(12);
-    let uInt32Array = new Uint32Array(buffer);
-
-    uInt32Array[1] = 0x0a0b0c0d;
-
-    if (buffer[4] === 0x0a && buffer[5] === 0x0b && buffer[6] === 0x0c && buffer[7] === 0x0d) {
-      return false;
-    } else {
-      return true;
-    }
   }
 }

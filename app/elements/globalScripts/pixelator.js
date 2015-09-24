@@ -38,16 +38,13 @@ class Pixelator {
    * @return {Promise} resolve(pixelatedImageData)
    */
   run(){
-    return new Promise((resolve, reject)=>{
-      for(let spx = 0; spx < this._numSpx; spx++){
-        for(let spy = 0; spy < this._numSpy; spy++){
-          let color = this._getSuperPixelColor(spx, spy);
-          this._setSuperPixelColor(spx, spy, color);
-        }
+    for(let spx = 0; spx < this._numSpx; spx++){
+      for(let spy = 0; spy < this._numSpy; spy++){
+        let color = this._getSuperPixelColor(spx, spy);
+        this._setSuperPixelColor(spx, spy, color);
       }
-
-      resolve(this._imageData);
-    });
+    }
+    return this._imageData;
   }
 
 

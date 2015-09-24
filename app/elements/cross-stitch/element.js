@@ -5,12 +5,7 @@
   /*jshint +W064 */
     is: 'cross-stitch',
     behaviors: [
-      window.sizingBehavior,
-      window.quantizeBehavior,
-      window.pixelateBehavior,
-      window.workerBehavior,
-      window.miscBehavior,
-      window.dmcColorBehavior
+      window.miscBehavior
     ],
 
     properties: {
@@ -57,8 +52,6 @@
       window.addEventListener('resize', _.debounce(this.propertyChanged.bind(this), 250));
 
       var numberOfCores = navigator.hardwareConcurrency || 4;
-
-      this.workor = new Workor(numberOfCores, window.workerFunctions);
     },
 
     propertyChanged(){
@@ -68,14 +61,38 @@
     },
 
     newFile() {
-
       this.startTime = performance.now();
-
+      this._scaleImage(this.imagedata, Polymer.dom(this).node.offsetWidth)
+        .then((scaledImageData)=>{
+          return this._buildPalette(scaledImageData, this.numcolors, this.usedmccolors);
+        }).then(([imageData, palette])=>{
+          ::this._setupSuperPixelData(imageData, palette); // jshint ignore:line
+          ::this._resizeOutputCanvas(imageData); // jshint ignore:line
+          return this._quantize(imageData, palette);
+        }).then((imageData)=>{
+          return this._pixelate(
+            imageData,
+            this.superPixelData.pixelWidth,
+            this.superPixelData.pixelHeight,
+            this.superPixelData.xPixels,
+            this.superPixelData.yPixels,
+            this.hidethegrid
+          );
+        }).then((newImageData)=>{
+          this._writeImageData(this.$.finalOutput, this._convertToRealImageData(newImageData));
+        });
+        /*
+          pixelWidth: this.superPixelData.pixelWidth,
+          pixelHeight: this.superPixelData.pixelHeight,
+          xPixels: this.superPixelData.xPixels,
+          yPixels: this.superPixelData.yPixels,
+          hideTheGrid: this.hidethegrid*/
+      /*
       // First, scale the image correctly
       this._scaleImage.bind(this)()
       .then(this._dispatchBuildPalette.bind(this))
       .then(this._processImage.bind(this))
-      .catch(this._catchErrors);
+      .catch(this._catchErrors);*/
     },
 
     saveAsImage(){
@@ -90,12 +107,48 @@
       return this.$.finalOutput.toDataURL('image/png');
     },
 
-    _scaleImage(){
-      return this.scale({
-        imageData: this.imagedata,
-        newWidth: Polymer.dom(this).node.offsetWidth
+    _scaleImage(imageData, newWidth){
+      return new Promise((resolve, reject)=>{
+        let sizor = new Sizor();
+        sizor.scale(imageData, newWidth).then(resolve);
       });
     },
+
+    _buildPalette(imageData, numColors, useDmcColors){
+      return Workor.dispatchWorker(function(imageData, numColors, useDmcColors){
+        // Inside the worker now, don't have any closed over variables...
+        let deferred = this.deferred();
+
+        let quantizor = new Quantizor(imageData, useDmcColors);
+        let palette = quantizor.buildPalette(numColors);
+
+        deferred.transferResolve([imageData, palette], [imageData.data.buffer]);
+      }, [imageData, numColors, useDmcColors], [imageData.data.buffer]);
+    },
+
+    _quantize(imageData, palette, useDmcColors){
+      return Workor.dispatchWorker(function(imageData, palette, useDmcColors){
+        // Inside the worker now, don't have any closed over variables...
+        let deferred = this.deferred();
+
+        let quantizor = new Quantizor(imageData, useDmcColors);
+        let newImageData = quantizor.quantize(palette);
+        deferred.transferResolve(newImageData, [newImageData.data.buffer]);
+
+      }, [imageData, palette, useDmcColors], [imageData.data.buffer]);
+    },
+
+    _pixelate(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
+      return Workor.dispatchWorker(function(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
+        // Inside the worker now, don't have any closed over variables...
+        let deferred = this.deferred();
+
+        let pixelator = new Pixelator(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid);
+        let pixelatedImageData = pixelator.run();
+        deferred.transferResolve(pixelatedImageData, [pixelatedImageData.data.buffer]);
+      }, [imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
+    },
+
 
     _dispatchBuildPalette(imageData) {
       return this.dispatchWorker('buildPalette', {

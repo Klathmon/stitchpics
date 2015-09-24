@@ -20,25 +20,23 @@ class Quantizor {
    * @return {Promise}       resolve(palette) palette is an array of [r,g,b] tuples
    */
   buildPalette(numColors){
-    return new Promise((resolve, reject)=>{
-      let opts = {
-        colorDist: 'euclidean',
-        method: 1,
-        useCache: false,
-        initColors: this._getInitColors(),
-        colors: numColors,
-        palette: (this._useDmcColors ?
-          this._dmcColorsObj.getColorsAsRGB() :
-          undefined),
-        reIndex: true
-      };
+    let opts = {
+      colorDist: 'euclidean',
+      method: 1,
+      useCache: false,
+      initColors: this._getInitColors(),
+      colors: numColors,
+      palette: (this._useDmcColors ?
+        this._dmcColorsObj.getColorsAsRGB() :
+        undefined),
+      reIndex: true
+    };
 
-      let rgbq = new RgbQuant(opts);
-      rgbq.sample(this._imageData.data, this._imageData.width);
-      let palette = rgbq.palette(true);
+    let rgbq = new RgbQuant(opts);
+    rgbq.sample(this._imageData);
+    let palette = rgbq.palette(true);
 
-      resolve(palette);
-    });
+    return palette;
   }
 
   /**
@@ -49,31 +47,29 @@ class Quantizor {
    *                         imageData form in that it just follows the real ImageData interface)
    */
   quantize(palette){
-    return new Promise((resolve, reject)=>{
-      let opts = {
-        colorDist: 'euclidean',
-        method: 1,
-        useCache: false,
-        initColors: this._getInitColors(),
-        palette
-      };
+    let opts = {
+      colorDist: 'euclidean',
+      method: 1,
+      useCache: false,
+      initColors: this._getInitColors(),
+      palette
+    };
 
-      let rgbq = new RgbQuant(opts);
-      let quantizedUint8Array = rgbq.reduce(this._imageData, 1);
+    let rgbq = new RgbQuant(opts);
+    let quantizedUint8Array = rgbq.reduce(this._imageData, 1);
 
-      let returnImageData = {
-        data: new Uint8ClampedArray(quantizedUint8Array),
-        width: this._imageData.width,
-        height: this._imageData.height
-      };
+    let returnImageData = {
+      data: new Uint8ClampedArray(quantizedUint8Array),
+      width: this._imageData.width,
+      height: this._imageData.height
+    };
 
-      resolve(returnImageData);
-    });
+    return returnImageData;
   }
 
   /**
    * gets the number of init colors depending on if DMC colors are used
-   * 
+   *
    * @return {int} either 2048 or the number of DMC colors available
    */
   _getInitColors(){

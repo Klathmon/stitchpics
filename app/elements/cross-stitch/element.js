@@ -117,23 +117,19 @@
     _buildPalette(imageData, numColors, useDmcColors){
       return Workor.dispatchWorker(function(imageData, numColors, useDmcColors){
         // Inside the worker now, don't have any closed over variables...
-        let deferred = this.deferred();
-
         let quantizor = new Quantizor(imageData, useDmcColors);
         let palette = quantizor.buildPalette(numColors);
 
-        deferred.transferResolve([imageData, palette], [imageData.data.buffer]);
+        this.deferred().transferResolve([imageData, palette], [imageData.data.buffer]);
       }, [imageData, numColors, useDmcColors], [imageData.data.buffer]);
     },
 
     _quantize(imageData, palette, useDmcColors){
       return Workor.dispatchWorker(function(imageData, palette, useDmcColors){
         // Inside the worker now, don't have any closed over variables...
-        let deferred = this.deferred();
-
         let quantizor = new Quantizor(imageData, useDmcColors);
         let newImageData = quantizor.quantize(palette);
-        deferred.transferResolve(newImageData, [newImageData.data.buffer]);
+        this.deferred().transferResolve(newImageData, [newImageData.data.buffer]);
 
       }, [imageData, palette, useDmcColors], [imageData.data.buffer]);
     },
@@ -141,11 +137,9 @@
     _pixelate(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
       return Workor.dispatchWorker(function(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
         // Inside the worker now, don't have any closed over variables...
-        let deferred = this.deferred();
-
         let pixelator = new Pixelator(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid);
         let pixelatedImageData = pixelator.run();
-        deferred.transferResolve(pixelatedImageData, [pixelatedImageData.data.buffer]);
+        this.deferred().transferResolve(pixelatedImageData, [pixelatedImageData.data.buffer]);
       }, [imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
     },
 

@@ -3,17 +3,18 @@
   "private": true,
   "dependencies": {
     "FileSaver.js": "eligrey/FileSaver.js",
+    "RgbQuant.js": "leeoniya/RgbQuant.js",
     "canvas-toBlob.js": "eligrey/canvas-toBlob.js",
     "iron-elements": "PolymerElements/iron-elements#1.0.3",
-    "paper-elements": "PolymerElements/paper-elements#1.0.4",
-    "platinum-elements": "PolymerElements/platinum-elements#1.1.0",
-    "neon-elements": "PolymerElements/neon-elements#1.0.0",
-    "page": "visionmedia/page.js#~1.6.3",
-    "RgbQuant.js": "leeoniya/RgbQuant.js",
     "lodash": "~3.10.0",
-    "paper-menu-button": "PolymerElements/paper-menu-button#~1.0.0",
     "marked-element": "PolymerElements/marked-element#~1.0.2",
-    "nameThatColor": "http://chir.ag/projects/ntc/ntc.js"
+    "nameThatColor": "http://chir.ag/projects/ntc/ntc.js",
+    "neon-elements": "PolymerElements/neon-elements#1.0.0",
+    "operative": "~0.4.4",
+    "page": "visionmedia/page.js#~1.6.3",
+    "paper-elements": "PolymerElements/paper-elements#1.0.4",
+    "paper-menu-button": "PolymerElements/paper-menu-button#~1.0.0",
+    "platinum-elements": "PolymerElements/platinum-elements#1.1.0"
   },
   "devDependencies": {
     "web-component-tester": "*",

@@ -4,35 +4,47 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+isInsideWorker	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\loadScriptsWorker.js	/^function isInsideWorker(){$/;"	function	line:4
+isInsideWorker	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\loadScriptsWorker.js	/^function isInsideWorker(){$/;"	function	line:4
 _convertToRealImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^     _convertToRealImageData(pImageData) {$/;"	function	line:5
-_readImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _readImageData(canvas) {$/;"	function	line:14
-_writeImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _writeImageData(canvas, imageData) {$/;"	function	line:19
-context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:22
-_catchErrors	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _catchErrors(error) {$/;"	function	line:27
+_convertToFakeImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _convertToFakeImageData(imageData){$/;"	function	line:14
+_readImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _readImageData(canvas) {$/;"	function	line:22
+_writeImageData	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _writeImageData(canvas, imageData) {$/;"	function	line:27
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:30
+_catchErrors	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\misc.js	/^    _catchErrors(error) {$/;"	function	line:35
 pixelate	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    pixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {$/;"	function	line:6
-_getMode	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels}) {$/;"	function	line:23
-mode	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^      var mode = null;$/;"	variable	line:30
-largestCount	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^      var largestCount = 1;$/;"	variable	line:31
-_setSuperPixelColor	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid}) {$/;"	function	line:70
-_setPixelEndianSafe	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _setPixelEndianSafe(isLittleEndian, red, green, blue, alpha) {$/;"	function	line:101
-_getPixelEndianSafe	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _getPixelEndianSafe(isLittleEndian, pixel) {$/;"	function	line:109
-_isLittleEndian	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _isLittleEndian() {$/;"	function	line:117
-buildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    buildPalette({imageData, numColors, useDmcColors}) {$/;"	function	line:11
-quantize	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    quantize({imageData, palette, useDmcColors}) {$/;"	function	line:36
-scale	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    scale({imageData, newWidth}) {$/;"	function	line:12
-chunkHeightExact	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var chunkHeightExact = Math.floor(height \/ numberOfParts);$/;"	variable	line:45
-numberOfPixelsHigh	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var numberOfPixelsHigh = Math.ceil(chunkHeightExact \/ pixelHeight);$/;"	variable	line:46
-chunkHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var chunkHeight = numberOfPixelsHigh * pixelHeight;$/;"	variable	line:47
-canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:49
-context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:50
-stitch	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    stitch({chunks, canvas}){$/;"	function	line:75
-imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var imageHeight = chunks.reduce((runningTotal, chunk)=>{$/;"	variable	line:77
-context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:84
+oldpixelate	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    oldpixelate({imageData, pixelWidth, pixelHeight, xPixels, yPixels, hideTheGrid}) {$/;"	function	line:16
+_getMode	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _getMode({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels}) {$/;"	function	line:31
+mode	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^      var mode = null;$/;"	variable	line:38
+largestCount	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^      var largestCount = 1;$/;"	variable	line:39
+_setSuperPixelColor	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _setSuperPixelColor({imageData, pixelX, pixelY, pixelWidth, pixelHeight, xPixels, yPixels, color, hideTheGrid}) {$/;"	function	line:78
+_setPixelEndianSafe	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _setPixelEndianSafe(isLittleEndian, red, green, blue, alpha) {$/;"	function	line:109
+_getPixelEndianSafe	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _getPixelEndianSafe(isLittleEndian, pixel) {$/;"	function	line:117
+_isLittleEndian	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\pixelate.js	/^    _isLittleEndian() {$/;"	function	line:125
+buildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    buildPalette({imageData, numColors, useDmcColors}){$/;"	function	line:5
+quantize	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    quantize({imageData, palette, useDmcColors}) {$/;"	function	line:14
+oldbuildPalette	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    oldbuildPalette({imageData, numColors, useDmcColors}) {$/;"	function	line:29
+colors	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^        colors: numColors,$/;"	property	line:31
+colorDist	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^        colorDist: 'euclidean',$/;"	property	line:32
+method	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^        method: 1,$/;"	property	line:33
+initColors	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^        initColors: (useDmcColors ? this._getDmcColorMap().size : 2048),$/;"	property	line:34
+oldquantize	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\quantize.js	/^    oldquantize({imageData, palette, useDmcColors}) {$/;"	function	line:53
+oldscale	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    oldscale({imageData, newWidth}) {$/;"	function	line:12
+scale	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    scale({imageData, newWidth}){$/;"	function	line:34
+chunkHeightExact	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var chunkHeightExact = Math.floor(height \/ numberOfParts);$/;"	variable	line:57
+numberOfPixelsHigh	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var numberOfPixelsHigh = Math.ceil(chunkHeightExact \/ pixelHeight);$/;"	variable	line:58
+chunkHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var chunkHeight = numberOfPixelsHigh * pixelHeight;$/;"	variable	line:59
+canvas	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var canvas = document.createElement('canvas');$/;"	variable	line:61
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:62
+stitch	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^    stitch({chunks, canvas}){$/;"	function	line:87
+imageHeight	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var imageHeight = chunks.reduce((runningTotal, chunk)=>{$/;"	variable	line:89
+context	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\sizing.js	/^      var context = canvas.getContext('2d');$/;"	variable	line:96
 behavior.properties	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    properties: {$/;"	property	line:5
 createWorkers	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    createWorkers(url, numWorkers){$/;"	function	line:12
 dispatchWorker	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    dispatchWorker(func, data, transferrable){$/;"	function	line:22
 receiveWork	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    receiveWork(event){$/;"	function	line:53
 merged	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^      var merged = _.merge( self.workerBehavior, self.sizingBehavior, self.quantizeBehavior, self.pixelateBehavior, self.miscBehavior, self.dmcColorBehavior);$/;"	variable	line:55
+encodeResolve	A:\Projects\StitchPics\app\elements\cross-stitch\behaviors\worker.js	/^    encodeResolve(data, transferrable){$/;"	function	line:63
 link	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
 link	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<link rel="import" href="..\/globalScripts\/globalScripts.html">$/;"	function	line:3
 dom	A:\Projects\StitchPics\app\elements\cross-stitch\cross-stitch.html	/^<dom-module id="cross-stitch">$/;"	function	line:5
@@ -137,11 +149,51 @@ template	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^    <tem
 faq	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^      <faq-page><\/faq-page>$/;"	function	line:21
 script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:26
 script	A:\Projects\StitchPics\app\elements\faq-page\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:27
+constructor	A:\Projects\StitchPics\app\elements\globalScripts\BitPacker.js	/^  constructor(){$/;"	function	line:6
+packPixel	A:\Projects\StitchPics\app\elements\globalScripts\BitPacker.js	/^  packPixel(red, green, blue, alpha) {$/;"	function	line:23
+unpackPixel	A:\Projects\StitchPics\app\elements\globalScripts\BitPacker.js	/^  unpackPixel(packedPixel){$/;"	function	line:40
+_checkIsLittleEndian	A:\Projects\StitchPics\app\elements\globalScripts\BitPacker.js	/^  _checkIsLittleEndian() {$/;"	function	line:62
+behavior.properties	A:\Projects\StitchPics\app\elements\globalScripts\dmc-colors.js	/^    properties: {$/;"	property	line:5
+_getColorsAsRGB	A:\Projects\StitchPics\app\elements\globalScripts\dmc-colors.js	/^     _getColorsAsRGB() {$/;"	function	line:373
+_getDmcColorMap	A:\Projects\StitchPics\app\elements\globalScripts\dmc-colors.js	/^    _getDmcColorMap(){$/;"	function	line:383
+_convertHexToRGB	A:\Projects\StitchPics\app\elements\globalScripts\dmc-colors.js	/^    _convertHexToRGB(hex){$/;"	function	line:387
+_convertRGBToHex	A:\Projects\StitchPics\app\elements\globalScripts\dmc-colors.js	/^    _convertRGBToHex([r, g, b]){$/;"	function	line:396
+constructor	A:\Projects\StitchPics\app\elements\globalScripts\dmcColors.js	/^  constructor(){$/;"	function	line:6
+getColorsAsRGB	A:\Projects\StitchPics\app\elements\globalScripts\dmcColors.js	/^  getColorsAsRGB() {$/;"	function	line:15
+getDmcColorMap	A:\Projects\StitchPics\app\elements\globalScripts\dmcColors.js	/^  getDmcColorMap(){$/;"	function	line:29
+_convertHexToRGB	A:\Projects\StitchPics\app\elements\globalScripts\dmcColors.js	/^  _convertHexToRGB(hex){$/;"	function	line:40
+_convertRGBToHex	A:\Projects\StitchPics\app\elements\globalScripts\dmcColors.js	/^  _convertRGBToHex([r, g, b]){$/;"	function	line:56
+_getDmcColorMap	A:\Projects\StitchPics\app\elements\globalScripts\dmcColors.js	/^  _getDmcColorMap(){$/;"	function	line:66
 script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/node_modules\/babel-core\/browser-polyfill.js"><\/script>$/;"	function	line:2
-script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/scripts\/performanceNow.coffee"><\/script>$/;"	function	line:3
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="performanceNow.coffee"><\/script>$/;"	function	line:3
 script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/bower_components\/nameThatColor\/index.js"><\/script>$/;"	function	line:4
 script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/bower_components\/lodash\/lodash.js"><\/script>$/;"	function	line:5
-script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/scripts\/dmc-colors.js"><\/script>$/;"	function	line:6
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="..\/..\/..\/bower_components\/operative\/dist\/operative.js"><\/script>$/;"	function	line:6
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="dmc-colors.js"><\/script>$/;"	function	line:7
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="BitPacker.js"><\/script>$/;"	function	line:8
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="dmcColors.js"><\/script>$/;"	function	line:9
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="quantizor.js"><\/script>$/;"	function	line:10
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="pixelator.js"><\/script>$/;"	function	line:11
+script	A:\Projects\StitchPics\app\elements\globalScripts\globalScripts.html	/^<script src="sizor.js"><\/script>$/;"	function	line:12
+self.performance.now	A:\Projects\StitchPics\app\elements\globalScripts\performanceNow.coffee	/^    self.performance.now = ->$/;"	function	line:9
+constructor	A:\Projects\StitchPics\app\elements\globalScripts\pixelator.js	/^  constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){$/;"	function	line:13
+run	A:\Projects\StitchPics\app\elements\globalScripts\pixelator.js	/^  run(){$/;"	function	line:40
+_getSuperPixelColor	A:\Projects\StitchPics\app\elements\globalScripts\pixelator.js	/^  _getSuperPixelColor(spx, spy){$/;"	function	line:63
+_setSuperPixelColor	A:\Projects\StitchPics\app\elements\globalScripts\pixelator.js	/^  _setSuperPixelColor(spx, spy, color){$/;"	function	line:111
+_getPixelPos	A:\Projects\StitchPics\app\elements\globalScripts\pixelator.js	/^  _getPixelPos(spx, spy, pixelX, pixelY){$/;"	function	line:150
+constructor	A:\Projects\StitchPics\app\elements\globalScripts\quantizor.js	/^  constructor(imageData, useDmcColors = false){$/;"	function	line:10
+buildPalette	A:\Projects\StitchPics\app\elements\globalScripts\quantizor.js	/^  buildPalette(numColors){$/;"	function	line:22
+quantize	A:\Projects\StitchPics\app\elements\globalScripts\quantizor.js	/^  quantize(palette){$/;"	function	line:51
+_getInitColors	A:\Projects\StitchPics\app\elements\globalScripts\quantizor.js	/^  _getInitColors(){$/;"	function	line:79
+constructor	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^  constructor(){$/;"	function	line:6
+scale	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^  scale(imageData, newWidth){$/;"	function	line:10
+workerSafeScale	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^  workerSafeScale(imageData, newImageData){$/;"	function	line:32
+_writeImageData	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^  _writeImageData(canvas, imageData) {$/;"	function	line:73
+context	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^    var context = canvas.getContext('2d');$/;"	variable	line:76
+_convertToRealImageData	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^  _convertToRealImageData(pImageData) {$/;"	function	line:81
+_getW	A:\Projects\StitchPics\app\elements\globalScripts\sizor.js	/^  _getW(center, coord, halfRatio){$/;"	function	line:92
+constructor	A:\Projects\StitchPics\app\elements\globalScripts\workor.js	/^  constructor(numberOfWorkers, functions){$/;"	function	line:6
+dispatchWorker	A:\Projects\StitchPics\app\elements\globalScripts\workor.js	/^  dispatchWorker(functionName, params, transferrable){$/;"	function	line:17
 uploadImage	A:\Projects\StitchPics\app\elements\imgur-upload\element.js	/^    uploadImage(){$/;"	function	line:22
 getBase64FromImageData	A:\Projects\StitchPics\app\elements\imgur-upload\element.js	/^    getBase64FromImageData(imageData){$/;"	function	line:45
 link	A:\Projects\StitchPics\app\elements\imgur-upload\imgur-upload.html	/^<link rel="import" href="..\/..\/bower_components\/polymer\/polymer.html">$/;"	function	line:1
@@ -176,15 +228,16 @@ template	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^    
 faq	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^      <faq-page><\/faq-page>$/;"	function	line:21
 script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <script src="smoke.js"><\/script>$/;"	function	line:26
 script	A:\Projects\StitchPics\app\elements\imgur-upload\tests\test.html	/^  <script src="element.js"><\/script>$/;"	function	line:27
-ready	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    ready(){$/;"	function	line:43
-loadImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    loadImage(){$/;"	function	line:48
-calcGridWidth	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    calcGridWidth(clothCount, size){$/;"	function	line:56
-saveImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    saveImage(){$/;"	function	line:60
-getImageAsDataURI	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    getImageAsDataURI(element){$/;"	function	line:64
-openNewTab	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    openNewTab(){$/;"	function	line:72
-printImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    printImage(){$/;"	function	line:85
-_getImageDataFromHash	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    _getImageDataFromHash(hash, callback){$/;"	function	line:111
-onload	A:\Projects\StitchPics\app\elements\main-page\element.js	/^      img.onload = function(){$/;"	function	line:115
+loadImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    loadImage(){$/;"	function	line:47
+unpackOptions	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    unpackOptions(){$/;"	function	line:61
+packOptions	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    packOptions(){$/;"	function	line:72
+calcGridWidth	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    calcGridWidth(clothCount, size){$/;"	function	line:81
+saveImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    saveImage(){$/;"	function	line:85
+getImageAsDataURI	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    getImageAsDataURI(element){$/;"	function	line:89
+openNewTab	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    openNewTab(){$/;"	function	line:97
+printImage	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    printImage(){$/;"	function	line:110
+_getImageDataFromHash	A:\Projects\StitchPics\app\elements\main-page\element.js	/^    _getImageDataFromHash(hash, callback){$/;"	function	line:136
+onload	A:\Projects\StitchPics\app\elements\main-page\element.js	/^      img.onload = function(){$/;"	function	line:140
 .indent	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^.indent$/;"	function	line:37
 .bottomRow	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^.bottomRow$/;"	function	line:44
 #mainPageContainer	A:\Projects\StitchPics\app\elements\main-page\element.sass	/^#mainPageContainer$/;"	function	line:50
@@ -237,6 +290,8 @@ paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^           
 paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab<\/paper-button>$/;"	function	line:79
 paper	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^              <paper-button id="printButton" raised on-tap="printImage">Print<\/paper-button>$/;"	function	line:80
 script	A:\Projects\StitchPics\app\elements\main-page\main-page.html	/^<script src="element.js"><\/script>$/;"	function	line:97
+autoUnhookListener	A:\Projects\StitchPics\app\elements\main-page\tests\element.js	/^function autoUnhookListener(element, eventName, callback){$/;"	function	line:30
+autoUnhookListener	A:\Projects\StitchPics\app\elements\main-page\tests\element.js	/^function autoUnhookListener(element, eventName, callback){$/;"	function	line:30
 html	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^<html>$/;"	function	line:1
 head	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^<head>$/;"	function	line:2
 meta	A:\Projects\StitchPics\app\elements\main-page\tests\test.html	/^  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">$/;"	function	line:3
@@ -456,22 +511,19 @@ div	A:\Projects\StitchPics\app\index.html	/^          <div class="bottom bottom-
 div	A:\Projects\StitchPics\app\index.html	/^            <div class="bottom-title paper-font-subhead">Turn any picture into a cross stitch pattern<\/div>$/;"	function	line:75
 div	A:\Projects\StitchPics\app\index.html	/^        <div class="content">$/;"	function	line:81
 stampy	A:\Projects\StitchPics\app\index.html	/^          <stampy-router>$/;"	function	line:82
-section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="app" data-href="\/app\/:imageHash?\/:clothCount?\/:size?\/:colors?">$/;"	function	line:83
-section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="faq" data-href="\/faq">$/;"	function	line:89
-faq	A:\Projects\StitchPics\app\index.html	/^              <faq-page><\/faq-page>$/;"	function	line:90
-script	A:\Projects\StitchPics\app\index.html	/^  <script src="scripts\/app.js"><\/script>$/;"	function	line:99
-my	A:\Projects\StitchPics\app\index.html	/^  <my-analytics tracking-code="UA-65662485-1"><\/my-analytics>$/;"	function	line:102
-transformHeader	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(event){$/;"	function	line:17
-let	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(event){$/;"	function	line:17
-transformHeader	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(event){$/;"	function	line:17
-closeDrawerIfOpen	A:\Projects\StitchPics\app\scripts\app.js	/^  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){$/;"	function	line:38
-closeDrawerIfOpen	A:\Projects\StitchPics\app\scripts\app.js	/^  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){$/;"	function	line:38
-behavior.properties	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    properties: {$/;"	property	line:5
-_getColorsAsRGB	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^     _getColorsAsRGB() {$/;"	function	line:373
-_getDmcColorMap	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _getDmcColorMap(){$/;"	function	line:383
-_convertHexToRGB	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _convertHexToRGB(hex){$/;"	function	line:387
-_convertRGBToHex	A:\Projects\StitchPics\app\scripts\dmc-colors.js	/^    _convertRGBToHex([r, g, b]){$/;"	function	line:396
-self.performance.now	A:\Projects\StitchPics\app\scripts\performanceNow.coffee	/^    self.performance.now = ->$/;"	function	line:9
+section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="app" data-href="\/app\/:imageHash?\/:clothCount?\/:size?\/:colors?\/:packedOptions?">$/;"	function	line:83
+section	A:\Projects\StitchPics\app\index.html	/^            <section data-route="faq" data-href="\/faq">$/;"	function	line:93
+faq	A:\Projects\StitchPics\app\index.html	/^              <faq-page><\/faq-page>$/;"	function	line:94
+script	A:\Projects\StitchPics\app\index.html	/^  <script src="scripts\/app.js"><\/script>$/;"	function	line:103
+my	A:\Projects\StitchPics\app\index.html	/^  <my-analytics tracking-code="UA-65662485-1"><\/my-analytics>$/;"	function	line:106
+app	A:\Projects\StitchPics\app\scripts\app.js	/^  var app = document.querySelector('#app');$/;"	variable	line:4
+transformHeader	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(detail){$/;"	function	line:19
+let	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(detail){$/;"	function	line:19
+transformHeader	A:\Projects\StitchPics\app\scripts\app.js	/^  let transformHeader = function transformHeader(detail){$/;"	function	line:19
+closeDrawerIfOpen	A:\Projects\StitchPics\app\scripts\app.js	/^  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){$/;"	function	line:39
+closeDrawerIfOpen	A:\Projects\StitchPics\app\scripts\app.js	/^  let closeDrawerIfOpen = function closeDrawerIfOpen(drawer){$/;"	function	line:39
+assignUrlParams	A:\Projects\StitchPics\app\scripts\app.js	/^  let assignUrlParams = function assignUrlParams(params){$/;"	function	line:45
+assignUrlParams	A:\Projects\StitchPics\app\scripts\app.js	/^  let assignUrlParams = function assignUrlParams(params){$/;"	function	line:45
 body	A:\Projects\StitchPics\app\styles\app.sass	/^body$/;"	function	line:2
 #mainToolbar	A:\Projects\StitchPics\app\styles\app.sass	/^#mainToolbar$/;"	function	line:8
 .bottom	A:\Projects\StitchPics\app\styles\app.sass	/^  .bottom$/;"	function	line:20
@@ -489,20 +541,21 @@ name	A:\Projects\StitchPics\bower.json	/^  "name": "StitchPics",$/;"	function	li
 private	A:\Projects\StitchPics\bower.json	/^  "private": true,$/;"	function	line:3
 dependencies	A:\Projects\StitchPics\bower.json	/^  "dependencies": {$/;"	function	line:4
 FileSaver.js	A:\Projects\StitchPics\bower.json	/^    "FileSaver.js": "eligrey\/FileSaver.js",$/;"	function	line:5
-canvas-toBlob.js	A:\Projects\StitchPics\bower.json	/^    "canvas-toBlob.js": "eligrey\/canvas-toBlob.js",$/;"	function	line:6
-iron-elements	A:\Projects\StitchPics\bower.json	/^    "iron-elements": "PolymerElements\/iron-elements#1.0.3",$/;"	function	line:7
-paper-elements	A:\Projects\StitchPics\bower.json	/^    "paper-elements": "PolymerElements\/paper-elements#1.0.4",$/;"	function	line:8
-platinum-elements	A:\Projects\StitchPics\bower.json	/^    "platinum-elements": "PolymerElements\/platinum-elements#1.1.0",$/;"	function	line:9
-neon-elements	A:\Projects\StitchPics\bower.json	/^    "neon-elements": "PolymerElements\/neon-elements#1.0.0",$/;"	function	line:10
-page	A:\Projects\StitchPics\bower.json	/^    "page": "visionmedia\/page.js#~1.6.3",$/;"	function	line:11
-RgbQuant.js	A:\Projects\StitchPics\bower.json	/^    "RgbQuant.js": "leeoniya\/RgbQuant.js",$/;"	function	line:12
-lodash	A:\Projects\StitchPics\bower.json	/^    "lodash": "~3.10.0",$/;"	function	line:13
-paper-menu-button	A:\Projects\StitchPics\bower.json	/^    "paper-menu-button": "PolymerElements\/paper-menu-button#~1.0.0",$/;"	function	line:14
-marked-element	A:\Projects\StitchPics\bower.json	/^    "marked-element": "PolymerElements\/marked-element#~1.0.2",$/;"	function	line:15
-nameThatColor	A:\Projects\StitchPics\bower.json	/^    "nameThatColor": "http:\/\/chir.ag\/projects\/ntc\/ntc.js"$/;"	function	line:16
-devDependencies	A:\Projects\StitchPics\bower.json	/^  "devDependencies": {$/;"	function	line:18
-web-component-tester	A:\Projects\StitchPics\bower.json	/^    "web-component-tester": "*",$/;"	function	line:19
-test-fixture	A:\Projects\StitchPics\bower.json	/^    "test-fixture": "PolymerElements\/test-fixture#^1.0.0"$/;"	function	line:20
+RgbQuant.js	A:\Projects\StitchPics\bower.json	/^    "RgbQuant.js": "leeoniya\/RgbQuant.js",$/;"	function	line:6
+canvas-toBlob.js	A:\Projects\StitchPics\bower.json	/^    "canvas-toBlob.js": "eligrey\/canvas-toBlob.js",$/;"	function	line:7
+iron-elements	A:\Projects\StitchPics\bower.json	/^    "iron-elements": "PolymerElements\/iron-elements#1.0.3",$/;"	function	line:8
+lodash	A:\Projects\StitchPics\bower.json	/^    "lodash": "~3.10.0",$/;"	function	line:9
+marked-element	A:\Projects\StitchPics\bower.json	/^    "marked-element": "PolymerElements\/marked-element#~1.0.2",$/;"	function	line:10
+nameThatColor	A:\Projects\StitchPics\bower.json	/^    "nameThatColor": "http:\/\/chir.ag\/projects\/ntc\/ntc.js",$/;"	function	line:11
+neon-elements	A:\Projects\StitchPics\bower.json	/^    "neon-elements": "PolymerElements\/neon-elements#1.0.0",$/;"	function	line:12
+operative	A:\Projects\StitchPics\bower.json	/^    "operative": "~0.4.4",$/;"	function	line:13
+page	A:\Projects\StitchPics\bower.json	/^    "page": "visionmedia\/page.js#~1.6.3",$/;"	function	line:14
+paper-elements	A:\Projects\StitchPics\bower.json	/^    "paper-elements": "PolymerElements\/paper-elements#1.0.4",$/;"	function	line:15
+paper-menu-button	A:\Projects\StitchPics\bower.json	/^    "paper-menu-button": "PolymerElements\/paper-menu-button#~1.0.0",$/;"	function	line:16
+platinum-elements	A:\Projects\StitchPics\bower.json	/^    "platinum-elements": "PolymerElements\/platinum-elements#1.1.0"$/;"	function	line:17
+devDependencies	A:\Projects\StitchPics\bower.json	/^  "devDependencies": {$/;"	function	line:19
+web-component-tester	A:\Projects\StitchPics\bower.json	/^    "web-component-tester": "*",$/;"	function	line:20
+test-fixture	A:\Projects\StitchPics\bower.json	/^    "test-fixture": "PolymerElements\/test-fixture#^1.0.0"$/;"	function	line:21
 $	A:\Projects\StitchPics\gulpfile.babel.js	/^var $ = glp({$/;"	variable	line:16
 PROD	A:\Projects\StitchPics\gulpfile.babel.js	/^var PROD = false;$/;"	variable	line:27
 DEPLOY	A:\Projects\StitchPics\gulpfile.babel.js	/^var DEPLOY = false;$/;"	variable	line:28
@@ -542,10 +595,12 @@ compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function 
 compileCss	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileCss = function compileCss(name, folder){$/;"	function	line:134
 compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:153
 compileJs	A:\Projects\StitchPics\gulpfile.babel.js	/^var compileJs = function compileJs(name, folder){$/;"	function	line:153
-getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:278
-getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:278
-buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:309
-buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:309
+getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:279
+getFolders	A:\Projects\StitchPics\gulpfile.babel.js	/^var getFolders = function getFolders(dir, rootDir = dir) {$/;"	function	line:279
+onlyCompileChanged	A:\Projects\StitchPics\gulpfile.babel.js	/^var onlyCompileChanged = function onlyCompileChanged(folderArray, dir){$/;"	function	line:298
+onlyCompileChanged	A:\Projects\StitchPics\gulpfile.babel.js	/^var onlyCompileChanged = function onlyCompileChanged(folderArray, dir){$/;"	function	line:298
+buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:333
+buildUseminLoops	A:\Projects\StitchPics\gulpfile.babel.js	/^var buildUseminLoops = function buildUseminLoops(types, number){$/;"	function	line:333
 private	A:\Projects\StitchPics\package.json	/^  "private": true,$/;"	function	line:2
 license	A:\Projects\StitchPics\package.json	/^  "license": "UNLICENSED",$/;"	function	line:3
 devDependencies	A:\Projects\StitchPics\package.json	/^  "devDependencies": {$/;"	function	line:4

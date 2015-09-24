@@ -54,12 +54,11 @@
       finalOutput.mozImageSmoothingEnabled =
       finalOutput.webkitImageSmoothingEnabled = false;
 
-      var numberOfCores = navigator.hardwareConcurrency || 4;
-
-      this.createWorkers('libs.js', numberOfCores);
-
       window.addEventListener('resize', _.debounce(this.propertyChanged.bind(this), 250));
 
+      var numberOfCores = navigator.hardwareConcurrency || 4;
+
+      this.workor = new Workor(numberOfCores, window.workerFunctions);
     },
 
     propertyChanged(){

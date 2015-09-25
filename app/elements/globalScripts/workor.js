@@ -6,7 +6,7 @@ class Workor {
 
       worker.transfer(...funcParams, transferrable).then(function(result){
         resolve(result);
-        //worker.terminate();
+        worker.terminate();
       });
     });
   }

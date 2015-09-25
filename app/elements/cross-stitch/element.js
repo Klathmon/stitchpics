@@ -66,34 +66,43 @@
         .then((scaledImageData)=>{
           return this._buildPalette(scaledImageData, this.numcolors, this.usedmccolors);
         }).then(([imageData, palette])=>{
-          ::this._setupSuperPixelData(imageData, palette); // jshint ignore:line
-          ::this._resizeOutputCanvas(imageData); // jshint ignore:line
-          return this._quantize(imageData, palette);
-        }).then((imageData)=>{
+          this.manipulateImage.bind(this)(imageData, palette);
+        });
+    },
+
+    manipulateImage(imageData, palette){
+      let numberOfChunks = navigator.hardwareConcurrency || 4;
+      let context = this.$.finalOutput.getContext('2d');
+      let xPixels = this.gridwidth;
+      let yPixels = Math.floor(imageData.height * (this.gridwidth / imageData.width));
+      let pixelWidth = Math.ceil(imageData.width / xPixels);
+      let pixelHeight =  Math.ceil(imageData.height / yPixels);
+
+      this._resizeOutputCanvas.bind(this)(imageData);
+
+      for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(imageData, numberOfChunks, pixelHeight)){
+        // Chunk off pieces and throw them right into the quantize process
+        this._quantize(chunk, palette).then((imageData)=>{
+          // And the second one is done pipe it back to pixelate
           return this._pixelate(
             imageData,
-            this.superPixelData.pixelWidth,
-            this.superPixelData.pixelHeight,
-            this.superPixelData.xPixels,
-            this.superPixelData.yPixels,
+            pixelWidth,
+            pixelHeight,
+            xPixels,
+            yPixels,
             this.hidethegrid
           );
-        }).then((newImageData)=>{
-          this._writeImageData(this.$.finalOutput, this._convertToRealImageData(newImageData));
+        }).then((finishedChunk)=>{
+          // And when each chunk is finished write it right out
+          context.putImageData(this._convertToRealImageData(finishedChunk), 0,  chunkStartY);
+          console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
+          if(++this.numberOfChunksDone === numberOfChunks){
+            this.fire('crossStitchDone', this._readImageData(this.$.finalOutput));
+          }
         });
-        /*
-          pixelWidth: this.superPixelData.pixelWidth,
-          pixelHeight: this.superPixelData.pixelHeight,
-          xPixels: this.superPixelData.xPixels,
-          yPixels: this.superPixelData.yPixels,
-          hideTheGrid: this.hidethegrid*/
-      /*
-      // First, scale the image correctly
-      this._scaleImage.bind(this)()
-      .then(this._dispatchBuildPalette.bind(this))
-      .then(this._processImage.bind(this))
-      .catch(this._catchErrors);*/
+      }
     },
+
 
     saveAsImage(){
       var context = this.$.finalOutput.getContext('2d');
@@ -143,16 +152,41 @@
       }, [imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
     },
 
+    /**
+     * splits the given imageData into numberOfParts chunks of imageData
+     * DOES NOT WORK IN A WEB WORKER
+     * @param  {object} imageData     the image data to split up
+     * @param  {int}    numberOfParts the number of chunks to make
+     * @param  {int}    pixelHeight   the height (in true pixels) of each "block" or "superpixel"
+     * @return {Promise}              resolve(chunks)
+     */
+    *splitGenerator(imageData, numberOfParts, pixelHeight) {
+      let {data, width, height} = imageData;
 
-    _dispatchBuildPalette(imageData) {
-      return this.dispatchWorker('buildPalette', {
-        imageData: this._convertToFakeImageData(imageData),
-        numColors: this.numcolors,
-        useDmcColors: this.usedmccolors}, [imageData.data.buffer])
-      .then(({imageData, palette})=>{
-        return Promise.resolve({imageData, palette});
-      }).catch(this._catchErrors);
+      let chunkHeightExact = Math.floor(height / numberOfParts);
+      let numberOfPixelsHigh = Math.ceil(chunkHeightExact / pixelHeight);
+      let chunkHeight = numberOfPixelsHigh * pixelHeight;
+
+      let canvas = document.createElement('canvas');
+      let context = canvas.getContext('2d');
+      this._writeImageData(canvas, imageData);
+
+      for (let chunkNumber = 0; chunkNumber < numberOfParts; chunkNumber++){
+        let startY = chunkNumber * chunkHeight;
+
+        // If this is the last chunk, add the remainder of pixels that didn't
+        // divide evently on to it.
+        if (chunkNumber === numberOfParts - 1) {
+          chunkHeight = height - (chunkHeight * chunkNumber);
+        }
+        // yield the chunk
+        yield {
+          chunk: context.getImageData(0, startY, width, chunkHeight),
+          chunkStartY: startY
+        };
+      }
     },
+
 
     _processImage({imageData, palette}){
 
@@ -180,38 +214,9 @@
       }
     },
 
-    _setupSuperPixelData(imageData, palette){
-      this.palette = palette;
-      this.superPixelData = {
-        xPixels: this.gridwidth,
-        yPixels: Math.floor(imageData.height * (this.gridwidth / imageData.width))
-      };
-      this.superPixelData.pixelWidth = Math.ceil(imageData.width / this.superPixelData.xPixels);
-      this.superPixelData.pixelHeight =  Math.ceil(imageData.height / this.superPixelData.yPixels);
-    },
-
     _resizeOutputCanvas(imageData){
       this.$.finalOutput.width = imageData.width;
       this.$.finalOutput.height = imageData.height;
-    },
-
-    _dispatchQuantize(chunk){
-      return this.dispatchWorker('quantize', {
-        imageData: chunk,
-        palette: this.palette,
-        useDmcColors: this.usedmccolors
-      }, [chunk.data.buffer])
-    },
-
-    _dispatchPixelate({imageData}){
-      return this.dispatchWorker('pixelate', {
-        imageData,
-        pixelWidth: this.superPixelData.pixelWidth,
-        pixelHeight: this.superPixelData.pixelHeight,
-        xPixels: this.superPixelData.xPixels,
-        yPixels: this.superPixelData.yPixels,
-        hideTheGrid: this.hidethegrid
-      }, [imageData.data.buffer]);
     },
 
   });

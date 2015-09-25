@@ -62,6 +62,7 @@ const BABEL_OPTIONS = {
   optional: [
     'es7.functionBind'
   ],
+  externalHelpers: true,
   loose: 'all'
 };
 

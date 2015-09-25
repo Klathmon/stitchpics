@@ -40,7 +40,7 @@ class Pixelator {
   run(){
     for(let spx = 0; spx < this._numSpx; spx++){
       for(let spy = 0; spy < this._numSpy; spy++){
-        let color = this._getSuperPixelColor(spx, spy);
+        let color = this._getSuperPixelColor(spx | 0, spy | 0);
         this._setSuperPixelColor(spx, spy, color);
       }
     }
@@ -52,6 +52,7 @@ class Pixelator {
   /**
    * Gets the super pixels' "overall" color.
    * Currently this works by just taking the mode of the entire super-pixel and returning that
+   * TODO: this is tripping a deopt "Optimized too many times". Look into why and fix it!
    *
    * @param  {int} spx    Super Pixel X Pos
    * @param  {int} spy    Super Pixel Y Pos

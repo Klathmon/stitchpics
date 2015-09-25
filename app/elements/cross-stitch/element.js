@@ -124,32 +124,32 @@
     },
 
     _buildPalette(imageData, numColors, useDmcColors){
-      return Workor.dispatchWorker(function(imageData, numColors, useDmcColors){
+      return (function(imageData, numColors, useDmcColors){
         // Inside the worker now, don't have any closed over variables...
         let quantizor = new Quantizor(imageData, useDmcColors);
         let palette = quantizor.buildPalette(numColors);
 
-        this.deferred().transferResolve([imageData, palette], [imageData.data.buffer]);
-      }, [imageData, numColors, useDmcColors], [imageData.data.buffer]);
+        return Promise.resolve([imageData, palette]); //, [imageData.data.buffer]);
+      })(imageData, numColors, useDmcColors); //, [imageData.data.buffer]);
     },
 
     _quantize(imageData, palette, useDmcColors){
-      return Workor.dispatchWorker(function(imageData, palette, useDmcColors){
+      return (function(imageData, palette, useDmcColors){
         // Inside the worker now, don't have any closed over variables...
         let quantizor = new Quantizor(imageData, useDmcColors);
         let newImageData = quantizor.quantize(palette);
-        this.deferred().transferResolve(newImageData, [newImageData.data.buffer]);
+        return Promise.resolve(newImageData); //, [newImageData.data.buffer]);
 
-      }, [imageData, palette, useDmcColors], [imageData.data.buffer]);
+      })(imageData, palette, useDmcColors); //, [imageData.data.buffer]);
     },
 
     _pixelate(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
-      return Workor.dispatchWorker(function(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
+      return (function(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
         // Inside the worker now, don't have any closed over variables...
         let pixelator = new Pixelator(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid);
         let pixelatedImageData = pixelator.run();
-        this.deferred().transferResolve(pixelatedImageData, [pixelatedImageData.data.buffer]);
-      }, [imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
+        return Promise.resolve(pixelatedImageData); //, [pixelatedImageData.data.buffer]);
+      })(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid); //, [imageData.data.buffer]);
     },
 
     /**

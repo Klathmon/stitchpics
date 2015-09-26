@@ -1,15 +1,43 @@
 class Workor {
 
-  //Change this to dispatch each worker to an already running worker...
+  constructor(){
+    this._createWorkers(navigator.hardwareConcurrency || 4);
+  }
 
-  static dispatchWorker(func, funcParams, transferrable = []){
+  dispatchWorker(func, funcParams, transferrable = []){
     return new Promise((resolve, reject)=>{
-      let worker = operative(func, ['elements/globalScripts/globalScripts.js']);
+      let worker = this.workerPool.pop();
 
-      worker.transfer(...funcParams, transferrable).then(function(result){
+      worker.runFunction.transfer(func.toString(), funcParams, transferrable,(result)=>{
+        this.workerPool.unshift(worker);
         resolve(result);
-        worker.terminate();
       });
     });
   }
+
+  _createWorkers(numberOfWorkers){
+    this.workerPool = _.times(numberOfWorkers * 3, ()=>{
+      let worker = Workor._genWorker();
+      worker.myImportScripts(window.location.origin + '/elements/globalScripts/globalScripts.js', (stuff)=>{
+        console.log('script imported!');
+      });
+      return worker;
+    });
+  }
+
+  static _genWorker(){
+    return operative({
+      runFunction: function(funcString, arrayOfParams, callback){
+        eval('var workerContextFunc = ' + funcString); // jshint ignore:line
+        let [retval, transferrable] = workerContextFunc(...arrayOfParams);
+        callback.transfer(retval, transferrable || []);
+      },
+
+      myImportScripts: function(scriptPath, callback){
+        importScripts(scriptPath);
+        callback('stuff');
+      }
+    });
+  }
+
 }

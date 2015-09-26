@@ -20,6 +20,7 @@ class Quantizor {
    * @return {Promise}       resolve(palette) palette is an array of [r,g,b] tuples
    */
   buildPalette(numColors){
+    console.log('buildPalette proper is running!');
     let opts = {
       colorDist: 'euclidean',
       method: 1,

@@ -67,9 +67,9 @@
 
     newFile() {
       this.startTime = performance.now();
-      this._scaleImage(this.imagedata, Polymer.dom(this).node.offsetWidth)
+      this.scaleImage(this.imagedata, Polymer.dom(this).node.offsetWidth)
         .then((scaledImageData)=>{
-          return this._buildPalette(scaledImageData, this.numcolors, this.usedmccolors);
+          return this.buildPalette(scaledImageData, this.numcolors, this.usedmccolors);
         }).then(([imageData, palette])=>{
           this.manipulateImage.bind(this)(imageData, palette);
         });
@@ -88,9 +88,9 @@
 
       for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(imageData, this.numberOfCores, pixelHeight)){
         // Chunk off pieces and throw them right into the quantize process
-        this._quantize(chunk, palette).then((imageData)=>{
+        this.quantize(chunk, palette).then((imageData)=>{
           // And the second one is done pipe it back to pixelate
-          return this._pixelate(
+          return this.pixelate(
             imageData,
             pixelWidth,
             pixelHeight,
@@ -156,7 +156,6 @@
         };
       }
     },
-
 
     _catchErrors(error) {
       console.error(error.stack);

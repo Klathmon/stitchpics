@@ -67,6 +67,7 @@
 
     newFile() {
       this.startTime = performance.now();
+      this.resizeAbsurdImageData.bind(this)();
       this.scaleImage(this.imagedata, Polymer.dom(this).node.offsetWidth)
         .then((scaledImageData)=>{
           return this.buildPalette(scaledImageData, this.numcolors, this.usedmccolors);
@@ -120,6 +121,16 @@
 
     getImageAsURI(){
       return this.$.finalOutput.toDataURL('image/png');
+    },
+
+    resizeAbsurdImageData(){
+      let maxSize = Math.max(window.innerWidth, window.innerHeight);
+      if(this.imagedata.width > maxSize){
+        this.scaleImage(this.imagedata, maxSize).then((downscaledImageData)=>{
+          this.imagedata = downscaledImageData;
+          console.log('Downscaled really big image');
+        });
+      }
     },
 
     /**

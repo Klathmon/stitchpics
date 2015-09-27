@@ -169,6 +169,9 @@ var compileJs = function compileJs(name, folder){
     $.if(PROD, $.cached(name + '|uglify|' + folder)),
     //$.if(DEPLOY, $.closureCompilerService(CLOSURE_OPTIONS)),
     $.if(PROD, $.uglify(UGLIFY_OPTIONS)),
+    // Because of a bug in some minifier somewhere, i need to do this...
+    $.if(PROD, $.replace('\'"></script>', '\'"><\\/script>')),
+    $.if(PROD, $.replace('0);</script>"', '0);<\\/script>"')),
     $.if(PROD, $.remember(name + '|uglify|' + folder)),
     $.stripComments({safe: false, line: true}),
     $.if(!PROD, $.sourcemaps.write()),
@@ -212,6 +215,9 @@ gulp.task('vulcanize', ['copy', 'copyBowerComponents', 'compileAssets'], () => {
     .pipe($.if(PROD, $.vulcanize(VULCANIZE_OPTIONS)))
     .pipe($.cached('vulcanize'))
     .pipe($.if(PROD, $.minifyInline(MINIFY_INLINE_OPTIONS)))
+    // Because of a bug in some minifier somewhere, i need to do this...
+    .pipe($.if(PROD, $.replace('\'"></script>', '\'"><\\/script>')))
+    .pipe($.if(PROD, $.replace('0);</script>"', '0);<\\/script>"')))
     //.pipe($.if(PROD, $.minifyHtml(MINIFY_HTML_OPTIONS)))
     .pipe($.size())
     .pipe(gulp.dest(path.join('build', 'elements')));

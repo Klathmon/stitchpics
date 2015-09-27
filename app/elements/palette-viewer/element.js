@@ -31,7 +31,6 @@
 
       var realContainer = container.childNodes[1];
 
-      console.log(realContainer);
       realContainer.style.cssText = window.getComputedStyle(this.$.paletteTable, null).cssText;
 
       return realContainer;

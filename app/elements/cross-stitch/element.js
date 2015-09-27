@@ -36,6 +36,10 @@
         type: Array,
         notify: true
       },
+      numberOfCores: {
+        type: Number,
+        value: 4
+      },
       numberOfChunksDone: {
         type: Number,
         value: 0
@@ -54,7 +58,10 @@
 
       window.addEventListener('resize', _.debounce(this.propertyChanged.bind(this), 250));
 
-      this.workor = new Workor();
+
+      this.numberOfCores = navigator.hardwareConcurrency || 4;
+
+      this.workor = new Workor(this.numberOfCores);
     },
 
     propertyChanged(){
@@ -74,7 +81,6 @@
     },
 
     manipulateImage(imageData, palette){
-      let numberOfChunks = navigator.hardwareConcurrency || 4;
       let context = this.$.finalOutput.getContext('2d');
       let xPixels = this.gridwidth;
       let yPixels = Math.floor(imageData.height * (this.gridwidth / imageData.width));
@@ -83,7 +89,7 @@
 
       this._resizeOutputCanvas.bind(this)(imageData);
 
-      for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(imageData, numberOfChunks, pixelHeight)){
+      for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(imageData, this.numberOfCores, pixelHeight)){
         // Chunk off pieces and throw them right into the quantize process
         this._quantize(chunk, palette).then((imageData)=>{
           // And the second one is done pipe it back to pixelate
@@ -99,7 +105,7 @@
           // And when each chunk is finished write it right out
           context.putImageData(this._convertToRealImageData(finishedChunk), 0,  chunkStartY);
           console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
-          if(++this.numberOfChunksDone === numberOfChunks){
+          if(++this.numberOfChunksDone === this.numberOfCores){
             this.fire('crossStitchDone', this._readImageData(this.$.finalOutput));
           }
         });

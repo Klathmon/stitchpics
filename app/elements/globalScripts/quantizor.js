@@ -10,7 +10,7 @@ class Quantizor {
   constructor(imageData, useDmcColors = false){
     this._useDmcColors = useDmcColors;
     this._imageData = imageData;
-    this._dmcColorsObj = new DmcColors();
+    this._dmcColorsObj = new Colorizor();
   }
 
   /**

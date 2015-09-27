@@ -1,4 +1,4 @@
-class DmcColors {
+class Colorizor {
 
   /**
    * Creates the object
@@ -15,7 +15,7 @@ class DmcColors {
   getColorsAsRGB() {
     let rgbTuple = [];
     this._dmcColorMap.forEach((dmcColor, hexColor)=>{
-      rgbTuple.push(this._convertHexToRGB(hexColor));
+      rgbTuple.push(this.convertHexToRGB(hexColor));
     });
 
     return rgbTuple;
@@ -37,7 +37,7 @@ class DmcColors {
    *                      no "#" in front
    * @return {array}      [r,g,b] array of 0-255 each
    */
-  _convertHexToRGB(hex){
+  convertHexToRGB(hex){
     const bigint = parseInt(hex.toLowerCase(), 16);
     const r = (bigint >> 16) & 255;
     const g = (bigint >> 8) & 255;
@@ -53,7 +53,7 @@ class DmcColors {
    * @return {string}        a 6 character string of the hex value of the color
    *                         all lower case, no "#" in the front
    */
-  _convertRGBToHex([r, g, b]){
+  convertRGBToHex([r, g, b]){
     //This is black magic, just turn back now!
     return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
   }

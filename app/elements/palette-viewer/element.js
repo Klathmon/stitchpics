@@ -4,11 +4,11 @@
   Polymer({
   /*jshint +W064 */
     is: 'palette-viewer',
-    behaviors: [
-      window.dmcColorBehavior
-    ],
 
     properties: {
+      colorizor: {
+        type: Object
+      },
       palette: {
         type: Array,
         observer: '_showPalette'
@@ -19,6 +19,10 @@
       usedmccolors: {
         type: Boolean
       },
+    },
+
+    ready(){
+      this.colorizor = new Colorizor();
     },
 
     getColorKey(){
@@ -34,9 +38,9 @@
     },
 
     _showPalette(){
-      let dmcColorMap = this._getDmcColorMap();
+      let dmcColorMap = this.colorizor.getDmcColorMap();
       this.colors = this.palette.map(([r, g, b], index)=>{
-        let hex = this._convertRGBToHex([r, g, b]).toUpperCase();
+        let hex = this.colorizor.convertRGBToHex([r, g, b]).toUpperCase();
         let colorName =  window.ntc.name('#' + hex)[1];
         let dmcColor = (this.usedmccolor ? false : dmcColorMap.get(hex));
 

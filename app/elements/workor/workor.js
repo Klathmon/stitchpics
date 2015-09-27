@@ -2,7 +2,7 @@ class Workor {
 
   constructor(numberOfWorkers = 4){
     operative.setSelfURL(this._getPathToElements() + 'workor/workorCompiled.js');
-    this._workerPool = _.times(numberOfWorkers, ()=>this._genWorker());
+    this._workerPool = _.times(1, ()=>this._genWorker());
   }
 
   dispatchWorker(func, funcParams, transferrable = []){

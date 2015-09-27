@@ -2,7 +2,7 @@ class Workor {
 
   constructor(numberOfWorkers = 4){
     operative.setSelfURL(this._getPathToElements() + 'workor/workorCompiled.js');
-    this.workerPool = _.times(numberOfWorkers, ()=>this._genWorker());
+    this._workerPool = _.times(numberOfWorkers, ()=>this._genWorker());
   }
 
   dispatchWorker(func, funcParams, transferrable = []){
@@ -12,13 +12,13 @@ class Workor {
   }
 
   _dispatchWorkerWait(...params){
-    let worker = this.workerPool.pop();
+    let worker = this._workerPool.pop();
     if(typeof worker === 'undefined'){
       setTimeout(this._dispatchWorkerWait.bind(this), 1, ...params);
     }else{
       let [func, funcParams, transferrable, resolve, reject] = params;
       worker.transfer(func.toString(), funcParams, transferrable,(result)=>{
-        this.workerPool.unshift(worker);
+        this._workerPool.unshift(worker);
         resolve(result);
       });
     }

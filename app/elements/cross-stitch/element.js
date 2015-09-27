@@ -5,7 +5,7 @@
   /*jshint +W064 */
     is: 'cross-stitch',
     behaviors: [
-      window.miscBehavior
+      window.processingFunctions
     ],
 
     properties: {
@@ -28,9 +28,6 @@
       hidethegrid: {
         type: Boolean,
         observer: 'propertyChanged'
-      },
-      superPixelData: {
-        type: Object
       },
       palette: {
         type: Array,
@@ -58,9 +55,7 @@
 
       window.addEventListener('resize', _.debounce(this.propertyChanged.bind(this), 250));
 
-
       this.numberOfCores = navigator.hardwareConcurrency || 4;
-
       this.workor = new Workor(this.numberOfCores);
     },
 
@@ -81,13 +76,15 @@
     },
 
     manipulateImage(imageData, palette){
+      this.palette = palette;
       let context = this.$.finalOutput.getContext('2d');
       let xPixels = this.gridwidth;
       let yPixels = Math.floor(imageData.height * (this.gridwidth / imageData.width));
       let pixelWidth = Math.ceil(imageData.width / xPixels);
       let pixelHeight =  Math.ceil(imageData.height / yPixels);
 
-      this._resizeOutputCanvas.bind(this)(imageData);
+      this.$.finalOutput.width = imageData.width;
+      this.$.finalOutput.height = imageData.height;
 
       for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(imageData, this.numberOfCores, pixelHeight)){
         // Chunk off pieces and throw them right into the quantize process
@@ -103,10 +100,10 @@
           );
         }).then((finishedChunk)=>{
           // And when each chunk is finished write it right out
-          context.putImageData(this._convertToRealImageData(finishedChunk), 0,  chunkStartY);
+          context.putImageData(ImageDataHelpers.convertToRealImageData(finishedChunk), 0,  chunkStartY);
           console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
           if(++this.numberOfChunksDone === this.numberOfCores){
-            this.fire('crossStitchDone', this._readImageData(this.$.finalOutput));
+            this.fire('crossStitchDone', ImageDataHelpers.readImageData(this.$.finalOutput));
           }
         });
       }
@@ -123,42 +120,6 @@
 
     getImageAsURI(){
       return this.$.finalOutput.toDataURL('image/png');
-    },
-
-    _scaleImage(imageData, newWidth){
-      return new Promise((resolve, reject)=>{
-        let sizor = new Sizor();
-        sizor.scale(imageData, newWidth).then(resolve);
-      });
-    },
-
-    _buildPalette(imageData, numColors, useDmcColors){
-      return this.workor.dispatchWorker(function(imageData, numColors, useDmcColors){
-        // Inside the worker now, don't have any closed over variables...
-        let quantizor = new Quantizor(imageData, useDmcColors);
-        let palette = quantizor.buildPalette(numColors);
-
-        return [[imageData, palette], [imageData.data.buffer]];
-      }, [imageData, numColors, useDmcColors], [imageData.data.buffer]);
-    },
-
-    _quantize(imageData, palette, useDmcColors){
-      return this.workor.dispatchWorker(function(imageData, palette, useDmcColors){
-        // Inside the worker now, don't have any closed over variables...
-        let quantizor = new Quantizor(imageData, useDmcColors);
-        let newImageData = quantizor.quantize(palette);
-        return [newImageData, [newImageData.data.buffer]];
-
-      }, [imageData, palette, useDmcColors], [imageData.data.buffer]);
-    },
-
-    _pixelate(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
-      return this.workor.dispatchWorker(function(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
-        // Inside the worker now, don't have any closed over variables...
-        let pixelator = new Pixelator(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid);
-        let pixelatedImageData = pixelator.run();
-        return [pixelatedImageData, [pixelatedImageData.data.buffer]];
-      }, [imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
     },
 
     /**
@@ -178,7 +139,7 @@
 
       let canvas = document.createElement('canvas');
       let context = canvas.getContext('2d');
-      this._writeImageData(canvas, imageData);
+      ImageDataHelpers.writeImageData(canvas, imageData);
 
       for (let chunkNumber = 0; chunkNumber < numberOfParts; chunkNumber++){
         let startY = chunkNumber * chunkHeight;
@@ -197,36 +158,9 @@
     },
 
 
-    _processImage({imageData, palette}){
-
-      ::this._setupSuperPixelData(imageData, palette); // jshint ignore:line
-      ::this._resizeOutputCanvas(imageData); // jshint ignore:line
-
-      let context = this.$.finalOutput.getContext('2d');
-      let splitHash = {
-        imageData,
-        numberOfParts: this.workers.length,
-        pixelHeight: this.superPixelData.pixelHeight
-      };
-
-      for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(splitHash)){
-        this._dispatchQuantize.bind(this)(chunk)
-          .then(this._dispatchPixelate.bind(this))
-          .then(({imageData})=> {
-            context.putImageData(this._convertToRealImageData(imageData), 0,  chunkStartY);
-            console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
-            if(++this.numberOfChunksDone === this.workers.length){
-              this.fire('crossStitchDone', this._readImageData(this.$.finalOutput));
-            }
-          })
-          .catch(this._catchErrors);
-      }
-    },
-
-    _resizeOutputCanvas(imageData){
-      this.$.finalOutput.width = imageData.width;
-      this.$.finalOutput.height = imageData.height;
-    },
+    _catchErrors(error) {
+      console.error(error.stack);
+    }
 
   });
 })();

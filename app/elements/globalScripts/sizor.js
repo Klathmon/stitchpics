@@ -18,7 +18,7 @@ class Sizor {
       canvas.height = imageData.height * scale;
 
       var newCanvas = document.createElement('canvas');
-      this._writeImageData(newCanvas, imageData);
+      ImageDataHelpers.writeImageData(newCanvas, imageData);
 
       // Scale 'er
       context.scale(scale, scale);
@@ -69,25 +69,6 @@ class Sizor {
       resolve(newImageData);
     });
   }
-
-  _writeImageData(canvas, imageData) {
-    canvas.height = imageData.height;
-    canvas.width = imageData.width;
-    var context = canvas.getContext('2d');
-    context.putImageData(this._convertToRealImageData(imageData), 0, 0);
-    return context;
-  }
-
-  _convertToRealImageData(pImageData) {
-    let realImageData = document.createElement('canvas')
-      .getContext('2d')
-      .createImageData(pImageData.width, pImageData.height);
-
-    realImageData.data.set(pImageData.data);
-    return realImageData;
-  }
-
-
 
   _getW(center, coord, halfRatio){
     return Math.pow(Math.abs(center - (coord + 0.5)) / halfRatio, 2);

@@ -1,7 +1,7 @@
 class Workor {
 
   constructor(numberOfWorkers = 4){
-    operative.setSelfURL('elements/workor/workorCompiled.js');
+    operative.setSelfURL(this._getPathToElements() + 'workor/workorCompiled.js');
     this.workerPool = _.times(numberOfWorkers, ()=>this._genWorker());
   }
 
@@ -29,7 +29,11 @@ class Workor {
       eval('var workerContextFunc = ' + funcString); // jshint ignore:line
       let [retval, transferrable] = workerContextFunc(...arrayOfParams);
       callback.transfer(retval, transferrable || []);
-    }, ['elements/globalScripts/globalScripts.js']);
+    }, [this._getPathToElements() + 'globalScripts/globalScripts.js']);
+  }
+
+  _getPathToElements(){
+    return window.location.origin + '/elements/';
   }
 
 }

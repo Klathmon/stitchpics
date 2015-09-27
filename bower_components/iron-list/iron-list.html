@@ -98,6 +98,10 @@ after the list became visible again. e.g.
       overflow: auto;
     }
 
+    :host(:not(.has-scroller)) {
+      position: relative;
+    }
+
     #items {
       position: relative;
     }
@@ -232,12 +236,13 @@ after the list became visible again. e.g.
 
     /**
      * The ratio of hidden tiles that should remain in the scroll direction.
-     * Recommended value ≈ 0.5, so it will distribute tiles evely in both directions.
+     * Recommended value ~0.5, so it will distribute tiles evely in both directions.
      */
     _ratio: 0.5,
 
     /**
      * The element that controls the scroll
+     * @type {?Element}
      */
     _scroller: null,
 
@@ -303,9 +308,14 @@ after the list became visible again. e.g.
     _physicalIndexForKey: null,
 
     /**
-     * The average scroll size
+     * The estimated scroll height based on `_physicalAverage`
      */
-    _scrollSize: 0,
+    _estScrollHeight: 0,
+
+    /**
+     * The scroll height of the dom node
+     */
+    _scrollHeight: 0,
 
     /**
      * The size of the viewport
@@ -314,22 +324,26 @@ after the list became visible again. e.g.
 
     /**
      * An array of DOM nodes that are currently in the tree
+     * @type {?Array<!TemplatizerNode>}
      */
     _physicalItems: null,
 
     /**
      * An array of heights for each item in `_physicalItems`
+     * @type {?Array<number>}
      */
     _physicalSizes: null,
 
     /**
      * A cached value for the visible index.
      * See `firstVisibleIndex`
+     * @type {?number}
      */
     _firstVisibleIndexVal: null,
 
     /**
      * A Polymer collection for the items.
+     * @type {?Polymer.Collection}
      */
     _collection: null,
 
@@ -377,7 +391,7 @@ after the list became visible again. e.g.
      * The maximum scroll top value.
      */
     get _maxScrollTop() {
-      return this._scrollSize - this._viewportSize;
+      return this._estScrollHeight - this._viewportSize;
     },
 
     /**
@@ -457,8 +471,9 @@ after the list became visible again. e.g.
       // e.g. paper-scroll-header-panel
       var el = Polymer.dom(this);
 
-      if (el.parentNode && el.parentNode.scroller) {
-        this._scroller = el.parentNode.scroller;
+      var parentNode = /** @type {?{scroller: ?Element}} */ (el.parentNode);
+      if (parentNode && parentNode.scroller) {
+        this._scroller = parentNode.scroller;
       } else {
         this._scroller = this;
         this.classList.add('has-scroller');
@@ -492,7 +507,7 @@ after the list became visible again. e.g.
      */
     updateViewportBoundaries: function() {
       var scrollerStyle = window.getComputedStyle(this._scroller);
-      this._scrollerPaddingTop = parseInt(scrollerStyle['padding-top']);
+      this._scrollerPaddingTop = parseInt(scrollerStyle['padding-top'], 10);
       this._viewportSize = this._scroller.offsetHeight;
     },
 
@@ -604,6 +619,8 @@ after the list became visible again. e.g.
 
     /**
      * Update the list of items, starting from the `_virtualStartVal` item.
+     * @param {!Array<number>=} itemSet
+     * @param {!Array<number>=} movingUp
      */
     _update: function(itemSet, movingUp) {
       // update models
@@ -627,9 +644,9 @@ after the list became visible again. e.g.
       this._updateScrollerSize();
 
       // increase the pool of physical items if needed
-      if (itemSet = this._increasePoolIfNeeded()) {
+      if (this._increasePoolIfNeeded()) {
         // set models to the new items
-        this.async(this._update.bind(this, itemSet));
+        this.async(this._update);
       }
     },
 
@@ -659,11 +676,11 @@ after the list became visible again. e.g.
      * (limited by `MAX_PHYSICAL_COUNT`) if the content size is shorter than
      * `_optPhysicalSize`
      *
-     * @return Array
+     * @return boolean
      */
     _increasePoolIfNeeded: function() {
       if (this._physicalSize >= this._optPhysicalSize || this._physicalAverage === 0) {
-        return null;
+        return false;
       }
 
       // the estimated number of physical items that we will need to reach
@@ -683,7 +700,7 @@ after the list became visible again. e.g.
       var delta = nextPhysicalCount - prevPhysicalCount;
 
       if (delta <= 0) {
-        return null;
+        return false;
       }
 
       var newPhysicalItems = this._createPool(delta);
@@ -693,13 +710,8 @@ after the list became visible again. e.g.
       [].push.apply(this._physicalSizes, emptyArray);
 
       this._physicalCount = prevPhysicalCount + delta;
-
-      // fill the array with the new item pos
-      while (delta > 0) {
-        emptyArray[--delta] = prevPhysicalCount + delta;
-      }
-
-      return emptyArray;
+ 
+      return true;
     },
 
     /**
@@ -806,6 +818,10 @@ after the list became visible again. e.g.
       }
     },
 
+    /**
+     * Called when the items have changed. That is, ressignments
+     * to `items`, splices or updates to a single item.
+     */
     _itemsChanged: function(change) {
       if (change.path === 'items') {
         // render the new set
@@ -845,6 +861,9 @@ after the list became visible again. e.g.
       }
     },
 
+    /**
+     * @param {!Array<!PolymerSplice>} splices
+     */
     _adjustVirtualIndex: function(splices) {
       var i, splice, idx;
 
@@ -869,6 +888,13 @@ after the list became visible again. e.g.
       this._refresh();
     },
 
+    /**
+     * Executes a provided function per every physical index in `itemSet`
+     * `itemSet` default value is equivalent to the entire set of physical indexes.
+     * 
+     * @param {!function(number, number)} fn
+     * @param {!Array<number>=} itemSet
+     */
     _iterateItems: function(fn, itemSet) {
       var pidx, vidx, rtn, i;
 
@@ -904,6 +930,10 @@ after the list became visible again. e.g.
       }
     },
 
+    /**
+     * Assigns the data models to a given set of items.
+     * @param {!Array<number>=} itemSet
+     */
     _assignModels: function(itemSet) {
       this._iterateItems(function(pidx, vidx) {
         var el = this._physicalItems[pidx];
@@ -913,7 +943,8 @@ after the list became visible again. e.g.
         if (item) {
           inst[this.as] = item;
           inst.__key__ = this._collection.getKey(item);
-          inst[this.selectedAs] = this.$.selector.isSelected(item);
+          inst[this.selectedAs] =
+            /** @type {!ArraySelectorElement} */ (this.$.selector).isSelected(item);
           inst[this.indexAs] = vidx;
           el.removeAttribute('hidden');
           this._physicalIndexForKey[inst.__key__] = pidx;
@@ -925,6 +956,9 @@ after the list became visible again. e.g.
       }, itemSet);
     },
 
+    /**
+     * Updates the height for a given set of items.
+     */
     _updateMetrics: function() {
       var total = 0;
       var prevAvgCount = this._physicalAverageCount;
@@ -950,7 +984,10 @@ after the list became visible again. e.g.
       }
     },
 
-    _positionItems: function(itemSet) {
+    /**
+     * Updates the position of the physical items.
+     */
+    _positionItems: function() {
       this._adjustScrollPosition();
 
       var y = this._physicalTop;
@@ -960,9 +997,12 @@ after the list became visible again. e.g.
         this.transform('translate3d(0, ' + y + 'px, 0)', this._physicalItems[pidx]);
         y += this._physicalSizes[pidx];
 
-      }, itemSet);
+      });
     },
 
+    /**
+     * Adjusts the scroll position when it was overestimated.
+     */
     _adjustScrollPosition: function() {
       var deltaHeight = this._virtualStartVal === 0 ? this._physicalTop :
           Math.min(this._scrollPosition + this._physicalTop, 0);
@@ -977,6 +1017,9 @@ after the list became visible again. e.g.
       }
     },
 
+    /**
+     * Sets the position of the scroll.
+     */
     _resetScrollPosition: function(pos) {
       if (this._scroller) {
         this._scroller.scrollTop = pos;
@@ -984,11 +1027,21 @@ after the list became visible again. e.g.
       }
     },
 
-    _updateScrollerSize: function() {
-      this._scrollSize = (this._physicalBottom +
+    /**
+     * Sets the scroll height, that's the height of the content,
+     */
+    _updateScrollerSize: function(forceUpdate) {
+      this._estScrollHeight = (this._physicalBottom +
           Math.max(this._virtualCount - this._physicalCount - this._virtualStartVal, 0) * this._physicalAverage);
 
-      this.$.items.style.height = this._scrollSize + 'px';
+      forceUpdate = forceUpdate || this._scrollHeight === 0;
+      forceUpdate = forceUpdate || this._scrollPosition >= this._estScrollHeight - this._physicalSize;
+
+      // amortize height adjustment, so it won't trigger repaints very often
+      if (forceUpdate || Math.abs(this._estScrollHeight - this._scrollHeight) >= this._optPhysicalSize) {
+        this.$.items.style.height = this._estScrollHeight + 'px';
+        this._scrollHeight = this._estScrollHeight;
+      }
     },
 
     /**
@@ -1003,7 +1056,6 @@ after the list became visible again. e.g.
         return;
       }
 
-      var itemSet;
       var firstVisible = this.firstVisibleIndex;
 
       idx = Math.min(Math.max(idx, 0), this._virtualCount-1);
@@ -1034,7 +1086,7 @@ after the list became visible again. e.g.
       }
 
       // update the scroller size
-      this._updateScrollerSize();
+      this._updateScrollerSize(true);
 
       // update the position of the items
       this._positionItems();
@@ -1043,9 +1095,9 @@ after the list became visible again. e.g.
       this._resetScrollPosition(this._physicalTop + targetOffsetTop + 1);
 
       // increase the pool of physical items if needed
-      if (itemSet = this._increasePoolIfNeeded()) {
+      if (this._increasePoolIfNeeded()) {
         // set models to the new items
-        this.async(this._update.bind(this, itemSet));
+        this.async(this._update);
       }
 
       // clear cached visible index
@@ -1148,8 +1200,8 @@ after the list became visible again. e.g.
      * @param {(Object|number)} item the item object or its index
      */
     toggleSelectionForItem: function(item) {
-      var item = typeof item === 'number' ? this.items[item] : item;
-      if (this.$.selector.isSelected(item)) {
+      item = typeof item === 'number' ? this.items[item] : item;
+      if (/** @type {!ArraySelectorElement} */ (this.$.selector).isSelected(item)) {
         this.deselectItem(item);
       } else {
         this.selectItem(item);
@@ -1174,8 +1226,8 @@ after the list became visible again. e.g.
       } else if (this.selectedItem) {
         unselect.call(this, this.selectedItem);
       }
-     
-      this.$.selector.clearSelection();    
+
+      /** @type {!ArraySelectorElement} */ (this.$.selector).clearSelection();
     },
 
     /**
@@ -1185,8 +1237,10 @@ after the list became visible again. e.g.
     _selectionEnabledChanged: function(selectionEnabled) {
       if (selectionEnabled) {
         this.listen(this, 'tap', '_selectionHandler');
+        this.listen(this, 'keypress', '_selectionHandler');
       } else {
         this.unlisten(this, 'tap', '_selectionHandler');
+        this.unlisten(this, 'keypress', '_selectionHandler');
       }
     },
 
@@ -1194,9 +1248,12 @@ after the list became visible again. e.g.
      * Select an item from an event object.
      */
     _selectionHandler: function(e) {
-      var model = this.modelForElement(e.target);
-      if (model) {
-        this.toggleSelectionForItem(model[this.as]);
+      var ENTER_KEY = 13, model;
+      if (e.type !== 'keypress' || e.keyCode === ENTER_KEY) {
+        model = this.modelForElement(e.target);
+        if (model) {
+          this.toggleSelectionForItem(model[this.as]);
+        }
       }
     },
 

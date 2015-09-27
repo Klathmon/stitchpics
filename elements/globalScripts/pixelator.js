@@ -40,7 +40,7 @@ class Pixelator {
   run(){
     for(let spx = 0; spx < this._numSpx; spx++){
       for(let spy = 0; spy < this._numSpy; spy++){
-        let color = this._getSuperPixelColor(spx | 0, spy | 0);
+        let color = this._getSuperPixelColor(spx, spy);
         this._setSuperPixelColor(spx, spy, color);
       }
     }
@@ -52,14 +52,13 @@ class Pixelator {
   /**
    * Gets the super pixels' "overall" color.
    * Currently this works by just taking the mode of the entire super-pixel and returning that
-   * TODO: this is tripping a deopt "Optimized too many times". Look into why and fix it!
    *
    * @param  {int} spx    Super Pixel X Pos
    * @param  {int} spy    Super Pixel Y Pos
    * @return {Array}      [red, green, blue, alpha] pixel color
    */
   _getSuperPixelColor(spx, spy){
-    let map = new Map();
+    let map = {};
     let mode = null;
     let largestCount = 1;
 
@@ -72,18 +71,18 @@ class Pixelator {
           let pixelModeNumber = 1;
 
           // Get the actual pixel value
-          let pixel = this._uInt32Array[((yPos * this._imageWidth) + xPos) | 0];
+          let pixel = this._uInt32Array[(yPos * this._imageWidth) + xPos];
 
           // If this is the first pixel, then it's the mode to start with!
           if(pixelX === 0 && pixelY === 0){
             mode = pixel;
           }
 
-          if(map.has(pixel)){
-            pixelModeNumber = map.get(pixel) + 1;
+          if(pixel in map){
+            pixelModeNumber = map[pixel] + 1;
           }
 
-          map.set(pixel, pixelModeNumber);
+          map[pixel] = pixelModeNumber;
 
           if(pixelModeNumber > largestCount){
             mode = pixel;
@@ -98,6 +97,23 @@ class Pixelator {
     }else{
       return this._bitPacker.unpackPixel(mode);
     }
+  }
+
+
+  /**
+   * Gets the super pixels' "overall" color.
+   * This is a "fast" version which just uses the center of each "super pixel" as the main color
+   *
+   * @param  {int} spx    Super Pixel X Pos
+   * @param  {int} spy    Super Pixel Y Pos
+   * @return {Array}      [red, green, blue, alpha] pixel color
+   */
+  _fastGetSuperPixelColor(spx, spy){
+    let [xPos, yPos] = this._getPixelPos(spx, spy, (this._spWidth / 2) | 0, (this._spHeight / 2) | 0);
+
+    let pixel = this._uInt32Array[(yPos * this._imageWidth) + xPos];
+
+    return this._bitPacker.unpackPixel(pixel);
   }
 
   /**

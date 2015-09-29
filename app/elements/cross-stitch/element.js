@@ -29,6 +29,10 @@
         type: Boolean,
         observer: 'propertyChanged'
       },
+      highqualitymode: {
+        type: Boolean,
+        observer: 'propertyChanged'
+      },
       palette: {
         type: Array,
         notify: true
@@ -70,7 +74,7 @@
       this.resizeAbsurdImageData.bind(this)();
       this.scaleImage(this.imagedata, Polymer.dom(this).node.offsetWidth)
         .then((scaledImageData)=>{
-          return this.buildPalette(scaledImageData, this.numcolors, this.usedmccolors);
+          return this.buildPalette(scaledImageData, this.numcolors, this.usedmccolors, this.highqualitymode);
         }).then(([imageData, palette])=>{
           this.manipulateImage.bind(this)(imageData, palette);
         });
@@ -89,7 +93,7 @@
 
       for(let {chunk, chunkStartY} of this.splitGenerator.bind(this)(imageData, this.numberOfCores, pixelHeight)){
         // Chunk off pieces and throw them right into the quantize process
-        this.quantize(chunk, palette).then((imageData)=>{
+        this.quantize(chunk, palette, this.usedmccolors, this.highqualitymode).then((imageData)=>{
           // And the second one is done pipe it back to pixelate
           return this.pixelate(
             imageData,

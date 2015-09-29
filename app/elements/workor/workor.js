@@ -2,6 +2,12 @@ class Workor {
 
   constructor(numberOfWorkers = 4){
     operative.setSelfURL(this._getPathToElements() + 'workor/workorCompiled.js');
+    this._workerPool = [];
+    _.times(numberOfWorkers, (num)=>{
+      setTimeout(()=>{
+        this._workerPool.push(this._genWorker());
+      }, 100);
+    });
     this._workerPool = _.times(numberOfWorkers, ()=>this._genWorker());
   }
 

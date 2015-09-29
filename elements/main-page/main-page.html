@@ -41,6 +41,7 @@
             <div class="bottomRow">
               <paper-checkbox checked="{{useDmcColors}}">Only use DMC colors</paper-checkbox>
               <paper-checkbox checked="{{hideTheGrid}}">Hide the grid</paper-checkbox>
+            <paper-checkbox checked="{{highQualityMode}}">High quality mode (Beta)</paper-checkbox>
               <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
             </div>
           </my-paper-material>
@@ -49,7 +50,7 @@
         <div id="crossStitchBox">
           <h3>Cross Stitch</h3>
           <my-paper-material elevation="1" class="indent">
-            <cross-stitch id="crossStitchElement" gridwidth="{{gridWidth}}" numcolors="{{numColors}}" imagedata="{{imageData}}" usedmccolors="{{useDmcColors}}" hidethegrid="{{hideTheGrid}}" palette="{{palette}}">
+            <cross-stitch id="crossStitchElement" gridwidth="{{gridWidth}}" numcolors="{{numColors}}" imagedata="{{imageData}}" usedmccolors="{{useDmcColors}}" hidethegrid="{{hideTheGrid}}" highqualitymode="{{highQualityMode}}" palette="{{palette}}">
             </cross-stitch>
           </my-paper-material>
           <h3>Color Key</h3>

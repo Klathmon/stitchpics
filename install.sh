@@ -4,6 +4,7 @@ npm update -g
 
 rimraf bower_components node_modules build
 
+npm install gulp
 npm install
 bower install
 

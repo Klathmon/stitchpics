@@ -42,11 +42,18 @@
         type: Number,
         observer: 'unpackOptions'
       },
+      urlHelper: {
+        type: Object,
+      },
+    },
+
+    ready(){
+      this.urlHelper = new UrlHelper();
     },
 
     loadImage(){
       if(typeof this.imageHash !== 'undefined' && this.imageHash.length > 3){
-        this._getImageDataFromHash(this.imageHash, (imageData)=>{
+        this.urlHelper.getImageDataFromHash(this.imageHash).then((imageData)=>{
           this.imageData = imageData;
         });
       }
@@ -59,23 +66,10 @@
      * at the front even if more are added later)
      */
     unpackOptions(){
-      let options = (this.packedOptions >>> 0).toString(2).split('').map((value)=>!!(value*1)).reverse(); // jshint ignore:line
-      setTimeout(()=>this.packOptions(), 500);
+      let options = this.urlHelper.unpackOptions(this.packedOptions);
 
-      this.useDmcColors = options[0];
-      this.hideTheGrid = options[1];
-    },
-
-    /**
-     * this is the sister function to unpackOptions, it will re-pack the options into an int
-     */
-    packOptions(){
-      let options = [
-        this.useDmcColors,
-        this.hideTheGrid
-      ];
-
-      return parseInt(options.map((value)=>value*1).reverse().join(''),2);
+      this.useDmcColors = options.useDmcColors;
+      this.hideTheGrid = options.hideTheGrid;
     },
 
     calcGridWidth(clothCount, size){
@@ -107,6 +101,10 @@
       newTab.document.write(container.outerHTML);
     },
 
+    shareImage(){
+      this.$.imgurUpload.openShareDialog();
+    },
+
     printImage(){
       var image = this.getImageAsDataURI(this.$.crossStitchElement);
       image.style.height = 'auto';
@@ -129,7 +127,7 @@
       container.innerHTML = image.outerHTML + palette.outerHTML;
       var newTab = window.open('');
       newTab.document.write(container.outerHTML);
-      newTab.focus(); // Required for IE (if I ever support it...)
+      newTab.focus(); // Required for IE (just in case I ever support it...)
       newTab.print();
     },
 

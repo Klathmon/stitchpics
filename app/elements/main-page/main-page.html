@@ -62,6 +62,7 @@
               highQualityMode="{{highQualityMode}}"
               palette="{{palette}}">
             </cross-stitch>
+            <imgur-upload id="imgurUpload" imagedata="{{imageData}}"></imgur-upload>
           </my-paper-material>
           <h3>Color Key</h3>
           <my-paper-material elevation="1" class="indent">
@@ -80,7 +81,7 @@
               <paper-button id="saveButton" raised on-tap="saveImage">Save As Image</paper-button>
               <paper-button id="newTabButton" raised on-tap="openNewTab" >Open In New Tab</paper-button>
               <paper-button id="printButton" raised on-tap="printImage">Print</paper-button>
-              <!--<imgur-upload imagedata="{{imageData}}"></imgur-upload>-->
+              <paper-button id="shareButton" raised on-tap="shareImage">Share</paper-button>
             </div>
           </my-paper-material>
 

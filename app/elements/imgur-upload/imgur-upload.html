@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 
@@ -12,19 +13,24 @@
   <link rel="stylesheet" href="element.sass">
   <!-- endbuild -->
   <template>
-    <paper-button raised on-tap="uploadImage">Get Link</paper-button>
-
     <paper-dialog
       id="saveDialog"
-      modal
+      with-backdrop
       entry-animation="scale-up-animation"
       exit-animation="fade-out-animation">
-      <h2>Save Link</h2>
+      <h2>Share</h2>
       <div>
-        <paper-input id="shareInput" label="Use this link to share your pattern"></paper-input>
-      </div>
-      <div class="buttons">
-          <paper-button dialog-confirm raised>Done</paper-button>
+        <template is="dom-if" if="{{loading}}">
+          <div class="loadingMain">
+            <paper-spinner id="spinner" active></paper-spinner>
+          </div>
+        </template>
+        <template is="dom-if" if="{{!loading}}">
+          <div class="loadedMain">
+            <p>Please note, this link will share your exact pattern as it is!</p>
+            <paper-input id="shareInput" label="Use this link to share your pattern" value="{{url}}"></paper-input>
+          </div>
+        </template>
       </div>
     </paper-dialog>
   </template>

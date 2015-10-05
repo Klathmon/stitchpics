@@ -15,15 +15,15 @@
         type: Array,
         value: [
           {
-            'route': 'home',
+            'route': 'app',
             'icon': 'home',
-            'href': '/',
+            'href': '/#!/app',
             'text': 'Home'
           },
           {
             'route': 'faq',
             'icon': 'info',
-            'href': '/faq',
+            'href': '/#!/faq',
             'text': 'FAQ'
           },
         ]

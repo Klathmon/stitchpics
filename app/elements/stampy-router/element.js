@@ -32,6 +32,11 @@
         hashbang: true, // add #! before urls
         decodeURLComponents: true
       });
+
+      document.addEventListener('routeChanged', (event)=>{
+        let path = '/' + event.detail.route;
+        page(path);
+      });
     },
 
   });

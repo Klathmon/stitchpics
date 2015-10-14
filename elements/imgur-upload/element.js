@@ -24,27 +24,6 @@
         type: Object,
       },
 
-      socialButtons: {
-        type: Array,
-        value: [
-          {
-            'class': 'facebook button',
-            'href': 'https://www.facebook.com/sharer/sharer.php?u=',
-            'text': 'Facebook'
-          },
-          {
-            'class': 'google button',
-            'href': 'https://plus.google.com/share?url=',
-            'text': 'Google +'
-          },
-          {
-            'class': 'twitter button',
-            'href': 'https://twitter.com/intent/tweet?url=',
-            'text': 'Twitter'
-          },
-        ]
-      },
-
       clothCount: {
         type: Number
       },

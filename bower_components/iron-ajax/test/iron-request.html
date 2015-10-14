@@ -109,6 +109,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           });
         });
 
+        test('default responseType of text is not applied, when async is false', function () {
+          var options = Object.create(successfulRequestOptions);
+          options.async = false;
+
+          request.send(options);
+          server.respond();
+
+          return request.completes.then(function() {
+            expect(request.xhr.responseType).to.be.empty;
+          });
+        });
+
         test('responseType can be configured via handleAs option', function () {
           var options = Object.create(successfulRequestOptions);
           options.handleAs = 'json';
@@ -118,6 +130,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           return request.completes.then(function() {
             expect(request.response).to.be.an('object');
+          });
+        });
+
+        test('responseType cannot be configured via handleAs option, when async is false', function () {
+          var options = Object.create(successfulRequestOptions);
+          options.handleAs = 'json';
+          options.async = false;
+
+          request.send(options);
+          server.respond();
+
+          return request.completes.then(function() {
+            expect(request.response).to.be.a('string');
           });
         });
 

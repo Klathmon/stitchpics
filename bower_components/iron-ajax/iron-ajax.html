@@ -191,6 +191,14 @@ element.
       },
 
       /**
+       * Set the timeout flag on the request.
+       */
+      timeout: {
+        type: Number,
+        value: 0
+      },
+
+      /**
        * If true, automatically performs an Ajax request when either `url` or
        * `params` changes.
        */
@@ -282,7 +290,7 @@ element.
 
     observers: [
       '_requestOptionsChanged(url, method, params.*, headers,' +
-        'contentType, body, sync, handleAs, withCredentials, auto)'
+        'contentType, body, sync, handleAs, withCredentials, timeout, auto)'
     ],
 
     /**
@@ -300,11 +308,15 @@ element.
         value = this.params[param];
         param = window.encodeURIComponent(param);
 
-        if (value !== null) {
-          param += '=' + window.encodeURIComponent(value);
+        if (Array.isArray(value)) {
+          for (var i = 0; i < value.length; i++) {
+            queryParts.push(param + '=' + window.encodeURIComponent(value[i]));
+          }
+        } else if (value !== null) {
+          queryParts.push(param + '=' + window.encodeURIComponent(value));
+        } else {
+          queryParts.push(param);
         }
-
-        queryParts.push(param);
       }
 
       return queryParts.join('&');
@@ -320,7 +332,8 @@ element.
       var queryString = this.queryString;
 
       if (queryString) {
-        return this.url + '?' + queryString;
+        var bindingChar = this.url.indexOf('?') >= 0 ? '&' : '?';
+        return this.url + bindingChar + queryString;
       }
 
       return this.url;
@@ -374,7 +387,8 @@ element.
         body: this.body,
         async: !this.sync,
         handleAs: this.handleAs,
-        withCredentials: this.withCredentials
+        withCredentials: this.withCredentials,
+        timeout: this.timeout
       };
     },
 

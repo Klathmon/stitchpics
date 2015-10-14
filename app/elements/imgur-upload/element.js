@@ -24,8 +24,26 @@
         type: Object,
       },
 
-      imagedata: {
+      clothCount: {
+        type: Number
+      },
+      size: {
+        type: Number
+      },
+      numColors: {
+        type: Number
+      },
+      imageData: {
         type: Array
+      },
+      useDmcColors: {
+        type: Boolean
+      },
+      hideTheGrid: {
+        type: Boolean
+      },
+      highQualityMode: {
+        type: Boolean
       },
     },
 
@@ -50,14 +68,18 @@
           "Content-type": 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
-          image: this._getBase64FromImageData(this.imagedata).replace(/.*,/, ''),
+          image: this._getBase64FromImageData(this.imageData).replace(/.*,/, ''),
           type: 'base64'
         })
       }).then((r)=> r.json())
       .then((data)=>{
-        console.log(data);
         this.loading = false;
-        this.url = this.urlHelper.buildUrl(data.data.id);
+        let packedOptions = this.urlHelper.packOptions({
+          hideTheGrid: this.hideTheGrid,
+          useDmcColors: this.useDmcColors,
+          highQualityMode: this.highQualityMode
+        });
+        this.url = this.urlHelper.buildUrl(data.data.id, this.clothCount, this.size, this.numColors, packedOptions);
       }).catch((err)=>{
         console.log(err);
       });

@@ -62,7 +62,16 @@
               highQualityMode="{{highQualityMode}}"
               palette="{{palette}}">
             </cross-stitch>
-            <imgur-upload id="imgurUpload" imagedata="{{imageData}}"></imgur-upload>
+            <imgur-upload
+              id="imgurUpload"
+              cloth-count="{{clothCount}}"
+              size="{{size}}"
+              num-colors="{{numColors}}"
+              image-data="{{imageData}}"
+              use-dmc-colors="{{useDmcColors}}"
+              hide-the-grid="{{hideTheGrid}}"
+              high-quality-mode="{{highQualityMode}}">
+            </imgur-upload>
           </my-paper-material>
           <h3>Color Key</h3>
           <my-paper-material elevation="1" class="indent">

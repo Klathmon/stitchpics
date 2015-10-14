@@ -47,8 +47,8 @@ class UrlHelper {
 
   }
 
-  // /app/:imageHash?/:clothCount?/:size?/:colors?/:packedOptions?
+  // #!/app/:imageHash?/:clothCount?/:size?/:colors?/:packedOptions?
   buildUrl(imageHash, clothCount = 14, size = 6, colors = 12, packedOptions = 0){
-    return `${window.location.origin}/app/${imageHash}/${clothCount}/${size}/${colors}/${packedOptions}`;
+    return `${window.location.origin}#!/app/${imageHash}/${clothCount}/${size}/${colors}/${packedOptions}`;
   }
 }

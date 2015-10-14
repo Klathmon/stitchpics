@@ -52,6 +52,8 @@
     },
 
     ready(){
+      console.log(this.size);
+      console.log(this.numColors);
       this.urlHelper = new UrlHelper();
       this.addEventListener('crossStitchDone', ()=>{
         this.$.saveButton.disabled = false;

@@ -275,8 +275,13 @@ gulp.task('clean', del.bind(null, ['build']));
 gulp.task('uninstall', ['clean'], del.bind(null, ['node_modules', 'bower_components']));
 gulp.task('build', ['compileAssets']);
 gulp.task('build:dist', ['production','build','copyBowerComponents','vulcanize','minifyIndex']);
-gulp.task('deploy', ['deploy_flag', 'build:dist'], ()=> gulp.src(path.join('build', '**', '*')).pipe($.ghPages()));
+gulp.task('deploy', ['deploy_flag', 'build:dist'], (cb)=>{
+  $.ghPages.publish(path.join(process.cwd(), 'build'), {clone: '.publish'}, cb);
+});
 
+gulp.task('devdeploy', (cb)=>{
+  $.ghPages.publish(path.join(process.cwd(), 'build'), {clone: '.publish'}, cb);
+});
 
 // Below this are just helper functions...
 

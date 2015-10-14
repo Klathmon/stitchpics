@@ -29,6 +29,11 @@
           <div class="loadedMain">
             <p>Please note, this link will share your exact pattern as it is!</p>
             <paper-input id="shareInput" label="Use this link to share your pattern" value="{{url}}"></paper-input>
+            <div class="socialButtons">
+              <paper-button id="facebook" class="button" on-tap="loadHref" raised data-href="https://www.facebook.com/sharer/sharer.php?u=">Facebook</paper-button>
+              <paper-button id="google" class="button" on-tap="loadHref" raised data-href="https://plus.google.com/share?url=">Google +</paper-button>
+              <paper-button id="twitter" class="button" on-tap="loadHref" raised data-href="https://twitter.com/intent/tweet?url=">Twitter</paper-button>
+            </div>
           </div>
         </template>
       </div>

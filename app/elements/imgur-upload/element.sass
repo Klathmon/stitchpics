@@ -6,16 +6,51 @@
   height: 0px
   width: 0px
 
+#saveDialog
+  overflow: hidden
+  position: relative
+  min-height: 300px
+  min-width: 300px
+  padding: 1px
+
 .loadingMain
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 10
   display: flex
   flex-direction: row
+  align-items: center
   justify-content: center
-
-.loadedMain
-  margin: 5px
 
 #spinner
   --paper-spinner-layer-1-color: $primary-color
   --paper-spinner-layer-2-color: $primary-color
   --paper-spinner-layer-3-color: $primary-color
   --paper-spinner-layer-4-color: $primary-color
+
+.socialButtons
+  .button
+    display: block
+    width: 100%
+    margin: 7px auto
+
+  #facebook
+    color: #4B65BE
+    &[raised]
+      background: #4B65BE
+      color: white
+
+  #google
+    color: #DC4335
+    &[raised]
+      background: #DC4335
+      color: white
+
+  #twitter
+    color: #24A9F2
+    &[raised]
+      background: #24A9F2
+      color: white

@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../globalScripts/globalScripts.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../workor/workor.html">
 
 <dom-module id="cross-stitch">
@@ -8,6 +9,9 @@
   <link rel="stylesheet" href="element.sass">
   <!-- endbuild -->
   <template>
+    <div id="spinnerContainer">
+      <paper-spinner id="spinner"></paper-spinner>
+    </div>
     <canvas id="finalOutput"></canvas>
   </template>
 </dom-module>

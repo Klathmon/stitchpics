@@ -27,26 +27,6 @@
             'text': 'FAQ'
           },
         ]
-      },
-      socialButtons: {
-        type: Array,
-        value: [
-          {
-            'class': 'facebook button',
-            'href': 'https://www.facebook.com/sharer/sharer.php?u=',
-            'text': 'Facebook'
-          },
-          {
-            'class': 'google button',
-            'href': 'https://plus.google.com/share?url=',
-            'text': 'Google +'
-          },
-          {
-            'class': 'twitter button',
-            'href': 'https://twitter.com/intent/tweet?url=',
-            'text': 'Twitter'
-          },
-        ]
       }
     },
 
@@ -55,10 +35,5 @@
         route: this.route
       });
     },
-
-    loadHref(event){
-      let button = event.path[1];
-      window.open(button.dataset.href + window.location.href, 'Share', 'width=580,height=296');
-    }
   });
 })();

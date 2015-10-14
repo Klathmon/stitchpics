@@ -27,6 +27,10 @@
         type: Boolean,
         value: false
       },
+      highQualityMode: {
+        type: Boolean,
+        value: false
+      },
       imageHash: {
         type: String,
         observer: 'loadImage'
@@ -70,6 +74,7 @@
 
       this.useDmcColors = options.useDmcColors;
       this.hideTheGrid = options.hideTheGrid;
+      this.highQualityMode = options.highQualityMode;
     },
 
     calcGridWidth(clothCount, size){

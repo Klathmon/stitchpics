@@ -12,7 +12,7 @@ class UrlHelper {
     return {
       useDmcColors: options[0],
       hideTheGrid: options[1],
-      highQualityMode: options[3]
+      highQualityMode: options[2]
     };
   }
 

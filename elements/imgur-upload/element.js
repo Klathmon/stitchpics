@@ -14,12 +14,78 @@
         type: String,
         value: '12a81bf09a70960'
       },
-      imagedata: {
+      url: {
+        type: String
+      },
+      loading: {
+        type: Boolean
+      },
+      urlHelper: {
+        type: Object,
+      },
+
+      socialButtons: {
+        type: Array,
+        value: [
+          {
+            'class': 'facebook button',
+            'href': 'https://www.facebook.com/sharer/sharer.php?u=',
+            'text': 'Facebook'
+          },
+          {
+            'class': 'google button',
+            'href': 'https://plus.google.com/share?url=',
+            'text': 'Google +'
+          },
+          {
+            'class': 'twitter button',
+            'href': 'https://twitter.com/intent/tweet?url=',
+            'text': 'Twitter'
+          },
+        ]
+      },
+
+      clothCount: {
+        type: Number
+      },
+      size: {
+        type: Number
+      },
+      numColors: {
+        type: Number
+      },
+      imageData: {
         type: Array
+      },
+      useDmcColors: {
+        type: Boolean
+      },
+      hideTheGrid: {
+        type: Boolean
+      },
+      highQualityMode: {
+        type: Boolean
       },
     },
 
-    uploadImage(){
+    ready(){
+      this.urlHelper = new UrlHelper();
+    },
+
+    openShareDialog(){
+      this._uploadImage();
+      this.loading = true;
+      this.$.saveDialog.open();
+    },
+
+
+    loadHref(event){
+      let button = event.path[1];
+      window.open(button.dataset.href + encodeURIComponent(this.url), 'Share', 'width=580,height=296');
+    },
+
+
+    _uploadImage(){
       fetch(this.uploadEndpoint, {
         method: 'post',
         mode: 'cors',
@@ -29,26 +95,30 @@
           "Content-type": 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
-          image: this.getBase64FromImageData(this.imagedata).replace(/.*,/, ''),
+          image: this._getBase64FromImageData(this.imageData).replace(/.*,/, ''),
           type: 'base64'
         })
       }).then((r)=> r.json())
       .then((data)=>{
-        console.log(data);
-        this.$.shareInput.value = window.location.origin + '/' + data.data.id;
-        this.$.saveDialog.open();
+        this.loading = false;
+        let packedOptions = this.urlHelper.packOptions({
+          hideTheGrid: this.hideTheGrid,
+          useDmcColors: this.useDmcColors,
+          highQualityMode: this.highQualityMode
+        });
+        this.url = this.urlHelper.buildUrl(data.data.id, this.clothCount, this.size, this.numColors, packedOptions);
       }).catch((err)=>{
         console.log(err);
       });
     },
 
-    getBase64FromImageData(imageData){
+    _getBase64FromImageData(imageData){
       var canvas = document.createElement('canvas');
       canvas.height = imageData.height;
       canvas.width = imageData.width;
       var context = canvas.getContext('2d');
       context.putImageData(imageData, 0, 0);
       return canvas.toDataURL();
-    }
+    },
   });
 })();

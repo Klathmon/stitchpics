@@ -1,9 +1,29 @@
+@import colors
 
 :host
   font-family: 'Roboto', 'Noto', sans-serif
   display: block
   min-height: 200px
+  position: relative
 
 #finalOutput
   width: 100%
   image-rendering: pixelated
+
+#spinnerContainer
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 10
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: center
+
+#spinner
+  --paper-spinner-layer-1-color: $primary-color
+  --paper-spinner-layer-2-color: $primary-color
+  --paper-spinner-layer-3-color: $primary-color
+  --paper-spinner-layer-4-color: $primary-color

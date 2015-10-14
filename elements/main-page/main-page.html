@@ -12,7 +12,7 @@
 <link rel="import" href="../my-ad/my-ad.html">
 
 <dom-module id="main-page">
-  <style>:host{font-family:Roboto,Noto,sans-serif;display:block;--paper-slider-active-color:#9EBCE3;--paper-slider-knob-color:#9EBCE3;--paper-slider-pin-color:#9EBCE3;--paper-checkbox-checked-ink-color:#9EBCE3;--paper-checkbox-checked-color:#9EBCE3;--paper-checkbox-unchecked-background-color:white}paper-slider{width:100%}paper-button{background-color:#89D2DC;color:#fff}.indent{margin-left:25px;margin-right:25px}@media (max-width:500px){.indent{margin-left:0;margin-right:0}}.bottomRow{overflow:hidden;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}.bottomRow paper-checkbox,.bottomRow paper-file-upload{display:block;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-flex-basis:190px;-ms-flex-preferred-size:190px;flex-basis:190px;margin-top:10px}#mainPageContainer my-paper-material{--my-paper-material-background-color:#FAFAFA}#mainPageContainer:after{content:"";display:table;clear:both}@media (min-width:1200px){#mainPageContainer>div:not(#introBox){width:50%}#mainPageContainer #saveBox,#mainPageContainer #setupBox{float:left}#mainPageContainer #crossStitchBox{float:right}}#introBox{border-bottom:#CCC 1px solid}#saveBox .flexContainer{overflow:hidden;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}#saveBox .flexContainer paper-button{display:block;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-flex-basis:160px;-ms-flex-preferred-size:160px;flex-basis:160px;margin-top:10px}</style>
+  <style>:host{font-family:Roboto,Noto,sans-serif;display:block;--paper-slider-active-color:#9EBCE3;--paper-slider-knob-color:#9EBCE3;--paper-slider-pin-color:#9EBCE3;--paper-checkbox-checked-ink-color:#9EBCE3;--paper-checkbox-checked-color:#9EBCE3;--paper-checkbox-unchecked-background-color:white}paper-slider{width:100%}paper-button{background-color:#89D2DC;color:#fff}paper-button[disabled]{background-color:#d3d3d3}.indent{margin-left:25px;margin-right:25px}@media (max-width:500px){.indent{margin-left:0;margin-right:0}}.bottomRow{overflow:hidden;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}.bottomRow paper-checkbox,.bottomRow paper-file-upload{display:block;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-flex-basis:190px;-ms-flex-preferred-size:190px;flex-basis:190px;margin-top:10px}#mainPageContainer my-paper-material{--my-paper-material-background-color:#FAFAFA}#mainPageContainer:after{content:"";display:table;clear:both}@media (min-width:1200px){#mainPageContainer>div:not(#introBox){width:50%}#mainPageContainer #saveBox,#mainPageContainer #setupBox{float:left}#mainPageContainer #crossStitchBox{float:right}}#introBox{border-bottom:#CCC 1px solid}#saveBox .flexContainer{overflow:hidden;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}#saveBox .flexContainer paper-button{display:block;-webkit-flex:1;-ms-flex:1;flex:1;-webkit-flex-basis:160px;-ms-flex-preferred-size:160px;flex-basis:160px;margin-top:10px}</style>
   <template>
     <my-paper-material elevation="5">
       <div id="mainPageContainer">
@@ -41,7 +41,7 @@
             <div class="bottomRow">
               <paper-checkbox checked="{{useDmcColors}}">Only use DMC colors</paper-checkbox>
               <paper-checkbox checked="{{hideTheGrid}}">Hide the grid</paper-checkbox>
-            <paper-checkbox checked="{{highQualityMode}}">High quality mode (Beta)</paper-checkbox>
+            <paper-checkbox checked="{{highQualityMode}}">Photo mode (Beta)</paper-checkbox>
               <paper-file-upload id="imageUpload" imagedata="{{imageData}}"></paper-file-upload>
             </div>
           </my-paper-material>
@@ -52,6 +52,8 @@
           <my-paper-material elevation="1" class="indent">
             <cross-stitch id="crossStitchElement" gridwidth="{{gridWidth}}" numcolors="{{numColors}}" imagedata="{{imageData}}" usedmccolors="{{useDmcColors}}" hidethegrid="{{hideTheGrid}}" highqualitymode="{{highQualityMode}}" palette="{{palette}}">
             </cross-stitch>
+            <imgur-upload id="imgurUpload" cloth-count="{{clothCount}}" size="{{size}}" num-colors="{{numColors}}" image-data="{{imageData}}" use-dmc-colors="{{useDmcColors}}" hide-the-grid="{{hideTheGrid}}" high-quality-mode="{{highQualityMode}}">
+            </imgur-upload>
           </my-paper-material>
           <h3>Color Key</h3>
           <my-paper-material elevation="1" class="indent">
@@ -61,13 +63,13 @@
         </div>
 
         <div id="saveBox">
-          <h3>Save</h3>
+          <h3>Save/Share</h3>
           <my-paper-material elevation="1" class="indent">
             <div class="flexContainer">
-              <paper-button id="saveButton" raised="" on-tap="saveImage">Save As Image</paper-button>
-              <paper-button id="newTabButton" raised="" on-tap="openNewTab">Open In New Tab</paper-button>
-              <paper-button id="printButton" raised="" on-tap="printImage">Print</paper-button>
-              <!--<imgur-upload imagedata="{{imageData}}"></imgur-upload>-->
+              <paper-button id="saveButton" disabled raised="" on-tap="saveImage">Save As Image</paper-button>
+              <paper-button id="newTabButton" disabled raised="" on-tap="openNewTab">Open In New Tab</paper-button>
+              <paper-button id="printButton" disabled raised="" on-tap="printImage">Print</paper-button>
+              <paper-button id="shareButton" disabled raised="" on-tap="shareImage">Share</paper-button>
             </div>
           </my-paper-material>
 

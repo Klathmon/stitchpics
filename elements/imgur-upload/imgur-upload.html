@@ -4,24 +4,35 @@
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 
 <dom-module id="imgur-upload">
-  <style>:host{font-family:Roboto,Noto,sans-serif;display:block}</style>
+  <style>:host{font-family:Roboto,Noto,sans-serif;display:block;height:0;width:0}#saveDialog{overflow:hidden;position:relative;min-height:300px;min-width:300px;padding:1px}.loadingMain{position:absolute;top:0;left:0;right:0;bottom:0;z-index:10;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center}#spinner{--paper-spinner-layer-1-color:#835CDB;--paper-spinner-layer-2-color:#835CDB;--paper-spinner-layer-3-color:#835CDB;--paper-spinner-layer-4-color:#835CDB}.socialButtons .button{display:block;width:100%;margin:7px auto}.socialButtons #facebook{color:#4B65BE}.socialButtons #facebook[raised]{background:#4B65BE;color:#fff}.socialButtons #google{color:#DC4335}.socialButtons #google[raised]{background:#DC4335;color:#fff}.socialButtons #twitter{color:#24A9F2}.socialButtons #twitter[raised]{background:#24A9F2;color:#fff}</style>
   <template>
-    <paper-button raised="" on-tap="uploadImage">Get Link</paper-button>
-
-    <paper-dialog id="saveDialog" modal="" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
-      <h2>Save Link</h2>
+    <paper-dialog id="saveDialog" with-backdrop="" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+      <h2>Share</h2>
       <div>
-        <paper-input id="shareInput" label="Use this link to share your pattern"></paper-input>
-      </div>
-      <div class="buttons">
-          <paper-button dialog-confirm="" raised="">Done</paper-button>
+        <template is="dom-if" if="{{loading}}">
+          <div class="loadingMain">
+            <paper-spinner id="spinner" active=""></paper-spinner>
+          </div>
+        </template>
+        <template is="dom-if" if="{{!loading}}">
+          <div class="loadedMain">
+            <p>Please note, this link will share your exact pattern as it is!</p>
+            <paper-input id="shareInput" label="Use this link to share your pattern" value="{{url}}"></paper-input>
+            <div class="socialButtons">
+              <paper-button id="facebook" class="button" on-tap="loadHref" raised="" data-href="https://www.facebook.com/sharer/sharer.php?u=">Facebook</paper-button>
+              <paper-button id="google" class="button" on-tap="loadHref" raised="" data-href="https://plus.google.com/share?url=">Google +</paper-button>
+              <paper-button id="twitter" class="button" on-tap="loadHref" raised="" data-href="https://twitter.com/intent/tweet?url=">Twitter</paper-button>
+            </div>
+          </div>
+        </template>
       </div>
     </paper-dialog>
   </template>
 </dom-module>
 
-<script>!function(){"use strict";Polymer({is:"imgur-upload",properties:{uploadEndpoint:{type:String,value:"https://api.imgur.com/3/image.json"},clientId:{type:String,value:"12a81bf09a70960"},imagedata:{type:Array}},uploadImage:function(){var t=this;fetch(this.uploadEndpoint,{method:"post",mode:"cors",headers:{Authorization:"Client-ID "+this.clientId,Accept:"application/json","Content-type":"application/json; charset=UTF-8"},body:JSON.stringify({image:this.getBase64FromImageData(this.imagedata).replace(/.*,/,""),type:"base64"})}).then(function(t){return t.json()}).then(function(e){console.log(e),t.$.shareInput.value=window.location.origin+"/"+e.data.id,t.$.saveDialog.open()})["catch"](function(t){console.log(t)})},getBase64FromImageData:function(t){var e=document.createElement("canvas");e.height=t.height,e.width=t.width;var a=e.getContext("2d");return a.putImageData(t,0,0),e.toDataURL()}})}();</script>
+<script>!function(){"use strict";Polymer({is:"imgur-upload",properties:{uploadEndpoint:{type:String,value:"https://api.imgur.com/3/image.json"},clientId:{type:String,value:"12a81bf09a70960"},url:{type:String},loading:{type:Boolean},urlHelper:{type:Object},socialButtons:{type:Array,value:[{"class":"facebook button",href:"https://www.facebook.com/sharer/sharer.php?u=",text:"Facebook"},{"class":"google button",href:"https://plus.google.com/share?url=",text:"Google +"},{"class":"twitter button",href:"https://twitter.com/intent/tweet?url=",text:"Twitter"}]},clothCount:{type:Number},size:{type:Number},numColors:{type:Number},imageData:{type:Array},useDmcColors:{type:Boolean},hideTheGrid:{type:Boolean},highQualityMode:{type:Boolean}},ready:function(){this.urlHelper=new UrlHelper},openShareDialog:function(){this._uploadImage(),this.loading=!0,this.$.saveDialog.open()},loadHref:function(t){var e=t.path[1];window.open(e.dataset.href+encodeURIComponent(this.url),"Share","width=580,height=296")},_uploadImage:function(){var t=this;fetch(this.uploadEndpoint,{method:"post",mode:"cors",headers:{Authorization:"Client-ID "+this.clientId,Accept:"application/json","Content-type":"application/json; charset=UTF-8"},body:JSON.stringify({image:this._getBase64FromImageData(this.imageData).replace(/.*,/,""),type:"base64"})}).then(function(t){return t.json()}).then(function(e){t.loading=!1;var o=t.urlHelper.packOptions({hideTheGrid:t.hideTheGrid,useDmcColors:t.useDmcColors,highQualityMode:t.highQualityMode});t.url=t.urlHelper.buildUrl(e.data.id,t.clothCount,t.size,t.numColors,o)})["catch"](function(t){console.log(t)})},_getBase64FromImageData:function(t){var e=document.createElement("canvas");e.height=t.height,e.width=t.width;var o=e.getContext("2d");return o.putImageData(t,0,0),e.toDataURL()}})}();</script>

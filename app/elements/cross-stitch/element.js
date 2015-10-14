@@ -51,12 +51,6 @@
     },
 
     ready() {
-      let finalOutput = this.$.finalOutput;
-      finalOutput.imageSmoothingEnabled =
-      finalOutput.msImageSmoothingEnabled =
-      finalOutput.mozImageSmoothingEnabled =
-      finalOutput.webkitImageSmoothingEnabled = false;
-
       window.addEventListener('resize', _.debounce(this.propertyChanged.bind(this), 250));
 
       this.numberOfCores = navigator.hardwareConcurrency || 4;
@@ -70,6 +64,13 @@
     },
 
     newFile() {
+      this.$.spinner.active = true;
+      let finalOutput = this.$.finalOutput;
+        finalOutput.imageSmoothingEnabled =
+        finalOutput.msImageSmoothingEnabled =
+        finalOutput.mozImageSmoothingEnabled =
+        finalOutput.webkitImageSmoothingEnabled = false;
+      finalOutput.getContext('2d').clearRect(0, 0, finalOutput.width, finalOutput.height);
       this.startTime = performance.now();
       this.resizeAbsurdImageData.bind(this)();
       this.scaleImage(this.imagedata, Polymer.dom(this).node.offsetWidth)
@@ -104,6 +105,7 @@
             this.hidethegrid
           );
         }).then((finishedChunk)=>{
+          this.$.spinner.active = false;
           // And when each chunk is finished write it right out
           context.putImageData(ImageDataHelpers.convertToRealImageData(finishedChunk), 0,  chunkStartY);
           console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');

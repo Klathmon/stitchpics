@@ -53,6 +53,12 @@
 
     ready(){
       this.urlHelper = new UrlHelper();
+      this.addEventListener('crossStitchDone', ()=>{
+        this.$.saveButton.disabled = false;
+        this.$.newTabButton.disabled = false;
+        this.$.printButton.disabled = false;
+        this.$.shareButton.disabled = false;
+      });
     },
 
     loadImage(){

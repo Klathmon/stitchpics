@@ -108,8 +108,8 @@
           this.$.spinner.active = false;
           // And when each chunk is finished write it right out
           context.putImageData(ImageDataHelpers.convertToRealImageData(finishedChunk), 0,  chunkStartY);
-          console.log('Wrote chunk at ' + (performance.now() - this.startTime) + ' milliseconds!');
           if(++this.numberOfChunksDone === this.numberOfCores){
+            console.log('Done Crossstitch at ' + (performance.now() - this.startTime) + ' milliseconds!');
             this.fire('crossStitchDone', ImageDataHelpers.readImageData(this.$.finalOutput));
           }
         });

@@ -6158,79 +6158,78 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script>!function(){"use strict";Polymer({is:"main-page",properties:{clothCount:{type:Number,value:14},size:{type:Number,value:6},numColors:{type:Number,value:12},useDmcColors:{type:Boolean,value:!1},hideTheGrid:{type:Boolean,value:!1},highQualityMode:{type:Boolean,value:!1},imageHash:{type:String,observer:"loadImage"},imageData:{type:Array},gridWidth:{type:Number,computed:"calcGridWidth(clothCount, size)"},packedOptions:{type:Number,observer:"unpackOptions"},urlHelper:{type:Object}},ready:function(){var e=this;this.urlHelper=new UrlHelper,this.addEventListener("crossStitchDone",function(){e.$.saveButton.disabled=!1,e.$.newTabButton.disabled=!1,e.$.printButton.disabled=!1,e.$.shareButton.disabled=!1})},loadImage:function(){var e=this;void 0!==this.imageHash&&this.imageHash.length>3&&this.urlHelper.getImageDataFromHash(this.imageHash).then(function(t){e.imageData=t})},unpackOptions:function(){var e=this.urlHelper.unpackOptions(this.packedOptions);this.useDmcColors=e.useDmcColors,this.hideTheGrid=e.hideTheGrid,this.highQualityMode=e.highQualityMode},calcGridWidth:function(e,t){return e*t},saveImage:function(){this.$.crossStitchElement.saveAsImage()},getImageAsDataURI:function(e){var t=new Image;return t.src=e.getImageAsURI(),t.style["image-rendering"]="pixelated",t.style.display="block",t},openNewTab:function(){var e=this.getImageAsDataURI(this.$.crossStitchElement);e.style.width="100%";var t=this.$.imagePalette.getColorKey();t.style.width="100%";var i=document.createElement("div");i.innerHTML=e.outerHTML+t.outerHTML;var a=window.open("");a.document.write(i.outerHTML)},shareImage:function(){this.$.imgurUpload.openShareDialog()},printImage:function(){var e=this.getImageAsDataURI(this.$.crossStitchElement);e.style.height="auto",e.style.width="auto",e.style.maxHeight="100%",e.style.maxWidth="100%",e.style.marginLeft="auto",e.style.marginRight="auto",e.style.marginTop="0",e.style.marginBottom="0";var t=this.$.imagePalette.getColorKey();t.style.width="100%";var i=document.createElement("div");i.style.width="100%",i.style.height="100%",i.style.margin="0",i.innerHTML=e.outerHTML+t.outerHTML;var a=window.open("");a.document.write(i.outerHTML),a.focus(),a.print()},_getImageDataFromHash:function(e,t){var i="//i.imgur.com/"+e+".jpg",a=new Image;a.crossOrigin="Anonymous",a.onload=function(){var e=document.createElement("canvas");e.width=this.width,e.height=this.height;var i=e.getContext("2d");i.drawImage(this,0,0),t(i.getImageData(0,0,e.width,e.height))},a.src=i}})}();</script>
 <dom-module id="faq-page" assetpath="faq-page/">
-  <style>:host{font-family:Roboto,Noto,sans-serif;display:block}</style>
+  <style>:host{font-family:Roboto,Noto,sans-serif;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center}#pieceOfPaper{max-width:1200px}</style>
   <template>
-    <my-paper-material elevation="4">
+    <my-paper-material id="pieceOfPaper" elevation="4">
       <marked-element>
         <script type="text/markdown">
           ## What is the "cross stitch size" measurement?
 
-          > This is the width of the image in inches. Because each picture you upload can be a
-          > different shape, it will automatically calculate the height based on the width. So if
-          > you upload a 3x5 image and set the "cross stitch size" to 3, the cross stitch will be
-          > 3x5. If you upload that same 3x5 and set the "cross stitch size" to 6, the cross stitch
-          > will be 6x10
+          This is the width of the image in inches. Because each picture you upload can be a
+          different shape, it will automatically calculate the height based on the width. So if
+          you upload a 3x5 image and set the "cross stitch size" to 3, the cross stitch will be
+          3x5. If you upload that same 3x5 and set the "cross stitch size" to 6, the cross stitch
+          will be 6x10
 
           ---
 
           ## What is "Photo mode"?
 
-          > Photo mode is a new way of figuring out the best colors for an image. It will give much
-          > better patterns for "photo-like" images by bringing out the smaller details, however
-          > it will take much longer in some cases.  
-          > Try it out on your images to see if it improves the pattern!
+          Photo mode is a new way of figuring out the best colors for an image. It will give much
+          better patterns for "photo-like" images by bringing out the smaller details, however
+          it will take much longer in some cases.
+          Try it out on your images to see if it improves the pattern!
 
           ---
 
           ## Should I follow the pattern exactly?
 
-          > The website does its best to try and create a great cross stitch from any image, however
-          > its not always perfect. Feel free to use your best judgement and alter your pattern
-          > after it has been generated.
+          The website does its best to try and create a great cross stitch from any image, however
+          its not always perfect. Feel free to use your best judgement and alter your pattern
+          after it has been generated.
 
           ---
 
           ## Why doesn't my pattern match the sizes I selected?
 
-          > StitchPics does its best to match the pattern size you requested, however sometimes the
-          > site needs to adjust the pattern options in order to fit your image perfectly.
+          StitchPics does its best to match the pattern size you requested, however sometimes the
+          site needs to adjust the pattern options in order to fit your image perfectly.
 
           ---
 
           ## How can I get my image to look better?
 
-          > There are a few ways to get your pattern to look better.
+          There are a few ways to get your pattern to look better.
 
-          > * Increasing the number of colors can add more "life" to your images.
-          > * Increasing the cross stitch size can help smaller details show up in the image and can help increase the overall quality.
-          > * Using a higher count Aida cloth can help get the most detail from an image.
-          > * Try using the new "Photo Mode" to see if that improves the pattern.
+          * Increasing the number of colors can add more "life" to your images.
+          * Increasing the cross stitch size can help smaller details show up in the image and can help increase the overall quality.
+          * Using a higher count Aida cloth can help get the most detail from an image.
+          * Try using the new "Photo Mode" to see if that improves the pattern.
 
           ---
 
           ## Why are the colors all wrong?
 
-          > Try setting the number of colors a little higher. The site tries to pick the best
-          > colors for each image, but can look off when the number of colors is very low. You can
-          > always choose a larger number of colors and combine similar ones, or you can just pick
-          > a thread that is closer to what you orignally wanted instead of that color.
+          Try setting the number of colors a little higher. The site tries to pick the best
+          colors for each image, but can look off when the number of colors is very low. You can
+          always choose a larger number of colors and combine similar ones, or you can just pick
+          a thread that is closer to what you orignally wanted instead of that color.
 
           ---
 
           ## Can I add symbols to the pattern?
 
-          > As of right now you can't, however I'm hard at work adding this features! Check back
-          > and hopefully it will be added at one point!
+          As of right now you can't, however I'm hard at work adding more features! Check back and
+          it might be there one day.
 
           ---
 
           ## How can I contact you?
 
-          > You can email me at gregbenner1@gmail.com
+          You can email me at gregbenner1@gmail.com
 
-          > Feel free to send questions or any tips/ideas on how I can improve this!
-
-          ---
+          Feel free to send questions or any tips/ideas on how I can improve this or even just an
+          example of what you made!
 
 
         </script>

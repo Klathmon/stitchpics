@@ -3,9 +3,9 @@
 
   var app = document.querySelector('#app');
 
-  app.addEventListener('dom-change', ()=> {
+  /*app.addEventListener('dom-change', ()=> {
     console.log('Our app is ready to rock!');
-  });
+  });*/
 
   window.addEventListener('paper-header-transform', (event)=>transformHeader(event.detail));
 

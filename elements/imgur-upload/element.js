@@ -59,8 +59,7 @@
 
 
     loadHref(event){
-      let button = event.path[1];
-      window.open(button.dataset.href + encodeURIComponent(this.url), 'Share', 'width=580,height=296');
+      window.open(event.target.dataset.href + encodeURIComponent(this.url), 'Share', 'width=580,height=296');
     },
 
 

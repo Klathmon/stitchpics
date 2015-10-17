@@ -1,32 +1,33 @@
 class UrlHelper {
 
   /**
+   * Creates the object
+   */
+  constructor(){
+    // Since this class does a bunch of bit-manipulation, we need to heck endianess first
+    this._optionsKeys = ['useDmcColors', 'hideTheGrid', 'highQualityMode'];
+  }
+
+
+  /**
    * This is a bit of black magic...
    * This will unpack an int (like 3) into it's binary parts (like [true, true]).
    * Then it will return the reversed form of that array (so that the same options are always
    * at the front even if new ones are added later)
    */
   unpackOptions(packedOptions){
-    let options = (packedOptions >>> 0).toString(2).split('').map((value)=>!!(value*1)).reverse(); // jshint ignore:line
-
-    return {
-      useDmcColors: options[0],
-      hideTheGrid: options[1],
-      highQualityMode: options[2]
-    };
+    let retval = {};
+    (packedOptions >>> 0).toString(2).split('').map((value)=>!!(value*1)).reverse().forEach((value, index)=>{ // jshint ignore:line
+      retval[this._optionsKeys[index]] = (value ? true : false);
+    });
+    return retval;
   }
 
   /**
    * this is the sister function to unpackOptions, it will re-pack the options into an int
    */
-  packOptions(optionsObj){
-    let options = [
-      optionsObj.useDmcColors,
-      optionsObj.hideTheGrid,
-      optionsObj.highQualityMode
-    ];
-
-    return parseInt(options.map((value)=>value*1).reverse().join(''),2);
+  packOptions(options){
+    return parseInt(this._optionsKeys.map((value)=>(options[value] || false)*1).reverse().join(''),2);
   }
 
   getImageDataFromHash(hash){

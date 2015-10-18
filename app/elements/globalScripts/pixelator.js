@@ -7,10 +7,10 @@ class Pixelator {
    * @param  {int} spWidth           Super Pixel Width
    * @param  {int} spHeight          Super Pixel Height
    * @param  {int} numSpx            Number of Super Pixels on the X axis
-   * @param  {int} numSpy            Number of Super Pixels on the T axis
+   * @param  {int} numSpy            Number of Super Pixels on the Y axis
    * @param  {bool} hideTheGrid      true hides the "grid" overlay, false (or unset) shows it.
    */
-  constructor(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){
+  constructor(imageData, chunkStartY, spWidth, spHeight, numSpx, numSpy, hideTheGrid = false){
     this._bitPacker = new BitPacker();
 
     // Dump params to this
@@ -30,6 +30,10 @@ class Pixelator {
 
     // Cache the packed grid pixel color for speed
     this._gridPixelColorPacked = this._bitPacker.packPixel(50, 50, 50, 255);
+    this._gridPixelColorPackedMod10 = this._bitPacker.packPixel(255, 255, 255, 255);
+
+    // This is the number of spy's that came before this chunk (for the grid every x pixels code)
+    this._prevSpy = (chunkStartY / this._spHeight) | 0;
   }
 
   /**
@@ -133,19 +137,23 @@ class Pixelator {
         if(xPos < this._imageWidth && yPos < this._imageHeight){
           let index = ((yPos * this._imageWidth) + xPos) | 0;
 
-          if(
-            !this._hideTheGrid &&
-            (pixelX === this._spWidth - 1 || pixelY === this._spHeight - 1)
-          ){
-            // This pixel is on the bottom or right side of the super pixel,
-            // so draw the grid (if its enabled)
-            this._uInt32Array[index] = this._gridPixelColorPacked;
-          }else if (alpha < 200){
-            // This pixel is mostly alpha, so just convert it to complete alpha
-            this._uInt32Array[index] = 0x00000000;
-          }else{
-            // This is a normal pixel, so pack the given color and set the pixel to that
-            this._uInt32Array[index] = this._bitPacker.packPixel(red, green, blue, 255);
+
+          // if this pixel is mostly alpha, then just convert it to complete alpha = 0x00000000
+          // otherwise set the pixel color
+          this._uInt32Array[index] = (alpha < 200 ? 0x00000000 : this._bitPacker.packPixel(red, green, blue, 255));
+
+          if(!this._hideTheGrid){
+            if(pixelX === this._spWidth - 1){
+              this._uInt32Array[index] = this._gridPixelColorPacked;
+              if((spx + 1) % 10 === 0){
+                this._uInt32Array[index] = this._gridPixelColorPackedMod10;
+              }
+            }else if(pixelY === this._spHeight - 1){
+              this._uInt32Array[index] = this._gridPixelColorPacked;
+              if((this._prevSpy + spy + 1) % 10 === 0){
+                this._uInt32Array[index] = this._gridPixelColorPackedMod10;
+              }
+            }
           }
         }
       }

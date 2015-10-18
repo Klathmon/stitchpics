@@ -98,6 +98,7 @@
           // And the second one is done pipe it back to pixelate
           return this.pixelate(
             imageData,
+            chunkStartY,
             pixelWidth,
             pixelHeight,
             xPixels,

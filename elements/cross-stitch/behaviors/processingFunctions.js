@@ -29,13 +29,13 @@
       }, [imageData, palette, useDmcColors, highQualityMode], [imageData.data.buffer]);
     },
 
-    pixelate(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
-      return this.workor.dispatchWorker(function(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
+    pixelate(imageData, chunkStartY, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
+      return this.workor.dispatchWorker(function(imageData, chunkStartY, spWidth, spHeight, numSpx, numSpy, hideTheGrid){
         // Inside the worker now, don't have any closed over variables...
-        let pixelator = new Pixelator(imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid);
+        let pixelator = new Pixelator(imageData, chunkStartY, spWidth, spHeight, numSpx, numSpy, hideTheGrid);
         let pixelatedImageData = pixelator.run();
         return [pixelatedImageData, [pixelatedImageData.data.buffer]];
-      }, [imageData, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
+      }, [imageData, chunkStartY, spWidth, spHeight, numSpx, numSpy, hideTheGrid], [imageData.data.buffer]);
     }
 
   };

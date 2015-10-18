@@ -30,7 +30,6 @@ class Pixelator {
 
     // Cache the packed grid pixel color for speed
     this._gridPixelColorPacked = this._bitPacker.packPixel(50, 50, 50, 255);
-    this._gridPixelColorPackedMod10 = this._bitPacker.packPixel(255, 255, 255, 255);
 
     // This is the number of spy's that came before this chunk (for the grid every x pixels code)
     this._prevSpy = (chunkStartY / this._spHeight) | 0;
@@ -128,6 +127,7 @@ class Pixelator {
    */
   _setSuperPixelColor(spx, spy, color){
     let [red, green, blue, alpha] = color;
+    let trueSpy = this._prevSpy + spy;
 
     for(let pixelX = 0; pixelX < this._spWidth; pixelX++){
       for(let pixelY = 0; pixelY < this._spHeight; pixelY++){
@@ -138,26 +138,50 @@ class Pixelator {
           let index = ((yPos * this._imageWidth) + xPos) | 0;
 
 
-          // if this pixel is mostly alpha, then just convert it to complete alpha = 0x00000000
-          // otherwise set the pixel color
-          this._uInt32Array[index] = (alpha < 200 ? 0x00000000 : this._bitPacker.packPixel(red, green, blue, 255));
-
-          if(!this._hideTheGrid){
-            if(pixelX === this._spWidth - 1){
-              this._uInt32Array[index] = this._gridPixelColorPacked;
-              if((spx + 1) % 10 === 0){
-                this._uInt32Array[index] = this._gridPixelColorPackedMod10;
-              }
-            }else if(pixelY === this._spHeight - 1){
-              this._uInt32Array[index] = this._gridPixelColorPacked;
-              if((this._prevSpy + spy + 1) % 10 === 0){
-                this._uInt32Array[index] = this._gridPixelColorPackedMod10;
-              }
-            }
+          // if this pixel is mostly alpha, then just convert it to all white
+          if(alpha < 200){
+            red = blue = green = 255;
           }
+
+          this._uInt32Array[index] = this._getPixelColorOrGrid(pixelX, pixelY, spx, trueSpy, red, green, blue);
         }
       }
     }
+  }
+
+  _getPixelColorOrGrid(pixelX, pixelY, spx, spy, red, green, blue){
+
+    if(!this._hideTheGrid){
+      let gridPixelColorPacked = this._gridPixelColorPacked;
+      let internalSpWidth = this._spWidth - 1;
+      let internalSpHeight = this._spHeight - 1;
+      if((spx + 1) % 10 === 0){
+        // if we get here, we want a fat line
+        if(pixelX === internalSpWidth || pixelX === internalSpWidth - 1){
+          return gridPixelColorPacked;
+        }
+      }else if(pixelX === internalSpWidth){
+        // else we want a normal thickness line
+        return gridPixelColorPacked;
+      }
+
+      if((spy + 1) % 10 === 0){
+        // if we get here, we want a fat line
+        if(pixelY === internalSpHeight || pixelY === internalSpHeight - 1){
+          return gridPixelColorPacked;
+        }
+      }else if(pixelY === internalSpHeight){
+        // else we want a normal thickness line
+        return gridPixelColorPacked;
+      }
+
+      // if we are the first spx or spy, then make a line on the left and top as well
+      if((spx === 0  && pixelX === 0) || (spy === 0 && pixelY === 0)){
+        return gridPixelColorPacked;
+      }
+    }
+
+    return this._bitPacker.packPixel(red, green, blue, 255);
   }
 
   /**
